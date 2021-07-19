@@ -1,4 +1,4 @@
-package edu.neu.madcourse.topdogdraft;
+package edu.neu.madcourse.topdog;
 
 import android.content.Context;
 
