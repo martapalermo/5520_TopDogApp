@@ -14,7 +14,8 @@
         android:text="Sign up"
 
         tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="667dp" />
+        tools:layout_editor_absoluteY="667dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv_welcome"
@@ -25,7 +26,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        tools:layout_editor_absoluteY="273dp" />
+        tools:layout_editor_absoluteY="273dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView2"

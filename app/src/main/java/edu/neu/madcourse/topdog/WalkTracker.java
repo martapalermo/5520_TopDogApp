@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class Ledger extends AppCompatActivity implements LocationListener {
+public class WalkTracker extends AppCompatActivity implements LocationListener {
     LocationManager locationManager;
     Handler handler;
     String locationText = "";
@@ -30,9 +30,9 @@ public class Ledger extends AppCompatActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // set the content to the XML file
-        setContentView(R.layout.activity_ledger);
+        setContentView(R.layout.activity_walkTracker);
 
-        AlertDialog.Builder popup = new AlertDialog.Builder(Ledger.this);
+        AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Location");
         popup.setMessage("Location will update every few seconds");
 
@@ -118,6 +118,6 @@ public class Ledger extends AppCompatActivity implements LocationListener {
     }
 
     @Override public void onProviderDisabled(String provider) {
-        Toast.makeText(Ledger.this, "Please Enable GPS",
+        Toast.makeText(WalkTracker.this, "Please Enable GPS",
                 Toast.LENGTH_SHORT).show(); }
 }
