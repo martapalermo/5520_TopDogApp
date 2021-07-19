@@ -30,7 +30,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // set the content to the XML file
-        setContentView(R.layout.activity_walkTracker);
+        setContentView(R.layout.activity_walk_tracker);
 
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Location");
