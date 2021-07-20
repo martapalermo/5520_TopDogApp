@@ -72,4 +72,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
 
+    <Button
+        android:id="@+id/start_btn"
+        android:layout_width="173dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="#5a8d03"
+        android:text="START"
+        app:layout_constraintTop_toBottomOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteX="119dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

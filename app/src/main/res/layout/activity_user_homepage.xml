@@ -9,9 +9,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome"
+        android:text="Welcome *user name*"
         android:textAlignment="center"
         android:textSize="30dp"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="11dp"
         tools:layout_editor_absoluteY="38dp" />
 
@@ -21,11 +22,14 @@
         android:layout_height="43dp"
         android:backgroundTint="#db402c"
         android:text="Lets Walk!"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="672dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteY="611dp" />
 
     <ImageButton
         android:id="@+id/myProfile_btn"
@@ -33,7 +37,10 @@
         android:layout_height="182dp"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/untitled_1"
-        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/guideline6"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/myStats_btn"
         tools:layout_editor_absoluteX="11dp"
         tools:layout_editor_absoluteY="175dp" />
 
@@ -45,7 +52,31 @@
         app:srcCompat="@drawable/stats"
         tools:layout_editor_absoluteX="207dp"
         tools:layout_editor_absoluteY="175dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline6"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintStart_toEndOf="@id/myProfile_btn"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="111dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="390dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="577dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
