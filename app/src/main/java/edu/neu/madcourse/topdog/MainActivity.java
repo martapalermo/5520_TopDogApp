@@ -1,4 +1,4 @@
-package edu.neu.madcourse.topdog;
+package edu.neu.madcourse.topdogdraft;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Button checkIn = findViewById();
+        Button checkIn = findViewById();
 
     }
 }

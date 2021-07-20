@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign up"
-        tools:ignore="MissingConstraints"
+
         tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="667dp" />
+        tools:layout_editor_absoluteY="667dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv_welcome"
@@ -22,21 +23,23 @@
         android:layout_height="wrap_content"
         android:text="TopDog"
         android:textSize="30dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="244dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        tools:layout_editor_absoluteY="273dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="411dp"
         android:layout_height="253dp"
-        app:srcCompat="@drawable/logo_dog"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="2dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_welcome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_welcome"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/logo_dog" />
 
     <TextView
         android:layout_width="wrap_content"
