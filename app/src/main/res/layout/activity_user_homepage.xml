@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="38dp" />
+
     <Button
         android:id="@+id/letsWalk_btn"
         android:layout_width="390dp"
@@ -16,4 +26,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/myProfile_btn"
+        android:layout_width="181dp"
+        android:layout_height="182dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/untitled_1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="175dp" />
+
+    <ImageButton
+        android:id="@+id/myStats_btn"
+        android:layout_width="188dp"
+        android:layout_height="180dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/stats"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="175dp"
+        tools:ignore="MissingConstraints" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
