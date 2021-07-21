@@ -21,7 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomePage" />
         <activity android:name=".WalkTracker" />
+        <activity android:name=".MyProfile" />
+        <activity android:name=".MyStats" />
     </application>
 
 </manifest>
