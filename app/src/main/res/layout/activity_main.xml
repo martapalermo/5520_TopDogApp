@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ffb347"
-        android:text="Sign up"
+        android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +24,8 @@
         android:id="@+id/tv_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TopDog"
-        android:textSize="30dp"
+        android:text="@string/topdog"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
@@ -41,24 +41,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="24dp"
-        android:hint="Enter username here"
+        android:hint="@string/enter_username_here"
         app:layout_constraintBottom_toTopOf="@+id/password_input"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
         app:layout_constraintTop_toTopOf="@+id/guideline16"
-        app:layout_constraintVertical_bias="0.217" />
+        app:layout_constraintVertical_bias="0.217"
+        android:autofillHints="@string/enter_username_here"
+        tools:ignore="TextFields" />
 
     <EditText
         android:id="@+id/password_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="Enter password here"
+        android:hint="@string/enter_password_here"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="@+id/guideline17" />
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        android:autofillHints="@string/enter_password_here"
+        tools:ignore="TextFields" />
 
     <ImageView
         android:id="@+id/topDogLogo"
@@ -68,15 +72,16 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
-        app:srcCompat="@drawable/logo_dog" />
+        app:srcCompat="@drawable/logo_dog"
+        android:contentDescription="@string/logo_of_app_depicting_a_dog_with_sunglasses_on" />
 
     <TextView
         android:id="@+id/username_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Username"
-        android:textSize="20dp"
+        android:text="@string/username"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
@@ -87,8 +92,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Password"
-        android:textSize="20dp"
+        android:text="@string/password"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
@@ -106,7 +111,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline12"
-        app:srcCompat="@drawable/goldenpawtext" />
+        app:srcCompat="@drawable/goldenpawtext"
+        android:contentDescription="@string/sign_in_button_in_shape_of_a_paw" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
