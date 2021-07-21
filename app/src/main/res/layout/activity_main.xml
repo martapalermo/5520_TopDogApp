@@ -13,7 +13,10 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#ffb347"
         android:text="Sign up"
-        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@id/guideline11"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteX="158dp"
         tools:layout_editor_absoluteY="667dp" />
 
@@ -61,7 +64,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/logo_dog" />
 
     <TextView
@@ -93,11 +96,27 @@
         android:id="@+id/signIn_btn"
         android:layout_width="159dp"
         android:layout_height="172dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="200dp"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/guideline11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_welcome"
+        app:layout_constraintTop_toBottomOf="@id/guideline12"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/goldenpawtext" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="667dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="440dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
