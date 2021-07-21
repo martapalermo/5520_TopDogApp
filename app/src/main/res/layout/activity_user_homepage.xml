@@ -11,18 +11,19 @@
         android:layout_height="wrap_content"
         android:text="Welcome *user name*"
         android:textAlignment="center"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="38dp" />
+        tools:layout_editor_absoluteY="38dp"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/letsWalk_btn"
         android:layout_width="390dp"
         android:layout_height="43dp"
         android:backgroundTint="#db402c"
-        android:text="Lets Walk!"
-        android:textSize="20dp"
+        android:text="@string/lets_walk"
+        android:textSize="20sp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
@@ -42,7 +43,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/myStats_btn"
         tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="175dp" />
+        tools:layout_editor_absoluteY="175dp"
+        android:contentDescription="@string/profile_picture_button_that_leads_to_profile" />
 
     <ImageButton
         android:id="@+id/myStats_btn"
@@ -55,7 +57,8 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline6"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintStart_toEndOf="@id/myProfile_btn"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/button_to_stats_page" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
