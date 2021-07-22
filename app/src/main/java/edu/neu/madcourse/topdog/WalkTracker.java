@@ -18,6 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+/**
+ * Notes for team: We should find a way to get the coordinates
+ * of the start position and then compare them to the end position
+ * and see if we can use some fancy algo to figure out how far the user walked.
+ */
+
 public class WalkTracker extends AppCompatActivity implements LocationListener {
     LocationManager locationManager;
     Handler handler;
