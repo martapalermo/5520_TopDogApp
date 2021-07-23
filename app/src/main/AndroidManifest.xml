@@ -22,10 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomePage" />
-        <activity android:name=".WalkTracker" />
-        <activity android:name=".MyProfile" />
-        <activity android:name=".MyStats" />
+        <activity android:name=".HomePage"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".WalkTracker"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".MyProfile"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".MyStats"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".Leaderboard"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
     </application>
 
 </manifest>

@@ -22,6 +22,9 @@ public class HomePage extends AppCompatActivity {
 
         ImageButton myStats = findViewById(R.id.myStats_btn);
         myStats.setOnClickListener(v -> openMyStats());
+
+        ImageButton myLeaderboard = findViewById(R.id.leaderboard_btn);
+        myLeaderboard.setOnClickListener(v -> openMyLeaderboard());
     }
 
     public void openWalkTracker() {
@@ -36,6 +39,11 @@ public class HomePage extends AppCompatActivity {
 
     public void openMyStats() {
         Intent intent = new Intent(this, MyStats.class);
+        startActivity(intent);
+    }
+
+    public void openMyLeaderboard() {
+        Intent intent = new Intent(this, Leaderboard.class);
         startActivity(intent);
     }
 

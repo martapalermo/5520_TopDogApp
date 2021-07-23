@@ -15,10 +15,10 @@
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline11"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="667dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_welcome"
@@ -66,14 +66,14 @@
 
     <ImageView
         android:id="@+id/topDogLogo"
-        android:layout_width="330dp"
-        android:layout_height="227dp"
+        android:layout_width="346dp"
+        android:layout_height="210dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/logo_of_app_depicting_a_dog_with_sunglasses_on"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
-        app:srcCompat="@drawable/logo_dog"
-        android:contentDescription="@string/logo_of_app_depicting_a_dog_with_sunglasses_on" />
+        app:srcCompat="@drawable/logo_dog" />
 
     <TextView
         android:id="@+id/username_tv"
@@ -98,22 +98,24 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toBottomOf="@+id/username_tv"
-        app:layout_constraintVertical_bias="0.476" />
+        app:layout_constraintVertical_bias="0.46" />
 
     <ImageButton
         android:id="@+id/signIn_btn"
         android:layout_width="159dp"
         android:layout_height="172dp"
+        android:contentDescription="@string/sign_in_button_in_shape_of_a_paw"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/register"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline12"
-        app:srcCompat="@drawable/goldenpawtext"
-        android:contentDescription="@string/sign_in_button_in_shape_of_a_paw" />
+        app:layout_constraintVertical_bias="0.096"
+        app:srcCompat="@drawable/goldenpawtext" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"

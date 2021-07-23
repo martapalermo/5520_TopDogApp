@@ -14,6 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * NOTES: Need to tweak logic so that selected picture stays and doesnt reset everytime user exits
+ * and re-enters in myProfile.
+ *
+ * Currently: it resets image selected once we leave the
+ */
 public class MyProfile extends AppCompatActivity {
 
     ImageView mImageView;
