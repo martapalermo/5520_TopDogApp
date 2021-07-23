@@ -18,7 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
  * NOTES: Need to tweak logic so that selected picture stays and doesnt reset everytime user exits
  * and re-enters in myProfile.
  *
- * Currently: it resets image selected once we leave the
+ * Currently: it resets image selected once we leave the page.
+ *
+ * Created save button for saving changes - need to figure out how to link it to all activities on page
  */
 public class MyProfile extends AppCompatActivity {
 

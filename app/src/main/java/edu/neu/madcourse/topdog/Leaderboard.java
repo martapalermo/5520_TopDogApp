@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+/**
+ * needs to be dynamic - and need to figure out how to add user profile images in list view
+ */
+
 public class Leaderboard extends AppCompatActivity {
 
     ListView listView;
