@@ -79,6 +79,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         @Override public void run() {
             final EditText yourlat = (EditText) findViewById(R.id.latitude);
             final EditText yourlong = (EditText) findViewById(R.id.longitude);
+            // add to database
 
             try { getLocation(); //this function can change value of mInterval.
                 if (locationText.toString() == "") {

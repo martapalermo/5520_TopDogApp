@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "803606417605",
+    "firebase_url": "https://top-dog-adba3-default-rtdb.firebaseio.com",
+    "project_id": "top-dog-adba3",
+    "storage_bucket": "top-dog-adba3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803606417605:android:8110ebd700c7d36d59e0ac",
+        "android_client_info": {
+          "package_name": "edu.neu.madcourse.topdog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803606417605-f2iqi1vcvvhr3ccg9oiar8e57ip8280g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8OP_pc9DfJj62zxS1VZ7BaT4wJIMgVI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803606417605-f2iqi1vcvvhr3ccg9oiar8e57ip8280g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
