@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,29 +22,33 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import edu.neu.madcourse.topdog.DatabaseObjects.User;
+
 import static android.content.ContentValues.TAG;
 
 //Log in page
 public class MainActivity extends AppCompatActivity {
 
+    /* Used to transfer the current user's username from one activity to another
+    Search for " intent.putExtra(USERKEY, currentUserName); " for example */
     final static String USERKEY = "CURRENT_USER";
+    final static String TOKEN = "CURRENT_TOKEN";
 
     private DatabaseReference mDatabase;
-    private TextView usernameInput;
-    public String username;
-    protected String token;
+    private String username;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Database reference
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        mDatabase = db.child("USERS");
 
-        // From XML
-        usernameInput = findViewById(R.id.username_input);
+        TextView usernameInput = findViewById(R.id.username_input);
         ImageButton logInButton = findViewById(R.id.signIn_btn);
+        Button signUpButton = findViewById(R.id.signUp_btn);
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -53,42 +59,38 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // get new FCM registration token
                 token = task.getResult();
-                //logs the token
-                Log.d("FCMTEST", "Token: " + token);
             }
         });
 
         logInButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 username = usernameInput.getText().toString();
-                checkUserExists(username);
-                openHomepage(username);
+                checkUserExists_LogIn();//Also launches home page if user does exist
             }
         });
 
-
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = usernameInput.getText().toString();
+                checkUserExists_SignUp();//Also leads to home page after user signs up
+            }
+        });
     }
 
-    public void checkUserExists(String username) {
-        //accesses the reference list of users
-        DatabaseReference userDataBaseRef = mDatabase.child("USERS");
 
-        //adding listener which will run through the code when called
-        userDataBaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            //this is the code that will be ran by the listener
+    public void checkUserExists_LogIn() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                // Snapshots are a localized memory storage. Instead of loading ALL data associated
-                // with a certain child, it'll only give the immediate info at-hand i.e. the list
-                // of users and not all the data associated with each user.
-                // If user does not exist we will create a new user based on the username
                 if (!snapshot.hasChild(username)) {
-                    createUser(username);
+                    Toast.makeText(MainActivity.this, "Oops! Incorrect username or password.",
+                            Toast.LENGTH_LONG).show();
                 } else {
-                    //update token of existing user
-                    updateToken();
+                    //if another device log-ins to the account this token will now be updated to that phone
+                    mDatabase.child(username).child("token").setValue(token);//update token of existing user
+                    openHomepage();
                 }
             }
             @Override
@@ -97,20 +99,33 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void createUser(String username) {
-        User currentUser = new User(username, token);
-        mDatabase.child("USERS").child(username).setValue(currentUser);
-    }
-
-    public void updateToken() {
-        //if another device log-ins to the account this token will now be updated to that phone
-        DatabaseReference tokenReference = mDatabase.child("USERS");
-        tokenReference.child(MainActivity.this.usernameInput.getText().toString()).child("token").setValue(token);
-    }
-
-    public void openHomepage(String currentUserName) {
+    public void openHomepage() {
         Intent intent = new Intent(this, HomePage.class);
-        intent.putExtra(USERKEY, currentUserName);
+        intent.putExtra(USERKEY, username);
+        startActivity(intent);
+    }
+
+    public void checkUserExists_SignUp() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (!snapshot.hasChild(username)) {
+                    openSignUpPage();
+                } else {
+                    Toast.makeText(MainActivity.this, "Oops! This username is already taken.",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+    }
+
+    public void openSignUpPage() {
+        Intent intent = new Intent(MainActivity.this, SignUp.class);
+        intent.putExtra(USERKEY, username);
+        intent.putExtra(TOKEN, token);
         startActivity(intent);
     }
 

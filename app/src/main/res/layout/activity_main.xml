@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/register"
+        android:id="@+id/signUp_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ffb347"
@@ -58,6 +58,7 @@
         android:layout_marginBottom="24dp"
         android:autofillHints="@string/enter_password_here"
         android:hint="@string/enter_password_here"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintHorizontal_bias="0.447"
@@ -109,7 +110,7 @@
         android:layout_height="172dp"
         android:contentDescription="@string/sign_in_button_in_shape_of_a_paw"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/register"
+        app:layout_constraintBottom_toTopOf="@+id/signUp_btn"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/guideline13"

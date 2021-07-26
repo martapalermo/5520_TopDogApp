@@ -24,6 +24,9 @@ import androidx.core.content.ContextCompat;
  */
 
 public class WalkTracker extends AppCompatActivity implements LocationListener {
+
+    private String username;
+
     LocationManager locationManager;
     Handler handler;
     String locationText = "";
@@ -35,8 +38,10 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // set the content to the XML file
         setContentView(R.layout.activity_walk_tracker);
+
+        username = getIntent().getStringExtra(MainActivity.USERKEY);
+
         stopButton.findViewById(R.id.stop_btn);
         // TODO: add onClick so that the walk has ended and the tracking will stop - open new page
 
