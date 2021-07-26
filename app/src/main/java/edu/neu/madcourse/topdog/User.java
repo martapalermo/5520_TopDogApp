@@ -34,4 +34,5 @@ public class User implements Serializable {
     public String getToken() {
         return this.token;
     }
+
 }

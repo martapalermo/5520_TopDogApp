@@ -7,11 +7,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.content.DialogInterface;
 import android.os.Handler;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +29,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     String locationText = "";
     String locationLatitude = "";
     String locationLongitude = "";
+    Button stopButton;
 
 
     @Override
@@ -37,26 +37,23 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         // set the content to the XML file
         setContentView(R.layout.activity_walk_tracker);
+        stopButton.findViewById(R.id.stop_btn);
+        // TODO: add onClick so that the walk has ended and the tracking will stop - open new page
 
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Location");
         popup.setMessage("Location will update every few seconds");
 
-        popup.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        popup.setPositiveButton("Start run", (dialog, which) -> {
 
-            }
         });
 
         popup.show();
 
         handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Handler mHandler = new Handler();
-                startRepeatingTask();
-            }
+        handler.postDelayed(() -> {
+            Handler mHandler = new Handler();
+            startRepeatingTask();
         }, 5000); //5 seconds
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
@@ -79,15 +76,15 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         @Override public void run() {
             final EditText yourlat = (EditText) findViewById(R.id.latitude);
             final EditText yourlong = (EditText) findViewById(R.id.longitude);
-            // add to database
+            // TODO: add these to the database to calculate the distance
 
             try { getLocation(); //this function can change value of mInterval.
-                if (locationText.toString() == "") {
+                if (locationText.equals("")) {
                     Toast.makeText(getApplicationContext(), "Trying to retrieve coordinates.",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    yourlat.setText(locationLatitude.toString());
-                    yourlong.setText(locationLongitude.toString());
+                    yourlat.setText(locationLatitude);
+                    yourlong.setText(locationLongitude);
                 }
             }
             finally {
@@ -96,7 +93,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         }
     };
 
-
     void startRepeatingTask() {
         mStatusChecker.run();
     }
@@ -104,7 +100,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     void stopRepeatingTask() {
         handler.removeCallbacks(mStatusChecker);
     }
-
 
     void getLocation() {
         try {
@@ -127,4 +122,5 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     @Override public void onProviderDisabled(String provider) {
         Toast.makeText(WalkTracker.this, "Please Enable GPS",
                 Toast.LENGTH_SHORT).show(); }
+
 }
