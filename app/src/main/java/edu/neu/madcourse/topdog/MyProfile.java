@@ -3,8 +3,10 @@ package edu.neu.madcourse.topdog;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +15,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import java.io.File;
 
 /**
  * NOTES: Need to tweak logic so that selected picture stays and doesnt reset everytime user exits
@@ -25,7 +31,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MyProfile extends AppCompatActivity {
 
     ImageView mImageView;
-    Button mChooseBtn;
+    Button mGalleryBtn;
+    Button mCameraBtn;
+    public static final int CAMERA_PERM_CODE = 101;
+    public static final int CAMERA_REQ_CODE = 102;
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
@@ -37,9 +46,10 @@ public class MyProfile extends AppCompatActivity {
 
         // views
         mImageView = findViewById(R.id.image_view);
-        mChooseBtn = findViewById(R.id.choose_image_btn);
+        mGalleryBtn = findViewById(R.id.galleryBtn);
+        mCameraBtn = findViewById(R.id.cameraBtn);
 
-        mChooseBtn.setOnClickListener(new View.OnClickListener() {
+        mGalleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // check runtime permission
@@ -62,6 +72,30 @@ public class MyProfile extends AppCompatActivity {
 
             }
         });
+
+        mCameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // ask for runtime permission to use camera
+                askCameraPermission();
+            }
+        });
+    }
+
+    private void askCameraPermission() {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //request permission
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+        }
+        else {
+            openCamera();
+        }
+    }
+
+    private void openCamera() {
+        // Toast.makeText(this, "Camera Open Request", Toast.LENGTH_SHORT).show();
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); // opens default camera on phone
+        startActivityForResult(camera, CAMERA_REQ_CODE);
     }
 
     private void pickImageFromGallery() {
@@ -96,9 +130,11 @@ public class MyProfile extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+        if (resultCode == RESULT_OK && requestCode == CAMERA_REQ_CODE || requestCode == PERMISSION_CODE) {
             // set image to image view
-            mImageView.setImageURI(data.getData());
+            //mImageView.setImageURI(data.getData());
+            Bitmap image = (Bitmap) data.getExtras().get("data");
+            mImageView.setImageBitmap(image);
         }
     }
 

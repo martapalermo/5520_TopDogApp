@@ -18,6 +18,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import edu.neu.madcourse.topdog.DatabaseObjects.LongLat;
+import edu.neu.madcourse.topdog.DatabaseObjects.User;
+import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
+
 /**
  * Notes for team: We should find a way to get the coordinates
  * of the start position and then compare them to the end position
@@ -27,6 +38,10 @@ import androidx.core.content.ContextCompat;
 public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     private String username;
+    private DatabaseReference mDatabase;
+    private ArrayList<LongLat> LocationsList = new ArrayList<>();
+    private int walkCounter; // come up with better names lol
+    private String walkName;
 
     LocationManager locationManager;
     Handler handler;
@@ -40,11 +55,13 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk_tracker);
 
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
         username = getIntent().getStringExtra(MainActivity.USERKEY);
+        walkCounter = Walk.getWalkCounter();
 
 
-
-        AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
+                AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Location");
         popup.setMessage("Location will update every few seconds");
 
@@ -87,8 +104,23 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                             Toast.LENGTH_LONG).show();
                 } else {
                     yourlat.setText(locationLatitude);
-                    System.out.println("Test: " + locationLatitude);
                     yourlong.setText(locationLongitude);
+
+                    double lon = Double.parseDouble(locationLongitude);
+                    double lat = Double.parseDouble(locationLatitude);
+
+
+                    LongLat currentLocation = new LongLat(lon, lat);
+
+                    LocationsList.add(currentLocation);
+
+                    DatabaseReference Loc = mDatabase.child(username).child("walks")
+                                                    .child("Walk " + walkCounter).push();
+
+                    Loc.setValue(currentLocation);
+
+
+
                 }
             }
             finally {
@@ -134,6 +166,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         // If this ends up not working, we can open a new Intent and be done with it!
         stopRepeatingTask();
         mStatusChecker = null;
+        Walk.setWalkCounter();
 
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Walk Complete");

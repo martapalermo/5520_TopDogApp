@@ -22,38 +22,49 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="208dp"
-        android:layout_height="205dp"
+        android:layout_width="322dp"
+        android:layout_height="289dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_baseline_account_box_24"
-        app:layout_constraintBottom_toTopOf="@id/choose_image_btn"
-        app:layout_constraintEnd_toEndOf="@id/guideline19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline18" />
 
     <Button
-        android:id="@+id/choose_image_btn"
+        android:id="@+id/galleryBtn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose Image"
+        android:layout_marginStart="16dp"
+        android:text="Gallery"
         app:layout_constraintBottom_toTopOf="@id/guideline20"
-        app:layout_constraintEnd_toEndOf="@id/guideline19"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toEndOf="@id/cameraBtn"
+        app:layout_constraintTop_toBottomOf="@id/image_view"
+        app:layout_constraintVertical_bias="0.492" />
+
+    <Button
+        android:id="@+id/cameraBtn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="112dp"
+        android:text="Camera"
+        app:layout_constraintBottom_toTopOf="@id/guideline20"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view" />
+        app:layout_constraintTop_toBottomOf="@id/image_view"
+        app:layout_constraintVertical_bias="0.492" />
 
     <TextView
         android:id="@+id/petName_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="428dp"
+        android:layout_marginEnd="264dp"
         android:text="Pet's Name:"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
-        app:layout_constraintStart_toStartOf="@id/guideline19"
         app:layout_constraintTop_toBottomOf="@id/guideline18" />
 
     <EditText
@@ -61,53 +72,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="228dp"
         android:hint="Enter pet name here"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="@id/guideline19"
         app:layout_constraintTop_toBottomOf="@id/petName_tv" />
 
     <TextView
         android:id="@+id/petAge_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="104dp"
         android:text="Pet's Age:"
         android:textSize="20dp"
 
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
-
-        app:layout_constraintStart_toStartOf="@id/guideline19"
-        app:layout_constraintTop_toBottomOf="@id/enterPetName_et" />
+        app:layout_constraintTop_toBottomOf="@id/guideline20" />
 
     <EditText
         android:id="@+id/enterPetAge_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="64dp"
         android:hint="Enter pet age here"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.244"
-
-        app:layout_constraintStart_toStartOf="@id/guideline19"
         app:layout_constraintTop_toBottomOf="@id/petAge_tv" />
 
     <Button
         android:id="@+id/saveEdits_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#5a8d03"
         android:text="SAVE"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
-        app:layout_constraintStart_toStartOf="@id/guideline19" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline18"
@@ -117,17 +121,10 @@
         app:layout_constraintGuide_begin="64dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="234dp" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="379dp" />
+        app:layout_constraintGuide_begin="476dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
