@@ -33,7 +33,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     String locationText = "";
     String locationLatitude = "";
     String locationLongitude = "";
-    Button stopButton;
 
 
     @Override
@@ -128,9 +127,14 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         Toast.makeText(WalkTracker.this, "Please Enable GPS",
                 Toast.LENGTH_SHORT).show(); }
 
+    // TODO: Figure out how to end the tracker safely and then display distance to user
     public void onClick(View view) {
-        Toast.makeText(WalkTracker.this, "Walk has now ended - calculating distance...",
-                Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
+        popup.setTitle("Walk Complete");
+        popup.setMessage("Walk has now ended - calculating distance...");
+        popup.show();
+
+
     }
 
     @Override
