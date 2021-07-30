@@ -132,4 +132,9 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         Toast.makeText(WalkTracker.this, "Walk has now ended - calculating distance...",
                 Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
 }
