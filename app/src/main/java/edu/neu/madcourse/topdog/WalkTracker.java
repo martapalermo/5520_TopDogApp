@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,8 +43,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
         username = getIntent().getStringExtra(MainActivity.USERKEY);
 
-        stopButton.findViewById(R.id.stop_btn);
-        // TODO: add onClick so that the walk has ended and the tracking will stop - open new page
+
 
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Location");
@@ -128,4 +128,8 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         Toast.makeText(WalkTracker.this, "Please Enable GPS",
                 Toast.LENGTH_SHORT).show(); }
 
+    public void onClick(View view) {
+        Toast.makeText(WalkTracker.this, "Walk has now ended - calculating distance...",
+                Toast.LENGTH_SHORT).show();
+    }
 }
