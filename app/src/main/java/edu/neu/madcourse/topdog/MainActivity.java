@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        mDatabase = db.child("USERS");
+        //DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
 
         TextView usernameInput = findViewById(R.id.username_input);
         ImageButton logInButton = findViewById(R.id.signIn_btn);

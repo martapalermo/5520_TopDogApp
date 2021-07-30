@@ -19,14 +19,14 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference usersReference = mDatabase.child("USERS");
+        //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference usersReference = FirebaseDatabase.getInstance().getReference().child("USERS");
 
         username = getIntent().getStringExtra(MainActivity.USERKEY);
         String token = getIntent().getStringExtra(MainActivity.TOKEN);
 
         User currentUser = new User(username, token);
-        mDatabase.child(username).setValue(currentUser);
+        usersReference.child(username).setValue(currentUser);
 
         openHomepage();
     }
