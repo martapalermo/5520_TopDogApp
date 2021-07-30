@@ -125,18 +125,20 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     @Override public void onProviderDisabled(String provider) {
         Toast.makeText(WalkTracker.this, "Please Enable GPS",
-                Toast.LENGTH_SHORT).show(); }
+                Toast.LENGTH_SHORT).show();
+    }
 
     // TODO: Figure out how to end the tracker safely and then display distance to user
     public void onClick(View view) {
 
+        // If this ends up not working, we can open a new Intent and be done with it!
         stopRepeatingTask();
+        mStatusChecker = null;
 
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Walk Complete");
         popup.setMessage("Walk has now ended - calculating distance...");
         popup.show();
-
 
     }
 
