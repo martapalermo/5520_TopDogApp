@@ -51,7 +51,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         popup.setPositiveButton("Start run", (dialog, which) -> {
 
         });
-
         popup.show();
 
         handler = new Handler();
@@ -88,6 +87,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                             Toast.LENGTH_LONG).show();
                 } else {
                     yourlat.setText(locationLatitude);
+                    System.out.println("Test: " + locationLatitude);
                     yourlong.setText(locationLongitude);
                 }
             }
@@ -129,6 +129,9 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     // TODO: Figure out how to end the tracker safely and then display distance to user
     public void onClick(View view) {
+
+        stopRepeatingTask();
+
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Walk Complete");
         popup.setMessage("Walk has now ended - calculating distance...");
@@ -139,6 +142,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
+
 }
