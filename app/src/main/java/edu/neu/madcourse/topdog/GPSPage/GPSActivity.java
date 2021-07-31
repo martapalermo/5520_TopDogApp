@@ -45,7 +45,8 @@ public class GPSActivity extends AppCompatActivity {
             }
         });
     }
-    
+
+    //checks if services are up-to-date to use google maps API on user's phone
     public boolean isServicesUpToDate(){
         Log.d(TAG, "isServicesUpToDate: ");
         int avaialble = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);

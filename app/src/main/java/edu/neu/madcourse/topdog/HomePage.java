@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.neu.madcourse.topdog.GPSPage.GPSActivity;
+
 public class HomePage extends AppCompatActivity {
 
     private String username;
@@ -35,6 +37,14 @@ public class HomePage extends AppCompatActivity {
 
         Button letsWalk = findViewById(R.id.letsWalk_btn);
         letsWalk.setOnClickListener(v -> openWalkTracker());
+
+        Button gpsTestingButton = findViewById(R.id.gpsTestingButton);
+        gpsTestingButton.setOnClickListener(v-> openGPS());
+    }
+
+    public void openGPS(){
+        Intent intent = new Intent(this, GPSActivity.class);
+        startActivity(intent);
     }
 
     public void openWalkTracker() {
