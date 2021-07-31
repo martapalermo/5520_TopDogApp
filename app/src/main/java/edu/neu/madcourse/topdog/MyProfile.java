@@ -18,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.io.File;
-
 /**
  * NOTES: Need to tweak logic so that selected picture stays and doesnt reset everytime user exits
  * and re-enters in myProfile.

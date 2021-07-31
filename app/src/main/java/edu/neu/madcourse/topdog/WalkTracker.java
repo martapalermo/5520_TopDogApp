@@ -2,6 +2,7 @@ package edu.neu.madcourse.topdog;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -40,8 +41,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     private String username;
     private DatabaseReference mDatabase;
     private ArrayList<LongLat> LocationsList = new ArrayList<>();
-    private int walkCounter; // come up with better names lol
-    private String walkName;
+    private int walkCounter;
 
     LocationManager locationManager;
     Handler handler;
@@ -65,7 +65,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         popup.setTitle("Location");
         popup.setMessage("Location will update every few seconds");
 
-        popup.setPositiveButton("Start run", (dialog, which) -> {
+        popup.setPositiveButton("Start walk", (dialog, which) -> {
 
         });
         popup.show();
@@ -163,14 +163,18 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     // TODO: Figure out how to end the tracker safely and then display distance to user
     public void onClick(View view) {
 
-        // If this ends up not working, we can open a new Intent and be done with it!
         stopRepeatingTask();
         mStatusChecker = null;
         Walk.setWalkCounter();
 
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Walk Complete");
-        popup.setMessage("Walk has now ended - calculating distance...");
+        popup.setMessage("Walk is over! Give your dog a pat and click 'calculate' to see distance of walk.");
+        popup.setPositiveButton("CALCULATE", (dialog, which) -> {
+            Intent intent = new Intent(this, MyStats.class);
+            intent.putExtra(MainActivity.USERKEY, username);
+            startActivity(intent);
+        });
         popup.show();
 
     }
