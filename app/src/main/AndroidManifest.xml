@@ -22,10 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SignUp"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".HomePage"
             android:configChanges="orientation|screenSize|keyboardHidden" />
@@ -41,6 +38,10 @@
             android:name=".MyStats"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:parentActivityName=".HomePage"/>
+        <activity
+            android:name=".SignUp"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Leaderboard"
             android:configChanges="orientation|screenSize|keyboardHidden"
