@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton logInButton = findViewById(R.id.signIn_btn);
         Button signUpButton = findViewById(R.id.signUp_btn);
 
+
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
