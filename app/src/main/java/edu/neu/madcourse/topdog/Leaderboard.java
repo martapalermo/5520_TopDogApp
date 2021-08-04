@@ -15,18 +15,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
-import edu.neu.madcourse.topdog.DatabaseObjects.User;
-import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
+import edu.neu.madcourse.topdog.DatabaseObjects.LeaderboardEntry;
 
 /**
  * needs to be dynamic - and need to figure out how to add user profile images in list view

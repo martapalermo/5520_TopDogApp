@@ -1,4 +1,4 @@
-package edu.neu.madcourse.topdog;
+package edu.neu.madcourse.topdog.DatabaseObjects;
 
 import androidx.annotation.NonNull;
 
