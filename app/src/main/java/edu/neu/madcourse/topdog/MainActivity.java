@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // TODO: check the Manifest errors
 
     public void checkUserExists_LogIn() {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
