@@ -10,7 +10,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,31 +58,37 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         username = getIntent().getStringExtra(MainActivity.USERKEY);
         walkCounter = Walk.getWalkCounter();
 
+        Button startBtn = findViewById(R.id.startWalk_btn);
 
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
-        popup.setTitle("Location");
-        popup.setMessage("Location will update every few seconds");
+                popup.setTitle("Location");
+                popup.setMessage("Location will update every few seconds");
 
-        popup.setPositiveButton("Start walk", (dialog, which) -> {
+                popup.setPositiveButton("Start walk", (dialog, which) -> {
 
+                });
+                popup.show();
+
+                handler = new Handler();
+                handler.postDelayed(() -> {
+                    Handler mHandler = new Handler();
+                    startRepeatingTask();
+                }, 10); //5 seconds - 5000
+
+                if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(WalkTracker.this, new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+                }
+            }
         });
-        popup.show();
-
-        handler = new Handler();
-        handler.postDelayed(() -> {
-            Handler mHandler = new Handler();
-            startRepeatingTask();
-        }, 5000); //5 seconds
-
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
-        }
 
     }
 
@@ -90,8 +98,8 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     Runnable mStatusChecker = new Runnable() {
         @Override public void run() {
-            final EditText yourlat = (EditText) findViewById(R.id.latitude);
-            final EditText yourlong = (EditText) findViewById(R.id.longitude);
+            final TextView yourlat = findViewById(R.id.latitude);
+            final TextView yourlong = findViewById(R.id.longitude);
             // TODO: add these to the database to calculate the distance
 
             try { getLocation(); //this function can change value of mInterval.
@@ -120,7 +128,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                 }
             }
             finally {
-                handler.postDelayed(mStatusChecker, 3000);
+                handler.postDelayed(mStatusChecker, 3000); //3000
             }
         }
     };

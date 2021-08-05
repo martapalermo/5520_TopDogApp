@@ -14,4 +14,6 @@ public class Walk implements Serializable {
     public static void setWalkCounter() {
         walkCounter += 1;
     }
+
+
 }

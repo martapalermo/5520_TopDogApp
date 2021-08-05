@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <TextView
         android:id="@+id/latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="latitude"
         android:text=""
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintHorizontal_bias="0.08"
@@ -18,11 +20,13 @@
         app:layout_constraintVertical_bias="0.75"
         android:autofillHints="Latitude" />
 
-    <EditText
+    <TextView
         android:id="@+id/longitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="longitude"
         android:text=""
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintHorizontal_bias="0.08"
@@ -77,13 +81,35 @@
         android:layout_width="173dp"
         android:layout_height="95dp"
         android:layout_marginTop="36dp"
-        android:backgroundTint="#5a8d03"
-        android:text="STOP WALK"
+        android:backgroundTint="#bd1816"
         android:onClick="onClick"
+        android:text="STOP WALK"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintVertical_bias="0.8" />
+
+    <Button
+        android:id="@+id/startWalk_btn"
+        android:layout_width="173dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="#5a8d03"
+        android:onClick="onClick"
+        android:text="START WALK"
+        app:layout_constraintBottom_toTopOf="@id/stopWalk_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline5"
+        app:layout_constraintVertical_bias="0.913" />
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progressBar"-->
+<!--        style="?android:attr/progressBarStyleHorizontal"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:layout_editor_absoluteX="179dp"-->
+<!--        tools:layout_editor_absoluteY="419dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
