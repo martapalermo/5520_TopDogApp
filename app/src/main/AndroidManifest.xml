@@ -54,9 +54,10 @@
         <activity android:name=".GPSPage.MapActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:parentActivityName=".GPSPage.GPSActivity"/>
-<!--        <meta-data-->
-<!--            android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="${MAPS_API_KEY}" />-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
 
     </application>
 
