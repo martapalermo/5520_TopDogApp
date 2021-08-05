@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.icu.text.DecimalFormat;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -98,8 +99,8 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     Runnable mStatusChecker = new Runnable() {
         @Override public void run() {
-            final TextView yourlat = findViewById(R.id.latitude);
-            final TextView yourlong = findViewById(R.id.longitude);
+            final TextView yourLat = findViewById(R.id.latitude);
+            final TextView yourLong = findViewById(R.id.longitude);
             // TODO: add these to the database to calculate the distance
 
             try { getLocation(); //this function can change value of mInterval.
@@ -107,8 +108,8 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                     Toast.makeText(getApplicationContext(), "Trying to retrieve coordinates.",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    yourlat.setText(locationLatitude);
-                    yourlong.setText(locationLongitude);
+                    yourLat.setText(locationLatitude);
+                    yourLong.setText(locationLongitude);
 
                     double lon = Double.parseDouble(locationLongitude);
                     double lat = Double.parseDouble(locationLatitude);
