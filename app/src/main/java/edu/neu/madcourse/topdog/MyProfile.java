@@ -4,8 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.util.Date;
 
 /**
  * NOTES: Need to tweak logic so that selected picture stays and doesnt reset everytime user exits
@@ -28,9 +37,10 @@ import androidx.core.content.ContextCompat;
  */
 public class MyProfile extends AppCompatActivity {
 
-    ImageView mImageView;
+    ImageView selectedImage;
     Button mGalleryBtn;
     Button mCameraBtn;
+    String currentPhotoPath;
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQ_CODE = 102;
 
@@ -43,7 +53,7 @@ public class MyProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         // views
-        mImageView = findViewById(R.id.image_view);
+        selectedImage = findViewById(R.id.image_view);
         mGalleryBtn = findViewById(R.id.galleryBtn);
         mCameraBtn = findViewById(R.id.cameraBtn);
 
@@ -107,21 +117,66 @@ public class MyProfile extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSION_CODE:{
-                if (grantResults.length > 0 && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted
-                    pickImageFromGallery();
-                }
-                else {
-                    // permission was denied
-                    Toast.makeText(this, "Permission denied!", Toast.LENGTH_SHORT).show();
-                }
+        if (requestCode == CAMERA_PERM_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //dispatchTakePictureIntent();
+                openCamera();
             }
         }
+        else if (requestCode == IMAGE_PICK_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickImageFromGallery();
+            }
+        }
+        else {
+            // permission was denied
+            Toast.makeText(this, "Permission denied!", Toast.LENGTH_SHORT).show();
+        }
+//        switch (requestCode) {
+//            case PERMISSION_CODE:{
+//                if (grantResults.length > 0 && grantResults[0] ==
+//                        PackageManager.PERMISSION_GRANTED) {
+//                    // permission was granted
+//                    pickImageFromGallery();
+//                }
+
+//            }
+//        }
     }
 
+//    private void dispatchTakePictureIntent() {
+//    Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//    // ensure there is camera activity to handle intent
+//        if (takePicIntent.resolveActivity(getPackageManager()) != null) {
+//            // create file where photo should go
+//            File photoFile = null; // instantiate empty
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // error occurred while creating file
+//            }
+//            // if photo file is created
+//            if (photoFile != null) {
+//                Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
+//                takePicIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+//                startActivityForResult(takePicIntent, CAMERA_REQ_CODE);
+//            }
+//        }
+//    }
+
+    private File createImageFile() throws IOException {
+        // create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        // save a file - path for use with action view intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+
+    }
 
     // handle result of picked image
 
@@ -132,7 +187,7 @@ public class MyProfile extends AppCompatActivity {
             // set image to image view
             //mImageView.setImageURI(data.getData());
             Bitmap image = (Bitmap) data.getExtras().get("data");
-            mImageView.setImageBitmap(image);
+            selectedImage.setImageBitmap(image);
         }
     }
 
