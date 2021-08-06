@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import edu.neu.madcourse.topdog.DatabaseObjects.LongLat;
+import edu.neu.madcourse.topdog.DatabaseObjects.User;
 import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
 
 /**
@@ -41,6 +42,8 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     private DatabaseReference mDatabase;
     private ArrayList<LongLat> LocationsList = new ArrayList<>();
     private int walkCounter;
+    private Walk walk;
+    private User user;
 
     LocationManager locationManager;
     Handler handler;
@@ -57,7 +60,9 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
         username = getIntent().getStringExtra(MainActivity.USERKEY);
-        walkCounter = Walk.getWalkCounter();
+        walk = new Walk();
+
+
 
         Button startBtn = findViewById(R.id.startWalk_btn);
 
@@ -77,7 +82,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                 handler.postDelayed(() -> {
                     Handler mHandler = new Handler();
                     startRepeatingTask();
-                }, 10); //5 seconds - 5000
+                }, 5000); //5 seconds - 5000
 
                 if (ContextCompat.checkSelfPermission(getApplicationContext(),
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -116,13 +121,15 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
 
                     LongLat currentLocation = new LongLat(lon, lat);
+                    // calculate the distance value and add that to the list for the Walk object
+                    walk.getList().add(currentLocation);
+                    System.out.println("List is currently: " + walk.getList());
+                    //LocationsList.add(currentLocation);
 
-                    LocationsList.add(currentLocation);
+                    //DatabaseReference Loc = mDatabase.child(username).child("walks")
+                                                    //.child("Walk " + walkCounter).push();
 
-                    DatabaseReference Loc = mDatabase.child(username).child("walks")
-                                                    .child("Walk " + walkCounter).push();
-
-                    Loc.setValue(currentLocation);
+                    //Loc.setValue(currentLocation);
 
 
 
@@ -170,7 +177,17 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
         stopRepeatingTask();
         mStatusChecker = null;
-        Walk.setWalkCounter();
+        User.setWalkCounter(); // adds +1 for next walk
+        System.out.println("Number of walk is now " + User.getWalkCounter());
+
+        long distance = walk.LongLatToDistance();
+
+        DatabaseReference Loc = mDatabase.child(username).child("walks")
+                .child("Walk " + User.getWalkCounter()).push();
+
+        Loc.setValue(distance);
+
+
 
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Walk Complete");

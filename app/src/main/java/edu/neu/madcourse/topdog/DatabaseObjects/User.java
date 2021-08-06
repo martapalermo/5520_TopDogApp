@@ -9,6 +9,7 @@ public class User implements Serializable {
 
     private String username;
     private String token;
+    private static int walkCounter;
 
 
     public User () {
@@ -18,6 +19,11 @@ public class User implements Serializable {
     public User(String username, String token){
         this.username = username;
         this.token = token;
+        walkCounter = 0;
+    }
+
+    public User getUser(String username, String token){
+        return this;
     }
 
     public void setUsername(String username){
@@ -34,6 +40,12 @@ public class User implements Serializable {
 
     public String getToken() {
         return this.token;
+    }
+
+    public static int getWalkCounter() { return walkCounter;}
+
+    public static void setWalkCounter() {
+        walkCounter += 1;
     }
 
 }
