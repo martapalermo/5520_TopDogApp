@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/signUp_btn"
+        android:id="@+id/signUp_btn_on_main_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ffb347"
@@ -110,7 +110,7 @@
         android:layout_height="172dp"
         android:contentDescription="@string/sign_in_button_in_shape_of_a_paw"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/signUp_btn"
+        app:layout_constraintBottom_toTopOf="@+id/signUp_btn_on_main_activity"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
