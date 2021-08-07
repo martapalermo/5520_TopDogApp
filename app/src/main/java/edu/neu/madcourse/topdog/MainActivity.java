@@ -41,13 +41,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
 
         TextView usernameInput = findViewById(R.id.username_input);
         ImageButton logInButton = findViewById(R.id.signIn_btn);
         Button signUpButton = findViewById(R.id.signUp_btn);
-
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -65,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 username = usernameInput.getText().toString();
-                checkUserExists_LogIn();//Also launches home page if user does exist
+                if (username.isEmpty()) {
+                    handleNoUsernameInput();
+                } else {
+                    checkUserExists_LogIn();//Also launches home page if user does exist
+                }
             }
         });
 
@@ -73,12 +75,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 username = usernameInput.getText().toString();
-                checkUserExists_SignUp();//Also leads to home page after user signs up
+                if (username.isEmpty()) {
+                    handleNoUsernameInput();
+                } else {
+                    checkUserExists_SignUp();//Also leads to home page after user signs up
+                }
             }
         });
     }
-
-    // TODO: check the Manifest errors
 
     public void checkUserExists_LogIn() {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -129,4 +133,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void handleNoUsernameInput(){
+        Toast.makeText(MainActivity.this, "Please enter a username",
+                    Toast.LENGTH_SHORT).show();
+    }
 }
