@@ -36,36 +36,6 @@ public class User implements Serializable {
         this.walkList.add(walk);
     }
 
-    public static User deserialize(JSONObject jsonUser) {
-        User returnUser = new User();
-        try{
-            String username = jsonUser.get("username").toString();
-            String token = jsonUser.get("token").toString();
-            String email = jsonUser.get("email").toString();
-            String dogName = jsonUser.get("dogName").toString();
-            String dogAge = jsonUser.get("dogAge").toString();
-
-            ArrayList<Walk> walkList = new ArrayList<>();
-            if (jsonUser.has("walkList")) {
-                JSONArray walkListJSON = jsonUser.getJSONArray("walkList");
-                for (int i=0; i<walkListJSON.length(); i++) {
-                    Walk aWalk = Walk.deserialize(walkListJSON.getJSONObject(i));
-                    walkList.add(aWalk);
-                }
-            }
-            returnUser.setUsername(username);
-            returnUser.setToken(token);
-            returnUser.setEmail(email);
-            returnUser.setDogName(dogName);
-            returnUser.setDogAge(Integer.parseInt(dogAge));
-            returnUser.setWalkList(walkList);
-
-        } catch (JSONException e) {
-            System.out.println("JSON ERROR: USER ->" + e.toString());
-        }
-        return returnUser;
-    }
-
     public String getUsername(){
         return this.username;
     }
@@ -107,4 +77,34 @@ public class User implements Serializable {
     public void setDogAge(int age) { this.dogAge = age; }
 
     public void setWalkList(ArrayList<Walk> walkList) { this.walkList = walkList; }
+
+    public static User deserialize(JSONObject jsonUser) {
+        User returnUser = new User();
+        try{
+            String username = jsonUser.get("username").toString();
+            String token = jsonUser.get("token").toString();
+            String email = jsonUser.get("email").toString();
+            String dogName = jsonUser.get("dogName").toString();
+            String dogAge = jsonUser.get("dogAge").toString();
+
+            ArrayList<Walk> walkList = new ArrayList<>();
+            if (jsonUser.has("walkList")) {
+                JSONArray walkListJSON = jsonUser.getJSONArray("walkList");
+                for (int i=0; i<walkListJSON.length(); i++) {
+                    Walk aWalk = Walk.deserialize(walkListJSON.getJSONObject(i));
+                    walkList.add(aWalk);
+                }
+            }
+            returnUser.setUsername(username);
+            returnUser.setToken(token);
+            returnUser.setEmail(email);
+            returnUser.setDogName(dogName);
+            returnUser.setDogAge(Integer.parseInt(dogAge));
+            returnUser.setWalkList(walkList);
+
+        } catch (JSONException e) {
+            System.out.println("JSON ERROR: USER ->" + e.toString());
+        }
+        return returnUser;
+    }
 }

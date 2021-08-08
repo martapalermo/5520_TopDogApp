@@ -2,7 +2,6 @@ package edu.neu.madcourse.topdog;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.sax.TextElementListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;

@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
@@ -33,7 +32,9 @@ import edu.neu.madcourse.topdog.DatabaseObjects.PutDBInfoUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
 import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
 
-//Class for tracking walks the user goes on with their dog
+/**
+ * A class for managing the walk tracking feature of the app
+ */
 public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     private DatabaseReference mDatabase;
@@ -57,20 +58,23 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         thisWalk = new Walk(new Date().getTime());
 
         Button startBtn = findViewById(R.id.startWalk_btn);
-        startBtn.setOnClickListener(this::onClickStartButton);
-
         Button stopBtn = findViewById(R.id.stopWalk_btn);
+
+        startBtn.setOnClickListener(v -> onClickStartButton(v, stopBtn));
         stopBtn.setOnClickListener(this::onClickStopButton);
     }
 
 
     //Begins reading user's geographical location, rereads every 5 seconds
-    public void onClickStartButton(View v) {
+    public void onClickStartButton(View start, View stop) {
         //inform user what's going on
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Location");
         popup.setMessage("Ready?!");
-        popup.setPositiveButton("Start walk", (dialog, which) -> { });
+        popup.setPositiveButton("Start walk", (dialog, which) -> {
+            start.setVisibility(View.INVISIBLE);
+            stop.setVisibility(View.VISIBLE);
+        });
         popup.show();
 
         //check for location permissions
@@ -119,7 +123,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
                     LongLat currentLocation = new LongLat(lon, lat);
 
-                    //Add current location to the collection of coordinate visited within this walk
+                    //Add current location to the collection of coordinates visited within this walk
                     thisWalk.addNextCoordinate(currentLocation);
                 }
             }
@@ -141,6 +145,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+        //these are of type double
         locationLatitude = location.getLatitude();
         locationLongitude = location.getLongitude();
     }
@@ -157,35 +162,35 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
 
     //Upon stopping the walk:
     // - calculate the total distance of the walk
-    // - jump off the main thread and go fetch the User's database records for oupdating
-    // - deserialize from JSON to USer object
-    // - update database with new User object
-    public void onClickStopButton(View view) {
-        stopRepeatingTask();
-        mStatusChecker = null;
-        long distance = thisWalk.calculateFinalDistance();
-        DatabaseReference user = mDatabase.child(username);
-
-        //Use utility classes to jump off the main thread when fetching and putting info in the db
-        JSONObject jsonUser = new FetchDBInfoUtil().getResults(user);
-        User updatedUser = User.deserialize(jsonUser);
-        updatedUser.addWalk(thisWalk);
-        new PutDBInfoUtil().setValue(user, updatedUser);
-
-        /////////////////////////////////////////
+    // - jump off the main thread and go fetch the User's database records for updating
+    // - deserialize from JSON to User object
+    // - update that User object to reflect the changes (the new walk)
+    // - Put that updatedUser back into the database
+    public void onClickStopButton(View v) {
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Walk Complete");
-        popup.setMessage("Walk is over! Give your dog a pat, today you walked " + distance + " units");
+        popup.setMessage("Are you sure?");
+        popup.setNegativeButton("Resume", (dialog, which) -> {
+
+        });
         popup.setPositiveButton("Done", (dialog, which) -> {
-            Intent intent = new Intent(this, MyStats.class);
-            intent.putExtra(MainActivity.USERKEY, username);
-            startActivity(intent);
+            stopRepeatingTask();
+            mStatusChecker = null;
+            //EFFECT: calculateFinalDistance updates the "long finalDistance" field of thisWalk
+            thisWalk.calculateFinalDistance();
+            DatabaseReference user = mDatabase.child(username);
+
+            //Use utility classes to jump off the main thread when fetching and putting info in the db
+            JSONObject jsonUser = new FetchDBInfoUtil().getResults(user);
+            User userToUpdate = User.deserialize(jsonUser);
+            userToUpdate.addWalk(thisWalk); //updating user here
+            new PutDBInfoUtil().setValue(user, userToUpdate);//update database off main thread
+
+            //move to stats
+            openStatsPage();
+
         });
         popup.show();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
     @Override
@@ -194,6 +199,12 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         intent.putExtra(MainActivity.USERKEY,username);
         startActivity(intent);
         finish();
+    }
+
+    public void openStatsPage(){
+        Intent intent = new Intent(this, MyStats.class);
+        intent.putExtra(MainActivity.USERKEY, username);
+        startActivity(intent);
     }
 
 }

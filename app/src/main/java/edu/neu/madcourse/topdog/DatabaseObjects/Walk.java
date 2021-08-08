@@ -10,7 +10,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//Represents a single walk that a user can go on with their pet
+/**
+ * Represents a single walk a User can go on with their pet.
+ * - coordinates is a list of LongLat objects that represents the longitude and latitude coordinate
+ *   points the user visited while on the walk (updated every 5 seconds)
+ * - timeOfWalk is a long representing the date and time in miliseconds
+ * - finalDistance can be updated once the walk is complete using calculateFinalDistance
+ */
 @IgnoreExtraProperties
 public class Walk implements Serializable {
 
@@ -19,7 +25,7 @@ public class Walk implements Serializable {
     //coordinates is a list of LongLat (a longitude and latitude pair) that represent physical
     //geographical locations that were visited during the walk
     public ArrayList<LongLat> coordinates;
-    public long timeOfWalk;
+    public long timeOfWalk; //TODO : method for converting miliseconds into actual date and time
     public long finalDistance;
 
     public Walk () {
