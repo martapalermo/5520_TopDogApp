@@ -36,7 +36,7 @@ public class HomePage extends AppCompatActivity {
         myLeaderboard.setOnClickListener(v -> openMyLeaderboard());
 
         Button letsWalk = findViewById(R.id.letsWalk_btn);
-        //letsWalk.setOnClickListener(v -> openWalkTracker());
+        letsWalk.setOnClickListener(v -> openWalkTracker());
 
         Button gpsTestingButton = findViewById(R.id.gpsTestingButton);
         gpsTestingButton.setOnClickListener(v-> openGPS());
@@ -47,11 +47,11 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public void openWalkTracker() {
-//        Intent intent = new Intent(this, WalkTracker.class);
-//        intent.putExtra(MainActivity.USERKEY, username);
-//        startActivity(intent);
-//    }
+    public void openWalkTracker() {
+        Intent intent = new Intent(this, WalkTracker.class);
+        intent.putExtra(MainActivity.USERKEY, username);
+        startActivity(intent);
+    }
 
     public void openMyProfile() {
         Intent intent = new Intent(this, MyProfile.class);

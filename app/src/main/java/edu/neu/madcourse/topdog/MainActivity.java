@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     /* Used to transfer the current user's username from one activity to another
     Search for " intent.putExtra(USERKEY, currentUserName); " for example */
     final static String USERKEY = "CURRENT_USER";
-    final static String TOKEN = "CURRENT_TOKEN";
+    final static String TOKENKEY = "CURRENT_TOKEN";
 
     private DatabaseReference mDatabase;
     private String username;
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     public void openSignUpPage() {
         Intent intent = new Intent(MainActivity.this, SignUp.class);
         intent.putExtra(USERKEY, username);
-        intent.putExtra(TOKEN, token);
+        intent.putExtra(TOKENKEY, token);
         startActivity(intent);
     }
 }

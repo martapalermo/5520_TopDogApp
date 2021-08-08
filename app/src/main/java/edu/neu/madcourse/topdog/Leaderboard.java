@@ -1,6 +1,7 @@
 package edu.neu.madcourse.topdog;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -76,4 +77,5 @@ public class Leaderboard extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -37,6 +37,7 @@ import java.util.Date;
  */
 public class MyProfile extends AppCompatActivity {
 
+    String username;
     ImageView selectedImage;
     Button mGalleryBtn;
     Button mCameraBtn;
@@ -51,6 +52,8 @@ public class MyProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        username = getIntent().getStringExtra(MainActivity.USERKEY);
 
         // views
         selectedImage = findViewById(R.id.image_view);
@@ -189,6 +192,13 @@ public class MyProfile extends AppCompatActivity {
             Bitmap image = (Bitmap) data.getExtras().get("data");
             selectedImage.setImageBitmap(image);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomePage.class);
+        intent.putExtra(MainActivity.USERKEY,username);
+        startActivity(intent);
     }
 
 }

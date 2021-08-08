@@ -31,7 +31,8 @@ public class SignUp extends AppCompatActivity {
         //Gather global information we need for this activity
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
         username = getIntent().getStringExtra(MainActivity.USERKEY);
-        token = getIntent().getStringExtra(MainActivity.TOKEN);
+        token = getIntent().getStringExtra(MainActivity.TOKENKEY);
+
 
         //Update the usernameInput with whatever the user entered in the main Activity,
         // for ease of use (so they dont have to re-type their preferred username if they typed it
@@ -39,12 +40,16 @@ public class SignUp extends AppCompatActivity {
         EditText usernameInput = findViewById(R.id.username_input);
         usernameInput.setText(username);
 
-        //Finally, handle whent he signup button is pressed
+        //Finally, handle when the signup button is pressed
         Button signUpButton = findViewById(R.id.signUp_btn_on_signUp_page);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkUserExists_andSignUp();
+                //from checkUserExists_andSignUp() starts a method-chain that leads to:
+                // - saveUserToDatabase();
+                // - openHomepage();
+                // ^methods are chained from previous method to follow appropriate logic flow
             }
         });
     }
@@ -87,6 +92,7 @@ public class SignUp extends AppCompatActivity {
             //Save user info to the database:
             User currentUser = new User(username, token, email, dogName);
             mDatabase.child(username).setValue(currentUser);
+            //Launch homepage
             openHomepage();
         }
     }

@@ -1,53 +1,113 @@
 package edu.neu.madcourse.topdog.DatabaseObjects;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+//Represents a single walk that a user can go on with their pet
+@IgnoreExtraProperties
 public class Walk implements Serializable {
-    private List<LongLat> distances;
+
     public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
 
-    public Walk() {
-        distances = new ArrayList<>();
+    //coordinates is a list of LongLat (a longitude and latitude pair) that represent physical
+    //geographical locations that were visited during the walk
+    public ArrayList<LongLat> coordinates;
+    public LocalDateTime timeOfWalk;
+    public long finalDistance;
+
+    public Walk () {
+        // Default constructor required for calls to DataSnapshot.getValue(Walk.class)
     }
 
-    public long LongLatToDistance(){
-        long result = 0;
-        if (distances.size() == 0) return result;
-        else {
-            for (int i = 1; i < distances.size(); i++) {
+    public Walk(LocalDateTime dateOfWalk) {
+        this.coordinates = new ArrayList<>();
+        this.timeOfWalk = dateOfWalk;
+        this.finalDistance = 0;
+    }
 
-                double firstLat = distances.get(i).getLatitude();
-                double secondLat = distances.get(i).getLongitude();
-                double firstLong = distances.get(i - 1).getLatitude();
-                double secondLong = distances.get(i - 1).getLongitude();
+    //adds the next coordinate of the walk to the list of coordinates
+    public void addNextCoordinate(LongLat coordinate) {
+        this.coordinates.add(coordinate);
+    }
+
+    //gathers all the coordinates in the single walk and calculates the DISTANCE covered in the walk
+    //EFFECT: returns finalDistance AND updates field this.finalDistance
+    public long calculateFinalDistance(){
+        long result = 0;
+        if (coordinates.size() == 0) return result;
+        else {
+            for (int i = 1; i < coordinates.size(); i++) {
+                double firstLat = coordinates.get(i - 1).getLatitude();
+                double firstLong = coordinates.get(i - 1).getLongitude();
+
+                double secondLat = coordinates.get(i).getLatitude();
+                double secondLong = coordinates.get(i).getLongitude();
 
                 result += calculateDistanceInKilometer(firstLat, firstLong, secondLat, secondLong);
             }
+            this.finalDistance = result;
             return result;
         }
     }
 
-
-    private int calculateDistanceInKilometer(double userLat, double userLng,
-                                            double venueLat, double venueLng) {
-
-        double latDistance = Math.toRadians(userLat - venueLat);
-        double lngDistance = Math.toRadians(userLng - venueLng);
+    private int calculateDistanceInKilometer(double firstLat, double firstLong,
+                                            double secondLat, double secondLong) {
+        double latDistance = Math.toRadians(secondLat - firstLat);
+        double lngDistance = Math.toRadians(secondLong - firstLong);
 
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(userLat)) * Math.cos(Math.toRadians(venueLat))
+                + Math.cos(Math.toRadians(firstLat)) * Math.cos(Math.toRadians(secondLat))
                 * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
         return (int) (Math.round(AVERAGE_RADIUS_OF_EARTH_KM * c));
     }
 
-    public List<LongLat> getList(){
-        return this.distances;
+    public List<LongLat> getCoordinates(){
+        return this.coordinates;
     }
 
+    public void setCoordinates(ArrayList<LongLat> coordinates){
+        this.coordinates = coordinates;
+    }
 
+    public LocalDateTime getTimeOfWalk() { return this.timeOfWalk; }
+
+    public void setTimeOfWalk(LocalDateTime timeOfWalk) { this.timeOfWalk = timeOfWalk; }
+
+    public long getFinalDistance(){ return this.finalDistance; }
+
+    public void setFinalDistance(long finalDistance) {this.finalDistance = finalDistance; }
+
+    public static Walk deserialize(JSONObject jsonWalk) {
+        Walk returnWalk = new Walk();
+        try{
+            ArrayList<LongLat> coordinates = new ArrayList<>();
+            if (jsonWalk.has("coordinates")) {
+                JSONArray CoordListJSON = jsonWalk.getJSONArray("coordinates");
+                for (int i=0; i<CoordListJSON.length(); i++) {
+                    LongLat aCoord = LongLat.deserialize(CoordListJSON.getJSONObject(i));
+                    coordinates.add(aCoord);
+                }
+            }
+            String finalDistance = jsonWalk.get("finalDistance").toString();
+            String timeOfWalk = jsonWalk.get("timeOfWalk").toString();
+
+            returnWalk.setCoordinates(coordinates);
+            returnWalk.setTimeOfWalk(LocalDateTime.parse(timeOfWalk));
+            returnWalk.setFinalDistance(Integer.parseInt(finalDistance));
+        } catch (JSONException e){
+            System.out.println("JSON ERROR: WALK -> " + e.toString());
+        }
+        return returnWalk;
+    }
 }
