@@ -22,15 +22,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import edu.neu.madcourse.topdog.DatabaseObjects.PutDBInfoUtil;
+
 import static android.content.ContentValues.TAG;
 
 //Log in page
 public class MainActivity extends AppCompatActivity {
 
     /* Used to transfer the current user's username from one activity to another
-    Search for " intent.putExtra(USERKEY, currentUserName); " for example */
+    Search for " intent.putExtra(USERKEY, currentUserName); " for use example */
     final static String USERKEY = "CURRENT_USER";
-    final static String TOKEN = "CURRENT_TOKEN";
+    final static String TOKENKEY = "CURRENT_TOKEN";
 
     private DatabaseReference mDatabase;
     private String username;
@@ -41,13 +43,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
 
         TextView usernameInput = findViewById(R.id.username_input);
         ImageButton logInButton = findViewById(R.id.signIn_btn);
-        Button signUpButton = findViewById(R.id.signUp_btn);
-
+        Button signUpButton = findViewById(R.id.signUp_btn_on_main_activity);
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -65,7 +65,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 username = usernameInput.getText().toString();
-                checkUserExists_LogIn();//Also launches home page if user does exist
+                if (username.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter a username",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    checkUserExists_AndLogIn();// launches home page if user does exist
+                }
             }
         });
 
@@ -73,23 +78,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 username = usernameInput.getText().toString();
-                checkUserExists_SignUp();//Also leads to home page after user signs up
+                openSignUpPage();
             }
         });
     }
 
-    // TODO: check the Manifest errors
-
-    public void checkUserExists_LogIn() {
+    public void checkUserExists_AndLogIn() {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild(username)) {
-                    Toast.makeText(MainActivity.this, "Oops! Incorrect username or password.",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Oops! Incorrect username. " +
+                                    "User does not exist.",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     //if another device log-ins to the account this token will now be updated to that phone
-                    mDatabase.child(username).child("token").setValue(token);//update token of existing user
+                    new PutDBInfoUtil().setValue(mDatabase.child(username).child("token"), token);
                     openHomepage();
                 }
             }
@@ -105,28 +109,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void checkUserExists_SignUp() {
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (!snapshot.hasChild(username)) {
-                    openSignUpPage();
-                } else {
-                    Toast.makeText(MainActivity.this, "Oops! This username is already taken.",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
-    }
-
     public void openSignUpPage() {
         Intent intent = new Intent(MainActivity.this, SignUp.class);
         intent.putExtra(USERKEY, username);
-        intent.putExtra(TOKEN, token);
+        intent.putExtra(TOKENKEY, token);
         startActivity(intent);
     }
-
 }

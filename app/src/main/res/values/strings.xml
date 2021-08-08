@@ -5,6 +5,7 @@
     <string name="button_to_stats_page">Button to stats page</string>
     <string name="enter_password_here">Enter password here</string>
     <string name="enter_username_here">Enter username here</string>
+    <string name="enter_email_here">Enter email here</string>
     <string name="topdog">TopDog</string>
     <string name="sign_up">Sign up</string>
     <string name="username">Username</string>
@@ -12,4 +13,7 @@
     <string name="sign_in_button_in_shape_of_a_paw">Sign in button in shape of a paw</string>
     <string name="logo_of_app_depicting_a_dog_with_sunglasses_on">Logo of app depicting a dog with sunglasses on</string>
     <string name="welcome_msg">Welcome</string>
+    <string name="email">Email</string>
+    <string name="dog_name">Dog Name</string>
+    <string name="enter_dog_name_here">Enter dog name here</string>
 </resources>

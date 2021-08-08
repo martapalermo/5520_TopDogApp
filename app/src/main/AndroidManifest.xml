@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -57,8 +58,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA_4czHi0sxfMnlOO3_icmMe8RpeudtjW8"/>
-<!--            android:value="${MAPS_API_KEY}" />-->
-
+        <!--            android:value="${MAPS_API_KEY}" />-->
 
     </application>
 

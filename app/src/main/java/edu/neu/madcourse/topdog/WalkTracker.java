@@ -10,7 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,29 +21,29 @@ import androidx.core.content.ContextCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
+import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.util.Date;
+
+import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.LongLat;
+import edu.neu.madcourse.topdog.DatabaseObjects.PutDBInfoUtil;
+import edu.neu.madcourse.topdog.DatabaseObjects.User;
 import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
 
 /**
- * Notes for team: We should find a way to get the coordinates
- * of the start position and then compare them to the end position
- * and see if we can use some fancy algo to figure out how far the user walked.
+ * A class for managing the walk tracking feature of the app
  */
-
 public class WalkTracker extends AppCompatActivity implements LocationListener {
 
-    private String username;
     private DatabaseReference mDatabase;
-    private ArrayList<LongLat> LocationsList = new ArrayList<>();
-    private int walkCounter;
-
+    private String username;
+    private Walk thisWalk;
+    double locationLatitude = 0;
+    double locationLongitude = 0;
     LocationManager locationManager;
-    Handler handler;
-    String locationText = "";
-    String locationLatitude = "";
-    String locationLongitude = "";
+    Handler handler = new Handler();
 
 
     @Override
@@ -51,79 +51,49 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk_tracker);
 
-
+        //Gather all global info needed for this class:
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
         username = getIntent().getStringExtra(MainActivity.USERKEY);
-        walkCounter = Walk.getWalkCounter();
+
+        thisWalk = new Walk(new Date().getTime());
+
+        Button startBtn = findViewById(R.id.startWalk_btn);
+        Button stopBtn = findViewById(R.id.stopWalk_btn);
+
+        startBtn.setOnClickListener(v -> onClickStartButton(v, stopBtn));
+        stopBtn.setOnClickListener(this::onClickStopButton);
+    }
 
 
-                AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
+    //Begins reading user's geographical location, rereads every 5 seconds
+    public void onClickStartButton(View start, View stop) {
+        //inform user what's going on
+        AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Location");
-        popup.setMessage("Location will update every few seconds");
-
+        popup.setMessage("Ready?!");
         popup.setPositiveButton("Start walk", (dialog, which) -> {
-
+            start.setVisibility(View.INVISIBLE);
+            stop.setVisibility(View.VISIBLE);
         });
         popup.show();
 
-        handler = new Handler();
-        handler.postDelayed(() -> {
-            Handler mHandler = new Handler();
-            startRepeatingTask();
-        }, 5000); //5 seconds
-
+        //check for location permissions
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this, new String[]{
+            ActivityCompat.requestPermissions(WalkTracker.this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
         }
 
+        //start the geo location reading
+        handler.postDelayed(() -> {
+            Handler mHandler = new Handler();
+            startRepeatingTask(); //and mStatusChecker displays location to the user
+        }, 5000); //5 seconds - 5000
     }
 
-    @Override public void onDestroy() {
-        super.onDestroy(); stopRepeatingTask(); }
-
-
-    Runnable mStatusChecker = new Runnable() {
-        @Override public void run() {
-            final EditText yourlat = (EditText) findViewById(R.id.latitude);
-            final EditText yourlong = (EditText) findViewById(R.id.longitude);
-            // TODO: add these to the database to calculate the distance
-
-            try { getLocation(); //this function can change value of mInterval.
-                if (locationText.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Trying to retrieve coordinates.",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    yourlat.setText(locationLatitude);
-                    yourlong.setText(locationLongitude);
-
-                    double lon = Double.parseDouble(locationLongitude);
-                    double lat = Double.parseDouble(locationLatitude);
-
-
-                    LongLat currentLocation = new LongLat(lon, lat);
-
-                    LocationsList.add(currentLocation);
-
-                    DatabaseReference Loc = mDatabase.child(username).child("walks")
-                                                    .child("Walk " + walkCounter).push();
-
-                    Loc.setValue(currentLocation);
-
-
-
-                }
-            }
-            finally {
-                handler.postDelayed(mStatusChecker, 3000);
-            }
-        }
-    };
 
     void startRepeatingTask() {
         mStatusChecker.run();
@@ -132,6 +102,36 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     void stopRepeatingTask() {
         handler.removeCallbacks(mStatusChecker);
     }
+
+
+    Runnable mStatusChecker = new Runnable() {
+        @Override public void run() {
+            try {
+                getLocation();
+                if (locationLatitude == 0 && locationLongitude == 0) {
+                    //TODO: Turn this into the loading GIF of the walking dogs
+                    Toast.makeText(getApplicationContext(), "Trying to retrieve coordinates.",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    //Find the LongLat coordinate of user's current location, round 3 dec places
+                    //TODO: Find a way to do this without temporarily converting to String ?
+                    DecimalFormat numberFormat = new DecimalFormat("#.000");
+                    String lonStr = numberFormat.format(locationLongitude);
+                    String latStr = numberFormat.format(locationLatitude);
+                    double lon = Double.parseDouble(lonStr);
+                    double lat = Double.parseDouble(latStr);
+
+                    LongLat currentLocation = new LongLat(lon, lat);
+
+                    //Add current location to the collection of coordinates visited within this walk
+                    thisWalk.addNextCoordinate(currentLocation);
+                }
+            }
+            finally {
+                handler.postDelayed(mStatusChecker, 3000); //3000
+            }
+        }
+    };
 
     void getLocation() {
         try {
@@ -143,40 +143,68 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         }
     }
 
-
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        locationText = location.getLatitude() + "," + location.getLongitude();
-        locationLatitude = location.getLatitude() + "";
-        locationLongitude = location.getLongitude() + "";
+        //these are of type double
+        locationLatitude = location.getLatitude();
+        locationLongitude = location.getLongitude();
     }
+
+
+    @Override public void onDestroy() {
+        super.onDestroy(); stopRepeatingTask(); }
+
 
     @Override public void onProviderDisabled(String provider) {
         Toast.makeText(WalkTracker.this, "Please Enable GPS",
                 Toast.LENGTH_SHORT).show();
     }
 
-    // TODO: Figure out how to end the tracker safely and then display distance to user
-    public void onClick(View view) {
-
-        stopRepeatingTask();
-        mStatusChecker = null;
-        Walk.setWalkCounter();
-
+    //Upon stopping the walk:
+    // - calculate the total distance of the walk
+    // - jump off the main thread and go fetch the User's database records for updating
+    // - deserialize from JSON to User object
+    // - update that User object to reflect the changes (the new walk)
+    // - Put that updatedUser back into the database
+    public void onClickStopButton(View v) {
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Walk Complete");
-        popup.setMessage("Walk is over! Give your dog a pat and click 'calculate' to see distance of walk.");
-        popup.setPositiveButton("CALCULATE", (dialog, which) -> {
-            Intent intent = new Intent(this, MyStats.class);
-            intent.putExtra(MainActivity.USERKEY, username);
-            startActivity(intent);
+        popup.setMessage("Are you sure?");
+        popup.setNegativeButton("Resume", (dialog, which) -> {
+
+        });
+        popup.setPositiveButton("Done", (dialog, which) -> {
+            stopRepeatingTask();
+            mStatusChecker = null;
+            //EFFECT: calculateFinalDistance updates the "long finalDistance" field of thisWalk
+            thisWalk.calculateFinalDistance();
+            DatabaseReference user = mDatabase.child(username);
+
+            //Use utility classes to jump off the main thread when fetching and putting info in the db
+            JSONObject jsonUser = new FetchDBInfoUtil().getResults(user);
+            User userToUpdate = User.deserialize(jsonUser);
+            userToUpdate.addWalk(thisWalk); //updating user here
+            new PutDBInfoUtil().setValue(user, userToUpdate);//update database off main thread
+
+            //move to stats
+            openStatsPage();
+
         });
         popup.show();
-
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomePage.class);
+        intent.putExtra(MainActivity.USERKEY,username);
+        startActivity(intent);
+        finish();
+    }
+
+    public void openStatsPage(){
+        Intent intent = new Intent(this, MyStats.class);
+        intent.putExtra(MainActivity.USERKEY, username);
+        startActivity(intent);
     }
 
 }
