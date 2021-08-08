@@ -28,10 +28,10 @@
         android:text="@string/email"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@id/guideline2"
         app:layout_constraintBottom_toTopOf="@id/guideline3"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
-        app:layout_constraintStart_toStartOf="@id/guideline8" />
+        app:layout_constraintStart_toStartOf="@id/guideline8"
+        app:layout_constraintTop_toTopOf="@id/guideline2" />
 
     <EditText
         android:id="@+id/email_input"
@@ -41,10 +41,10 @@
         android:hint="@string/enter_email_here"
         app:layout_constraintBottom_toTopOf="@id/guideline3"
         app:layout_constraintEnd_toEndOf="@id/guideline9"
-        app:layout_constraintHorizontal_bias="0.259"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline2"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/username_tv"
@@ -53,10 +53,10 @@
         android:text="@string/username"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guideline8"
-        app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintBottom_toBottomOf="@id/guideline4"
-        app:layout_constraintTop_toTopOf="@id/guideline3"/>
+        app:layout_constraintEnd_toEndOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="@id/guideline8"
+        app:layout_constraintTop_toTopOf="@id/guideline3" />
 
     <TextView
         android:id="@+id/password_tv"
@@ -65,10 +65,10 @@
         android:text="@string/password"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guideline8"
+        app:layout_constraintBottom_toBottomOf="@id/guideline5"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
-        app:layout_constraintTop_toTopOf="@id/guideline4"
-        app:layout_constraintBottom_toBottomOf="@id/guideline5"/>
+        app:layout_constraintStart_toStartOf="@id/guideline8"
+        app:layout_constraintTop_toTopOf="@id/guideline4" />
 
     <EditText
         android:id="@+id/username_input"
@@ -76,10 +76,12 @@
         android:layout_height="wrap_content"
         android:autofillHints="@string/enter_username_here"
         android:hint="@string/enter_username_here"
-        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintBottom_toBottomOf="@id/guideline4"
         app:layout_constraintEnd_toEndOf="@id/guideline9"
+        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline3"
-        app:layout_constraintBottom_toBottomOf="@id/guideline4"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/password_input"
@@ -88,10 +90,12 @@
         android:autofillHints="@string/enter_password_here"
         android:hint="@string/enter_password_here"
         android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintBottom_toBottomOf="@id/guideline5"
         app:layout_constraintEnd_toEndOf="@id/guideline9"
+        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline4"
-        app:layout_constraintBottom_toBottomOf="@id/guideline5"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/dog_name_input"
@@ -99,10 +103,11 @@
         android:layout_height="wrap_content"
         android:autofillHints="@string/enter_dog_name_here"
         android:hint="@string/enter_dog_name_here"
-        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintBottom_toBottomOf="@id/guideline6"
         app:layout_constraintEnd_toEndOf="@id/guideline9"
-        app:layout_constraintTop_toTopOf="@id/guideline5"
-        app:layout_constraintBottom_toBottomOf="@id/guideline6"/>
+        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="@id/guideline5" />
 
     <TextView
         android:id="@+id/dog_name_tv"
@@ -114,8 +119,7 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline6"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline8"
-        app:layout_constraintTop_toTopOf="@id/guideline5"
-   />
+        app:layout_constraintTop_toTopOf="@id/guideline5" />
 
     <Button
         android:id="@+id/signUp_btn_on_signUp_page"
@@ -123,11 +127,12 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#ffb347"
         android:text="@string/sign_up"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline7"
-        />
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintVertical_bias="0.533" />
 
     <androidx.constraintlayout.widget.Barrier
         android:layout_width="wrap_content"
@@ -141,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="166dp" />
+        app:layout_constraintGuide_end="227dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -190,14 +195,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="32dp" />
+        app:layout_constraintGuide_end="361dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="380dp" />
+        app:layout_constraintGuide_end="33dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

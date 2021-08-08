@@ -23,7 +23,7 @@ public class GPSActivity extends AppCompatActivity {
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
-    String API_KEY =  "AIzaSyA_4czHi0sxfMnlOO3_icmMe8RpeudtjW8";
+    String API_KEY = "AIzaSyA_4czHi0sxfMnlOO3_icmMe8RpeudtjW8";
     private Button mapButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
