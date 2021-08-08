@@ -25,9 +25,11 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
-import edu.neu.madcourse.topdog.DatabaseObjects.FetchInfoFromDatabse;
+import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.LongLat;
+import edu.neu.madcourse.topdog.DatabaseObjects.PutDBInfoUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
 import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
 
@@ -52,8 +54,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
         username = getIntent().getStringExtra(MainActivity.USERKEY);
 
-        LocalDateTime now = LocalDateTime.now();
-        thisWalk = new Walk(now);
+        thisWalk = new Walk(new Date().getTime());
 
         Button startBtn = findViewById(R.id.startWalk_btn);
         startBtn.setOnClickListener(this::onClickStartButton);
@@ -115,6 +116,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                     String latStr = numberFormat.format(locationLatitude);
                     double lon = Double.parseDouble(lonStr);
                     double lat = Double.parseDouble(latStr);
+
                     LongLat currentLocation = new LongLat(lon, lat);
 
                     //Add current location to the collection of coordinate visited within this walk
@@ -164,27 +166,17 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         long distance = thisWalk.calculateFinalDistance();
         DatabaseReference user = mDatabase.child(username);
 
-        //Jump off main thread to worker thread//
-        String url = user.toString() + ".json";
-        FetchInfoFromDatabse fetchRequest = new FetchInfoFromDatabse(url);
-        new Thread(fetchRequest).start();
-        try {
-            //to avoid a data race TODO: come up with a better solution than this
-            Thread.sleep(1000);
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-        JSONObject results = fetchRequest.getResults();
-
-        //EFFECT: updatedUser is set with all fields set to information from the database
-        User updatedUser = User.deserialize(results);
-        user.setValue(updatedUser);
+        //Use utility classes to jump off the main thread when fetching and putting info in the db
+        JSONObject jsonUser = new FetchDBInfoUtil().getResults(user);
+        User updatedUser = User.deserialize(jsonUser);
+        updatedUser.addWalk(thisWalk);
+        new PutDBInfoUtil().setValue(user, updatedUser);
 
         /////////////////////////////////////////
         AlertDialog.Builder popup = new AlertDialog.Builder(WalkTracker.this);
         popup.setTitle("Walk Complete");
-        popup.setMessage("Walk is over! Give your dog a pat and click 'calculate' to see distance of walk.");
-        popup.setPositiveButton("CALCULATE", (dialog, which) -> {
+        popup.setMessage("Walk is over! Give your dog a pat, today you walked " + distance + " units");
+        popup.setPositiveButton("Done", (dialog, which) -> {
             Intent intent = new Intent(this, MyStats.class);
             intent.putExtra(MainActivity.USERKEY, username);
             startActivity(intent);

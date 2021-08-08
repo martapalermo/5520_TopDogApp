@@ -22,13 +22,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import edu.neu.madcourse.topdog.DatabaseObjects.PutDBInfoUtil;
+
 import static android.content.ContentValues.TAG;
 
 //Log in page
 public class MainActivity extends AppCompatActivity {
 
     /* Used to transfer the current user's username from one activity to another
-    Search for " intent.putExtra(USERKEY, currentUserName); " for example */
+    Search for " intent.putExtra(USERKEY, currentUserName); " for use example */
     final static String USERKEY = "CURRENT_USER";
     final static String TOKENKEY = "CURRENT_TOKEN";
 
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 } else {
                     //if another device log-ins to the account this token will now be updated to that phone
-                    mDatabase.child(username).child("token").setValue(token);//update token of existing user
+                    new PutDBInfoUtil().setValue(mDatabase.child(username).child("token"), token);
                     openHomepage();
                 }
             }

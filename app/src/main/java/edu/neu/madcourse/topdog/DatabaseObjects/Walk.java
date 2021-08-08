@@ -7,9 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 //Represents a single walk that a user can go on with their pet
@@ -21,14 +19,14 @@ public class Walk implements Serializable {
     //coordinates is a list of LongLat (a longitude and latitude pair) that represent physical
     //geographical locations that were visited during the walk
     public ArrayList<LongLat> coordinates;
-    public LocalDateTime timeOfWalk;
+    public long timeOfWalk;
     public long finalDistance;
 
     public Walk () {
         // Default constructor required for calls to DataSnapshot.getValue(Walk.class)
     }
 
-    public Walk(LocalDateTime dateOfWalk) {
+    public Walk(long dateOfWalk) {
         this.coordinates = new ArrayList<>();
         this.timeOfWalk = dateOfWalk;
         this.finalDistance = 0;
@@ -80,9 +78,9 @@ public class Walk implements Serializable {
         this.coordinates = coordinates;
     }
 
-    public LocalDateTime getTimeOfWalk() { return this.timeOfWalk; }
+    public long getTimeOfWalk() { return this.timeOfWalk; }
 
-    public void setTimeOfWalk(LocalDateTime timeOfWalk) { this.timeOfWalk = timeOfWalk; }
+    public void setTimeOfWalk(long timeOfWalk) { this.timeOfWalk = timeOfWalk; }
 
     public long getFinalDistance(){ return this.finalDistance; }
 
@@ -103,7 +101,7 @@ public class Walk implements Serializable {
             String timeOfWalk = jsonWalk.get("timeOfWalk").toString();
 
             returnWalk.setCoordinates(coordinates);
-            returnWalk.setTimeOfWalk(LocalDateTime.parse(timeOfWalk));
+            returnWalk.setTimeOfWalk(Long.parseLong(timeOfWalk));
             returnWalk.setFinalDistance(Integer.parseInt(finalDistance));
         } catch (JSONException e){
             System.out.println("JSON ERROR: WALK -> " + e.toString());

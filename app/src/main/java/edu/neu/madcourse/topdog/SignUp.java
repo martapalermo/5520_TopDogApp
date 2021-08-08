@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import edu.neu.madcourse.topdog.DatabaseObjects.PutDBInfoUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
 
 public class SignUp extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class SignUp extends AppCompatActivity {
         token = getIntent().getStringExtra(MainActivity.TOKENKEY);
 
 
-        //Update the usernameInput with whatever the user entered in the main Activity,
+        //Update the usernameInput with whatever the user entered in the main log in page,
         // for ease of use (so they dont have to re-type their preferred username if they typed it
         // into the main activity page already)
         EditText usernameInput = findViewById(R.id.username_input);
@@ -45,11 +46,11 @@ public class SignUp extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkUserExists_andSignUp();
-                //from checkUserExists_andSignUp() starts a method-chain that leads to:
+                //checkUserExists_andSignUp() starts a method-chain that leads to:
                 // - saveUserToDatabase();
                 // - openHomepage();
                 // ^methods are chained from previous method to follow appropriate logic flow
+                checkUserExists_andSignUp();
             }
         });
     }
@@ -63,7 +64,7 @@ public class SignUp extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild(username)) {
                     //if the username is not taken:
-                    saveUserToDatabase();//also launches homepage
+                    saveUserToDatabase();
                 } else {
                     Toast.makeText(SignUp.this, "Oops! Username is already taken.",
                             Toast.LENGTH_LONG).show();
@@ -89,16 +90,14 @@ public class SignUp extends AppCompatActivity {
             Toast.makeText(SignUp.this, "Please enter a valid email",
                     Toast.LENGTH_SHORT).show();
         } else {
-            //Save user info to the database:
+            //Save user info to the database & launch homepage:
             User currentUser = new User(username, token, email, dogName);
-            mDatabase.child(username).setValue(currentUser);
-            //Launch homepage
+            new PutDBInfoUtil().setValue(mDatabase.child(username), currentUser);
             openHomepage();
         }
     }
 
     public void openHomepage() {
-        //Finally, launch homepage:
         Intent intent = new Intent(this, HomePage.class);
         intent.putExtra(MainActivity.USERKEY, username);
         startActivity(intent);
