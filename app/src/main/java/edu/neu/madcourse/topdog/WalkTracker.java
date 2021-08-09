@@ -91,7 +91,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         handler.postDelayed(() -> {
             Handler mHandler = new Handler();
             startRepeatingTask(); //and mStatusChecker displays location to the user
-        }, 5000); //5 seconds - 5000
+        }, 500); //5 seconds - 5000
     }
 
 
