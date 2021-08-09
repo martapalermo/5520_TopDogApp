@@ -144,7 +144,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     }
 
     @Override
-    public void onLocationChanged(@NonNull Location location) {
+    public void onLocationChanged(Location location) {
         //these are of type double
         locationLatitude = location.getLatitude();
         locationLongitude = location.getLongitude();
