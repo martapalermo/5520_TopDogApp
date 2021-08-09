@@ -34,7 +34,7 @@ public class HomePage extends AppCompatActivity {
         ImageButton myLeaderboard = findViewById(R.id.leaderboard_btn);
         myLeaderboard.setOnClickListener(v -> openMyLeaderboard());
 
-        Button letsWalk = findViewById(R.id.letsWalk_btn);
+        ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
         letsWalk.setOnClickListener(v -> openWalkTracker());
 
         Button gpsTestingButton = findViewById(R.id.gpsTestingButton);
