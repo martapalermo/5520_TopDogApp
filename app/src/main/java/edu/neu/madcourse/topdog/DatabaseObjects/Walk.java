@@ -1,7 +1,9 @@
 package edu.neu.madcourse.topdog.DatabaseObjects;
 
+import android.location.Location;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import org.json.JSONArray;
@@ -40,30 +42,21 @@ public class Walk implements Serializable {
         this.finalDistance = 0;
     }
 
-    //adds the next coordinate of the walk to the list of coordinates
-    public void addNextCoordinate(LongLat coordinate) {
-        this.coordinates.add(coordinate);
+    //function to get distance between two locations (LatLng)
+    public static float distanceBetween(LongLat first, LongLat second) {
+        float[] distance = new float[1];
+        Location.distanceBetween(first.getLatitude(), first.getLongitude(), second.getLatitude(), second.getLongitude(), distance);
+        return distance[0];
     }
 
-    //gathers all the coordinates in the single walk and calculates the DISTANCE covered in the walk
-    //EFFECT: returns finalDistance AND updates field this.finalDistance
     public long calculateFinalDistance(){
         long result = 0;
         if (coordinates.size() == 0) return result;
         else {
-
-            //this is here just incase the user exits the app before a second coordinate is retrieved
             if(coordinates.size() >= 2) {
-
                 //looping through coordinates and calculating the result
                 for (int i = 1; i < coordinates.size(); i++) {
-                    double firstLat = coordinates.get(i - 1).getLatitude();
-                    double firstLong = coordinates.get(i - 1).getLongitude();
-
-                    double secondLat = coordinates.get(i).getLatitude();
-                    double secondLong = coordinates.get(i).getLongitude();
-
-                    result += calculateDistanceInKilometer(firstLat, firstLong, secondLat, secondLong);
+                    result += distanceBetween(coordinates.get(i), coordinates.get(i-1));
                 }
                 this.finalDistance = result;
                 return result;
@@ -71,6 +64,38 @@ public class Walk implements Serializable {
             return result;
         }
     }
+
+    //adds the next coordinate of the walk to the list of coordinates
+    public void addNextCoordinate(LongLat coordinate) {
+        this.coordinates.add(coordinate);
+    }
+//
+//    //gathers all the coordinates in the single walk and calculates the DISTANCE covered in the walk
+//    //EFFECT: returns finalDistance AND updates field this.finalDistance
+//    public long calculateFinalDistance(){
+//        long result = 0;
+//        if (coordinates.size() == 0) return result;
+//        else {
+//
+//            //this is here just incase the user exits the app before a second coordinate is retrieved
+//            if(coordinates.size() >= 2) {
+//
+//                //looping through coordinates and calculating the result
+//                for (int i = 1; i < coordinates.size(); i++) {
+//                    double firstLat = coordinates.get(i - 1).getLatitude();
+//                    double firstLong = coordinates.get(i - 1).getLongitude();
+//
+//                    double secondLat = coordinates.get(i).getLatitude();
+//                    double secondLong = coordinates.get(i).getLongitude();
+//
+//                    result += calculateDistanceInKilometer(firstLat, firstLong, secondLat, secondLong);
+//                }
+//                this.finalDistance = result;
+//                return result;
+//            }
+//            return result;
+//        }
+//    }
 
     private int calculateDistanceInKilometer(double firstLat, double firstLong,
                                             double secondLat, double secondLong) {
