@@ -112,7 +112,7 @@ public class Walk implements Serializable {
                 }
             }
             String finalDistance = jsonWalk.get("finalDistance").toString();
-            String timeOfWalk = jsonWalk.get("timeOfWalk").toString();
+            String timeOfWalk = jsonWalk.get("walkDuration").toString();
 
             returnWalk.setCoordinates(coordinates);
             returnWalk.setWalkDuration(Long.parseLong(timeOfWalk));

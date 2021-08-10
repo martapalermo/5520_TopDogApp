@@ -194,7 +194,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
             double finalWalkTimeLong = Double.parseDouble(finalWalkString);
 
             thisWalk.setWalkDuration((long) finalWalkTimeLong);
-            
+
             //EFFECT: calculateFinalDistance updates the "long finalDistance" field of thisWalk
             thisWalk.calculateFinalDistance();
             DatabaseReference user = mDatabase.child(username);
