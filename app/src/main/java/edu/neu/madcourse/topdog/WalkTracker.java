@@ -188,11 +188,13 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
             float finalWalkTime = endOfWalkTime - thisWalk.getWalkDuration();
             //converts time from milliseconds to seconds then to minutes
             finalWalkTime = finalWalkTime/1000/60;
-            finalWalkTime = Math.round(finalWalkTime);
 
-            thisWalk.setWalkDuration((long) finalWalkTime);
+            DecimalFormat numberFormat = new DecimalFormat("#.00");
+            String finalWalkString = numberFormat.format(finalWalkTime);
+            double finalWalkTimeLong = Double.parseDouble(finalWalkString);
 
-
+            thisWalk.setWalkDuration((long) finalWalkTimeLong);
+            
             //EFFECT: calculateFinalDistance updates the "long finalDistance" field of thisWalk
             thisWalk.calculateFinalDistance();
             DatabaseReference user = mDatabase.child(username);
