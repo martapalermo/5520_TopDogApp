@@ -57,7 +57,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
         username = getIntent().getStringExtra(MainActivity.USERKEY);
 
-        thisWalk = new Walk(new Date().getTime());
+
 
         Button startBtn = findViewById(R.id.startWalk_btn);
         Button stopBtn = findViewById(R.id.stopWalk_btn);
@@ -89,6 +89,10 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                     Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
         }
 
+        thisWalk = new Walk(new Date().getTime());
+
+        //get initial time 165023i1203420
+        //get end time 165023i12101921
         //start the geo location reading
         handler.postDelayed(() -> {
             Handler mHandler = new Handler();
@@ -179,6 +183,18 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         popup.setPositiveButton("Done", (dialog, which) -> {
             stopRepeatingTask();
             mStatusChecker = null;
+
+            float endOfWalkTime = new Date().getTime();
+
+            //the finalWalkTime in miliseconds
+            float finalWalkTime = endOfWalkTime - thisWalk.getStartOfWalk();
+            //converts time from milliseconds to seconds then to minutes
+            finalWalkTime = finalWalkTime/1000/60;
+            finalWalkTime = Math.round(finalWalkTime);
+
+            thisWalk.setTimeOfWalk((long) finalWalkTime);
+
+
             //EFFECT: calculateFinalDistance updates the "long finalDistance" field of thisWalk
             thisWalk.calculateFinalDistance();
             DatabaseReference user = mDatabase.child(username);

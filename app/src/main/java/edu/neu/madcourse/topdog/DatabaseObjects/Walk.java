@@ -30,16 +30,35 @@ public class Walk implements Serializable {
     //geographical locations that were visited during the walk
     public ArrayList<LongLat> coordinates;
     public long timeOfWalk; //TODO : method for converting miliseconds into actual date and time
+    public long startOfWalk;
+
+    public long endOfWalk;
     public long finalDistance;
 
     public Walk () {
         // Default constructor required for calls to DataSnapshot.getValue(Walk.class)
     }
 
-    public Walk(long dateOfWalk) {
+    public Walk(long startOfWalk) {
         this.coordinates = new ArrayList<>();
-        this.timeOfWalk = dateOfWalk;
+        this.startOfWalk = startOfWalk;
         this.finalDistance = 0;
+    }
+
+    public long getStartOfWalk() {
+        return startOfWalk;
+    }
+
+    public void setStartOfWalk(long startOfWalk) {
+        this.startOfWalk = startOfWalk;
+    }
+
+    public long getEndOfWalk() {
+        return endOfWalk;
+    }
+
+    public void setEndOfWalk(long endOfWalk) {
+        this.endOfWalk = endOfWalk;
     }
 
     //function to get distance between two locations (LatLng)
