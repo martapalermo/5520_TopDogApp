@@ -21,6 +21,8 @@ import androidx.core.content.ContextCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
@@ -136,8 +138,9 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    2000, 5, (LocationListener) this);
+//            locationManager.reque
+            locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 1000, 2, (LocationListener) this);
         } catch(SecurityException e) {
             e.printStackTrace();
         }
