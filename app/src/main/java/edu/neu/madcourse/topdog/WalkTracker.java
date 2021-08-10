@@ -13,15 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
 
 import org.json.JSONObject;
 
@@ -57,8 +54,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
         username = getIntent().getStringExtra(MainActivity.USERKEY);
 
-
-
         Button startBtn = findViewById(R.id.startWalk_btn);
         Button stopBtn = findViewById(R.id.stopWalk_btn);
 
@@ -89,6 +84,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                     Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
         }
 
+        //Create a Walk object and capture the start time of the walk
         thisWalk = new Walk(new Date().getTime());
 
         //get initial time 165023i1203420
@@ -187,12 +183,14 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
             float endOfWalkTime = new Date().getTime();
 
             //the finalWalkTime in miliseconds
-            float finalWalkTime = endOfWalkTime - thisWalk.getStartOfWalk();
+            //Currently, the "walkDuration" field holds the start time of the walk
+            //it is then replaced with the walk duration now that we have the endOfWalkTime
+            float finalWalkTime = endOfWalkTime - thisWalk.getWalkDuration();
             //converts time from milliseconds to seconds then to minutes
             finalWalkTime = finalWalkTime/1000/60;
             finalWalkTime = Math.round(finalWalkTime);
 
-            thisWalk.setTimeOfWalk((long) finalWalkTime);
+            thisWalk.setWalkDuration((long) finalWalkTime);
 
 
             //EFFECT: calculateFinalDistance updates the "long finalDistance" field of thisWalk
