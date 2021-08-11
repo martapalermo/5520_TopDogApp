@@ -15,7 +15,7 @@ public class User implements Serializable {
     public String token;
     public String email;
     public String dogName;
-    public int dogAge;
+    public String dogAge;
     public ArrayList<Walk> walkList;
     public String profilePicUri;
 
@@ -23,12 +23,12 @@ public class User implements Serializable {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username, String token, String email, String dogName){
+    public User(String username, String token, String email, String dogName, String dogAge){
         this.username = username; //dog name
         this.token = token;
         this.email = email;
         this.dogName = dogName; // user's name
-        this.dogAge = 0;
+        this.dogAge = "0";
         this.walkList = new ArrayList<>();
         profilePicUri = "";
     }
@@ -53,7 +53,7 @@ public class User implements Serializable {
         return this.dogName;
     }
 
-    public int getDogAge() {
+    public String getDogAge() {
         return this.dogAge;
     }
 
@@ -77,7 +77,7 @@ public class User implements Serializable {
         this.dogName = dogName;
     }
 
-    public void setDogAge(int age) { this.dogAge = age; }
+    public void setDogAge(String age) { this.dogAge = age; }
 
     public void setWalkList(ArrayList<Walk> walkList) { this.walkList = walkList; }
 
@@ -105,7 +105,7 @@ public class User implements Serializable {
             returnUser.setToken(token);
             returnUser.setEmail(email);
             returnUser.setDogName(dogName);
-            returnUser.setDogAge(Integer.parseInt(dogAge));
+            returnUser.setDogAge(dogAge);
             returnUser.setWalkList(walkList);
 
         } catch (JSONException e) {

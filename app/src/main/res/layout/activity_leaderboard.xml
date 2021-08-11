@@ -1,22 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".Leaderboard">
+    tools:context=".Leaderboard"
+    android:id="@+id/linearLayout2">
+
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        app:srcCompat="@drawable/myleaderhead" />
+        android:id="@+id/topdog"
+        android:layout_width="351dp"
+        android:layout_height="89dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/myleaderhead"
+        tools:layout_conversion_absoluteHeight="50
+        dp"
+        tools:layout_conversion_absoluteWidth="411dp" />
+
+    <ImageView
+        android:id="@+id/gold"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/silver"
+        app:layout_constraintEnd_toStartOf="@id/leaderboard_listview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topdog"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/goldmedal" />
+
+    <ImageView
+        android:id="@+id/silver"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/leaderboard_listview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topdog"
+        app:layout_constraintVertical_bias="0.084"
+        app:srcCompat="@drawable/silvermedal" />
+
+    <ImageView
+        android:id="@+id/silver2"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/leaderboard_listview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/silver"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bronze" />
+
+    <ImageView
+        android:id="@+id/bone"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/leaderboard_listview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/silver2"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bone" />
+
+    <ImageView
+        android:id="@+id/bone2"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/leaderboard_listview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bone"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bone" />
+
+    <ImageView
+        android:id="@+id/bone3"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/leaderboard_listview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bone2"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bone" />
+
+    <ImageView
+        android:id="@+id/bone4"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/leaderboard_listview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bone3"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bone" />
+
+    <ImageView
+        android:id="@+id/bone5"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/leaderboard_listview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bone4"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bone" />
 
     <ListView
         android:id="@+id/leaderboard_listview"
-        android:layout_width="match_parent"
-        android:layout_height="449dp" />
+        android:layout_width="325dp"
+        android:layout_height="596dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gold"
+        tools:layout_conversion_absoluteHeight="449dp"
+        tools:layout_conversion_absoluteWidth="411dp"></ListView>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

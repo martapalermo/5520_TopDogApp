@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Dog Name"
+        android:text="Username"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
@@ -116,6 +116,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline12"
         app:layout_constraintVertical_bias="0.096"
+        android:backgroundTint="@android:color/white"
         app:srcCompat="@drawable/goldenpawtext" />
 
     <androidx.constraintlayout.widget.Guideline

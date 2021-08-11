@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import edu.neu.madcourse.topdog.DatabaseObjects.LeaderboardEntry;
 
@@ -52,12 +53,12 @@ public class Leaderboard extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @org.jetbrains.annotations.NotNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    leaderboardEntries.add(new LeaderboardEntry(childSnapshot.getKey(),childSnapshot.child("walks").getChildrenCount()));
+                    leaderboardEntries.add(new LeaderboardEntry(childSnapshot.getKey(), Objects.requireNonNull(childSnapshot.child("dogName").getValue()).toString(), childSnapshot.child("walkList").getChildrenCount()));
                 }
                 leaderboardEntries.sort((o1, o2) -> Long.compare(o2.getNumberWalks(), o1.getNumberWalks()));
 
                 for (int i = 0; i < leaderboardEntries.size(); i++) {
-                    currentLeaders.add(leaderboardEntries.get(i).getUsername());
+                    currentLeaders.add(leaderboardEntries.get(i).getDogName());
                 }
                 System.out.println(currentLeaders);
                 listView.setAdapter(arrayAdapter);

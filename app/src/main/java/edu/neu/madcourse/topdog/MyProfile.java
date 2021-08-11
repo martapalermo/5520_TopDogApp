@@ -44,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
@@ -59,7 +60,6 @@ import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
 public class MyProfile extends AppCompatActivity {
 
     private String username;
-    EditText petAge;
     ImageView selectedImage;
     Button mGalleryBtn;
     String currentPhotoPath;
@@ -80,15 +80,33 @@ public class MyProfile extends AppCompatActivity {
 //        }
 
 
-        storageReference = FirebaseStorage.getInstance().getReference();
-
         username = getIntent().getStringExtra(MainActivity.USERKEY);
+        storageReference = FirebaseStorage.getInstance().getReference();
+        DatabaseReference nameReference = FirebaseDatabase.getInstance().getReference().child("USERS").child(username);
+
+        JSONObject desiredInformation = new FetchDBInfoUtil().getResults(nameReference);
+
+
+
         TextView enterPetName = findViewById(R.id.enterPetName);
-        String displayString = username;
+        TextView petAge = findViewById(R.id.enterPetAge_et);
+
+        String dogAge = null;
+        String displayString = null;
+        try {
+            displayString = desiredInformation.getString("dogName");
+            dogAge = desiredInformation.getString("dogAge");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         enterPetName.setText(displayString);
+        petAge.setText(dogAge);
+
+
+
 
         // views
-        petAge = findViewById(R.id.enterPetAge_et);
+
         selectedImage = findViewById(R.id.image_view);
         mGalleryBtn = findViewById(R.id.galleryBtn);
 

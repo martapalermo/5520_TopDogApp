@@ -83,12 +83,13 @@
         app:layout_constraintStart_toStartOf="@id/guideline4"
         app:layout_constraintTop_toBottomOf="@id/guideline2" />
 
-    <EditText
+    <TextView
         android:id="@+id/enterPetAge_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:hint="Enter pet age here"
-        android:textSize="15dp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="@id/guideline4"
