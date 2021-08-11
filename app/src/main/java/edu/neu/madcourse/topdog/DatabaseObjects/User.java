@@ -17,6 +17,7 @@ public class User implements Serializable {
     public String dogName;
     public int dogAge;
     public ArrayList<Walk> walkList;
+    public String profilePicUri;
 
     public User () {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -29,6 +30,7 @@ public class User implements Serializable {
         this.dogName = dogName;
         this.dogAge = 0;
         this.walkList = new ArrayList<>();
+        profilePicUri = "";
     }
 
     public void addWalk(Walk walk) {
@@ -57,6 +59,8 @@ public class User implements Serializable {
 
     public ArrayList<Walk> getWalkList() { return this.walkList;}
 
+    public String getProfilePicUri() { return this.profilePicUri; }
+
     public void setUsername(String username){
         this.username = username;
     }
@@ -76,6 +80,9 @@ public class User implements Serializable {
     public void setDogAge(int age) { this.dogAge = age; }
 
     public void setWalkList(ArrayList<Walk> walkList) { this.walkList = walkList; }
+
+    public void setProfilePicUri(String profilePic) { this.profilePicUri = profilePic; }
+
 
     public static User deserialize(JSONObject jsonUser) {
         User returnUser = new User();

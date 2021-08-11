@@ -27,14 +27,14 @@ public class Walk implements Serializable {
     //coordinates is a list of LongLat (a longitude and latitude pair) that represent physical
     //geographical locations that were visited during the walk
     public ArrayList<LongLat> coordinates;
-    public long walkDuration;
+    public double walkDuration;
     public long finalDistance;
 
     public Walk () {
         // Default constructor required for calls to DataSnapshot.getValue(Walk.class)
     }
 
-    public Walk(long startOfWalk) {
+    public Walk(double startOfWalk) {
         this.coordinates = new ArrayList<>();
         this.walkDuration = startOfWalk;
         this.finalDistance = 0;
@@ -76,9 +76,9 @@ public class Walk implements Serializable {
         this.coordinates = coordinates;
     }
 
-    public long getWalkDuration() { return this.walkDuration; }
+    public double getWalkDuration() { return this.walkDuration; }
 
-    public void setWalkDuration(long walkDuration) { this.walkDuration = walkDuration;}
+    public void setWalkDuration(double walkDuration) { this.walkDuration = walkDuration;}
 
     public long getFinalDistance(){ return this.finalDistance; }
 
@@ -99,7 +99,7 @@ public class Walk implements Serializable {
             String walkDuration = jsonWalk.get("walkDuration").toString();
 
             returnWalk.setCoordinates(coordinates);
-            returnWalk.setWalkDuration(Long.parseLong(walkDuration));
+            returnWalk.setWalkDuration(Double.parseDouble(walkDuration));
             returnWalk.setFinalDistance(Integer.parseInt(finalDistance));
         } catch (JSONException e){
             System.out.println("JSON ERROR: WALK -> " + e.toString());
