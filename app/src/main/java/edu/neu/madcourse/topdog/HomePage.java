@@ -22,7 +22,7 @@ public class HomePage extends AppCompatActivity {
         username = getIntent().getStringExtra(MainActivity.USERKEY);
 
         TextView welcomeMsg = findViewById(R.id.welcome_msg);
-        String displayString = "Welcome " + username + "!";
+        String displayString = "Welcome, " + username + "'s owner!";
         welcomeMsg.setText(displayString);
 
         ImageButton myProfile = findViewById(R.id.myProfile_btn);

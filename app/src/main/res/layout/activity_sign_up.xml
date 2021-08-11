@@ -46,17 +46,20 @@
         app:layout_constraintTop_toTopOf="@id/guideline2"
         app:layout_constraintVertical_bias="0.0" />
 
+<!--    will be new dog name -->
     <TextView
         android:id="@+id/username_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/username"
+        android:text="Dog Name"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/guideline4"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline8"
         app:layout_constraintTop_toTopOf="@id/guideline3" />
+<!--        android:text="@string/username"-->
+
 
     <TextView
         android:id="@+id/password_tv"
@@ -109,11 +112,12 @@
         app:layout_constraintStart_toStartOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline5" />
 
+<!--    new user's name-->
     <TextView
         android:id="@+id/dog_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dog_name"
+        android:text="Username"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/guideline6"

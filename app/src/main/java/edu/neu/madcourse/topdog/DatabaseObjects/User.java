@@ -24,10 +24,10 @@ public class User implements Serializable {
     }
 
     public User(String username, String token, String email, String dogName){
-        this.username = username;
+        this.username = username; //dog name
         this.token = token;
         this.email = email;
-        this.dogName = dogName;
+        this.dogName = dogName; // user's name
         this.dogAge = 0;
         this.walkList = new ArrayList<>();
         profilePicUri = "";
