@@ -28,7 +28,7 @@ public class User implements Serializable {
         this.token = token;
         this.email = email;
         this.dogName = dogName; // user's name
-        this.dogAge = "0";
+        this.dogAge = dogAge;
         this.walkList = new ArrayList<>();
         profilePicUri = "";
     }

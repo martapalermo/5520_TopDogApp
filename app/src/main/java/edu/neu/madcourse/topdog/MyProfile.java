@@ -146,35 +146,35 @@ public class MyProfile extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            Uri imageData = data.getData();
-
-            selectedImage.setImageURI(imageData);
-        }
-    }
-//        if (requestCode == GALLERY_REQUEST_CODE) {
-//            if (resultCode == Activity.RESULT_OK && data != null) {
-//                Uri contentUri = data.getData();
-//                try {
-//                    InputStream inputStream = getContentResolver().openInputStream(contentUri);
-//                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-//                    selectedImage.setImageBitmap(bitmap);
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//                String imageFileName = "PNG_" + timeStamp + "." + getFileExt(contentUri);
-//                Log.d("tag", "onActivityResult: Gallery Image Uri: " + imageFileName);
-//                selectedImage.setImageURI(contentUri);
-////                setPic();
-////                getPreferences(Context.MODE_PRIVATE).edit().putString("imageUri", currentPhotoPath).apply();
-////                // added for saved instance
-////                mUri = contentUri;
+//        if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+//            Uri imageData = data.getData();
 //
-//                uploadImageToFirebase(imageFileName, contentUri);
-//            }
+//            selectedImage.setImageURI(imageData);
 //        }
 //    }
+        if (requestCode == GALLERY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                Uri contentUri = data.getData();
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(contentUri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    selectedImage.setImageBitmap(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String imageFileName = "PNG_" + timeStamp + "." + getFileExt(contentUri);
+                Log.d("tag", "onActivityResult: Gallery Image Uri: " + imageFileName);
+                selectedImage.setImageURI(contentUri);
+//                setPic();
+//                getPreferences(Context.MODE_PRIVATE).edit().putString("imageUri", currentPhotoPath).apply();
+//                // added for saved instance
+//                mUri = contentUri;
+
+                uploadImageToFirebase(imageFileName, contentUri);
+            }
+        }
+    }
 
 //    private void setPic() {
 //        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
