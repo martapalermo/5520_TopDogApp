@@ -115,16 +115,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
                     Toast.makeText(getApplicationContext(), "Trying to retrieve coordinates.",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    //Find the LongLat coordinate of user's current location, round 3 dec places
-                    //TODO: Find a way to do this without temporarily converting to String ?
-                    DecimalFormat numberFormat = new DecimalFormat("#.000");
-                    String lonStr = numberFormat.format(locationLongitude);
-                    String latStr = numberFormat.format(locationLatitude);
-                    double lon = Double.parseDouble(lonStr);
-                    double lat = Double.parseDouble(latStr);
-
-                    LongLat currentLocation = new LongLat(lon, lat);
-
+                    LongLat currentLocation = new LongLat(locationLongitude, locationLatitude);
                     //Add current location to the collection of coordinates visited within this walk
                     thisWalk.addNextCoordinate(currentLocation);
                 }
@@ -138,9 +129,8 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
     void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//            locationManager.reque
             locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, 1000, 2, (LocationListener) this);
+                    LocationManager.GPS_PROVIDER, 1000, 10, (LocationListener) this);
         } catch(SecurityException e) {
             e.printStackTrace();
         }
@@ -152,7 +142,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
         locationLatitude = location.getLatitude();
         locationLongitude = location.getLongitude();
     }
-
 
     @Override public void onDestroy() {
         super.onDestroy(); stopRepeatingTask(); }
