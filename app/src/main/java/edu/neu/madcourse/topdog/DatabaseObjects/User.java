@@ -29,7 +29,6 @@ public class User implements Serializable {
         this.dogName = dogName;
         this.dogAge = 0;
         this.walkList = new ArrayList<>();
-
     }
 
     public void addWalk(Walk walk) {

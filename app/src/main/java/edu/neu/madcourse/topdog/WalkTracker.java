@@ -180,20 +180,17 @@ public class WalkTracker extends AppCompatActivity implements LocationListener {
             stopRepeatingTask();
             mStatusChecker = null;
 
-            float endOfWalkTime = new Date().getTime();
 
+            long endOfWalkTime = new Date().getTime();
             //the finalWalkTime in miliseconds
-            //Currently, the "walkDuration" field holds the start time of the walk
-            //it is then replaced with the walk duration now that we have the endOfWalkTime
-            float finalWalkTime = endOfWalkTime - thisWalk.getWalkDuration();
+            //at this point, getWalkDuration() actually returns the start time of the walk,
+            //which is captured above when we initialize the Walk object in thisWalk
+            long finalWalkDuration = endOfWalkTime - thisWalk.getWalkDuration();
+
             //converts time from milliseconds to seconds then to minutes
-            finalWalkTime = finalWalkTime/1000/60;
-
-            DecimalFormat numberFormat = new DecimalFormat("#.00");
-            String finalWalkString = numberFormat.format(finalWalkTime);
-            double finalWalkTimeLong = Double.parseDouble(finalWalkString);
-
-            thisWalk.setWalkDuration((long) finalWalkTimeLong);
+            long finalWalkTimeMin = finalWalkDuration/1000/60;
+            long finalWalkDurationRounded = Math.round(finalWalkTimeMin);
+            thisWalk.setWalkDuration(finalWalkDurationRounded);//in minutes!
 
             //EFFECT: calculateFinalDistance updates the "long finalDistance" field of thisWalk
             thisWalk.calculateFinalDistance();
