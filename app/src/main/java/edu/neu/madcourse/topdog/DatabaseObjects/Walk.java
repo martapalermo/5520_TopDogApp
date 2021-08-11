@@ -68,22 +68,6 @@ public class Walk implements Serializable {
         this.coordinates.add(coordinate);
     }
 
-//    private int calculateDistanceInKilometer(double firstLat, double firstLong,
-//                                            double secondLat, double secondLong) {
-//
-//        double latDistance = Math.toRadians(secondLat - firstLat);
-//        double lngDistance = Math.toRadians(secondLong - firstLong);
-//
-//        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-//                + (Math.cos(Math.toRadians(firstLat)) * Math.cos(Math.toRadians(secondLat))
-//                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2));
-//
-//        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-//        return (int) (Math.round(AVERAGE_RADIUS_OF_EARTH_KM * c));
-//    }
-
-
-
     public List<LongLat> getCoordinates(){
         return this.coordinates;
     }
@@ -94,7 +78,7 @@ public class Walk implements Serializable {
 
     public long getWalkDuration() { return this.walkDuration; }
 
-    public void setWalkDuration(long walkDuration) { this.walkDuration = walkDuration; }
+    public void setWalkDuration(long walkDuration) { this.walkDuration = walkDuration;}
 
     public long getFinalDistance(){ return this.finalDistance; }
 
