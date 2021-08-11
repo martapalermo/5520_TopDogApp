@@ -12,67 +12,54 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WELCOME TO MY PROFILE"
+        android:text="WELCOME TO YOUR PROFILE"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@id/guideline18"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="322dp"
-        android:layout_height="289dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="376dp"
+        android:layout_height="300dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_baseline_account_box_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline18" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline3"
+        app:layout_constraintTop_toTopOf="@id/guideline1"
+        />
 
     <Button
         android:id="@+id/galleryBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Gallery"
-        app:layout_constraintBottom_toTopOf="@id/guideline20"
-        app:layout_constraintStart_toEndOf="@id/cameraBtn"
-        app:layout_constraintTop_toBottomOf="@id/image_view"
-        app:layout_constraintVertical_bias="0.492" />
-
-    <Button
-        android:id="@+id/cameraBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:text="Camera"
-        app:layout_constraintBottom_toTopOf="@id/guideline20"
+        android:backgroundTint="#ADD8E6"
+        android:text="Choose from Gallery"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintTop_toBottomOf="@id/guideline3" />
 
     <TextView
         android:id="@+id/petName_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="428dp"
-        android:layout_marginEnd="264dp"
+        android:layout_marginTop="424dp"
+        android:layout_marginEnd="260dp"
         android:text="Pet's Name:"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline18" />
+        app:layout_constraintTop_toBottomOf="@id/guideline1" />
 
     <EditText
         android:id="@+id/enterPetName_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="228dp"
+        android:layout_marginEnd="232dp"
         android:hint="Enter pet name here"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,10 +73,9 @@
         android:layout_marginEnd="104dp"
         android:text="Pet's Age:"
         android:textSize="20dp"
-
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline20" />
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
 
     <EditText
         android:id="@+id/enterPetAge_et"
@@ -114,17 +100,24 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline18"
+        android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="64dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline20"
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="476dp" />
+        app:layout_constraintGuide_begin="473dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="407dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
