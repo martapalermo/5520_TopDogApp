@@ -31,30 +31,23 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".WalkTracker"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:parentActivityName=".HomePage"/>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".MyProfile"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:parentActivityName=".HomePage"/>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".MyStats"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:parentActivityName=".HomePage"/>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".SignUp"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:parentActivityName=".MainActivity" />
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".Leaderboard"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:parentActivityName=".HomePage"/>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".GPSPage.GPSActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:parentActivityName=".HomePage"/>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".GPSPage.MapActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:parentActivityName=".GPSPage.GPSActivity"/>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA_4czHi0sxfMnlOO3_icmMe8RpeudtjW8"/>
