@@ -23,6 +23,7 @@ public class User implements Serializable {
     public String dogAge;
     public ArrayList<Walk> walkList;
     public String profilePicUri;
+    public int numPats;
 
     public User () {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -36,6 +37,7 @@ public class User implements Serializable {
         this.dogAge = dogAge;
         this.walkList = new ArrayList<>();
         profilePicUri = "";
+        numPats = 0;
     }
 
     public void addWalk(Walk walk) {
@@ -66,6 +68,10 @@ public class User implements Serializable {
 
     public String getProfilePicUri() { return this.profilePicUri; }
 
+    public int getNumPats() {
+        return this.numPats;
+    }
+
     public void setUsername(String username){
         this.username = username;
     }
@@ -85,6 +91,12 @@ public class User implements Serializable {
     public void setDogAge(String age) { this.dogAge = age; }
 
     public void setWalkList(ArrayList<Walk> walkList) { this.walkList = walkList; }
+
+    //TODO:
+    public void setNumPats() {
+
+        // something like "onclick": numpats += 1;
+    }
 
     //TODO: create link to selectedImage from MyProfile
     public void setProfilePicUri(String profilePic) {

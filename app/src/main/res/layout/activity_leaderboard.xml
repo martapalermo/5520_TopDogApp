@@ -134,7 +134,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gold"
         tools:layout_conversion_absoluteHeight="449dp"
-        tools:layout_conversion_absoluteWidth="411dp"></ListView>
+        tools:layout_conversion_absoluteWidth="411dp">
+
+    </ListView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

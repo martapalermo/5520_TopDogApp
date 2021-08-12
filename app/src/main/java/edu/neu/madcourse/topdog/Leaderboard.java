@@ -1,6 +1,7 @@
 package edu.neu.madcourse.topdog;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class Leaderboard extends AppCompatActivity {
     ArrayList<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
     ArrayList<String> currentLeaders = new ArrayList<>();
     ListView listView;
-
+    int numPats = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,8 @@ public class Leaderboard extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    leaderboardEntries.add(new LeaderboardEntry(childSnapshot.getKey(), Objects.requireNonNull(childSnapshot.child("dogName").getValue()).toString(), childSnapshot.child("walkList").getChildrenCount()));
+                    leaderboardEntries.add(new LeaderboardEntry(childSnapshot.getKey(),
+                            Objects.requireNonNull(childSnapshot.child("dogName").getValue()).toString(), childSnapshot.child("walkList").getChildrenCount()));
                 }
                 leaderboardEntries.sort((o1, o2) -> Long.compare(o2.getNumberWalks(), o1.getNumberWalks()));
 
@@ -74,7 +76,10 @@ public class Leaderboard extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(Leaderboard.this, "clicked item: " + id + " " + currentLeaders.get(position), Toast.LENGTH_SHORT).show();
+                numPats += 1;
+//                Toast.makeText(Leaderboard.this, "clicked item: " + id + " Pats: " + numPats + currentLeaders.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Leaderboard.this, currentLeaders.get(position) + " now has: " + numPats + " pat(s)!", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
