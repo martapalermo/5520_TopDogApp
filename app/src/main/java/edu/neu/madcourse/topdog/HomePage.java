@@ -1,7 +1,11 @@
 package edu.neu.madcourse.topdog;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,7 +26,7 @@ public class HomePage extends AppCompatActivity {
         username = getIntent().getStringExtra(MainActivity.USERKEY);
 
         TextView welcomeMsg = findViewById(R.id.welcome_msg);
-        String displayString = "Welcome " + username + "!";
+        String displayString = "Welcome, " + username + "!";
         welcomeMsg.setText(displayString);
 
         ImageButton myProfile = findViewById(R.id.myProfile_btn);
@@ -32,7 +36,7 @@ public class HomePage extends AppCompatActivity {
         myStats.setOnClickListener(v -> openMyStats());
 
         ImageButton myLeaderboard = findViewById(R.id.leaderboard_btn);
-        myLeaderboard.setOnClickListener(v -> openMyLeaderboard());
+        myLeaderboard.setOnClickListener(v ->openMyLeaderboard());
 
         ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
         letsWalk.setOnClickListener(v -> openWalkTracker());
@@ -40,6 +44,11 @@ public class HomePage extends AppCompatActivity {
         Button gpsTestingButton = findViewById(R.id.gpsTestingButton);
         gpsTestingButton.setOnClickListener(v-> openGPS());
     }
+
+//    public void openDialog() {
+//        CustomDialog dialog = new CustomDialog();
+//        dialog.show(getSupportFragmentManager(), "custom dialog");
+//    }
 
     public void openGPS(){
         Intent intent = new Intent(this, GPSActivity.class);

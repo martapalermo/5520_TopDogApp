@@ -80,10 +80,12 @@ public class SignUp extends AppCompatActivity {
         //Grab all data from input boxes
         EditText emailInput = findViewById(R.id.email_input);
         EditText dogNameInput = findViewById(R.id.dog_name_input);
+        EditText dogAgeInput = findViewById(R.id.dog_age_input);
         String email = emailInput.getText().toString();
         String dogName = dogNameInput.getText().toString();
+        String dogAge = dogAgeInput.getText().toString();
 
-        if (username.isEmpty() || email.isEmpty() || dogName.isEmpty()){
+        if (username.isEmpty() || email.isEmpty() || dogName.isEmpty() || dogAge.isEmpty()){
             Toast.makeText(SignUp.this, "Please enter all of the above information",
                     Toast.LENGTH_SHORT).show();
         } else if (!email.contains("@") || !email.contains(".")) {
@@ -91,7 +93,7 @@ public class SignUp extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         } else {
             //Save user info to the database & launch homepage:
-            User currentUser = new User(username, token, email, dogName);
+            User currentUser = new User(username, token, email, dogName, dogAge);
             new PutDBInfoUtil().setValue(mDatabase.child(username), currentUser);
             openHomepage();
         }

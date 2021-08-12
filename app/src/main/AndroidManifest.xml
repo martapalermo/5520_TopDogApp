@@ -35,6 +35,15 @@
         <activity
             android:name=".MyProfile"
             android:configChanges="orientation|screenSize|keyboardHidden" />
+        <provider
+            android:authorities="com.edu.neu.madcourse.topdog.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <activity
             android:name=".MyStats"
             android:configChanges="orientation|screenSize|keyboardHidden" />
