@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WELCOME TO YOUR PROFILE"
+        android:textStyle="bold"
         android:textSize="23dp"
         app:layout_constraintBottom_toTopOf="@id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,30 +22,31 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="376dp"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
+        android:layout_width="321dp"
+        android:layout_height="309dp"
         android:saveEnabled="false"
-        android:src="@drawable/ic_baseline_account_box_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/petprofile"
         app:layout_constraintBottom_toTopOf="@id/guideline3"
-        app:layout_constraintTop_toTopOf="@id/guideline1"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline1" />
+
 
     <Button
         android:id="@+id/galleryBtn"
         android:layout_width="248dp"
         android:layout_height="60dp"
-        android:backgroundTint="#ADD8E6"
+        android:backgroundTint="#800000"
         android:text="Choose from Gallery"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline3" />
-
+        app:layout_constraintTop_toBottomOf="@id/guideline3"
+        app:layout_constraintVertical_bias="0.535" />
 
     <TextView
         android:id="@+id/petName_tv"
@@ -118,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="473dp" />
+        app:layout_constraintGuide_begin="453dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
