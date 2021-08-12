@@ -1,20 +1,31 @@
 package edu.neu.madcourse.topdog;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import edu.neu.madcourse.topdog.GPSPage.GPSActivity;
 
 public class HomePage extends AppCompatActivity {
+
+    private static final int ERROR_DIALOG_REQUEST = 9001;
+
+    String API_KEY = "AIzaSyA_4czHi0sxfMnlOO3_icmMe8RpeudtjW8";
+    private Button mapButton;
 
     private String username;
 
@@ -41,8 +52,8 @@ public class HomePage extends AppCompatActivity {
         ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
         letsWalk.setOnClickListener(v -> openWalkTracker());
 
-        Button gpsTestingButton = findViewById(R.id.gpsTestingButton);
-        gpsTestingButton.setOnClickListener(v-> openGPS());
+//        Button gpsTestingButton = findViewById(R.id.gpsTestingButton);
+//        gpsTestingButton.setOnClickListener(v-> openGPS());
     }
 
 //    public void openDialog() {
@@ -58,7 +69,32 @@ public class HomePage extends AppCompatActivity {
     public void openWalkTracker() {
         Intent intent = new Intent(this, WalkTracker.class);
         intent.putExtra(MainActivity.USERKEY, username);
-        startActivity(intent);
+        if (isServicesUpToDate()){
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "Error: GPS/Google Service not up-to-date", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    //checks if GPS services are up-to-date prior to opening walk tracker
+    public boolean isServicesUpToDate(){
+        Log.d("GPS ACTIVITY", "isServicesUpToDate: ");
+        int avaialble = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        if(avaialble == ConnectionResult.SUCCESS){
+            Log.d("GPS ACTIVITY", "isServicesUpToDate: Google play services is working");
+            return true;
+        }else if(GoogleApiAvailability.getInstance().isUserResolvableError(avaialble)){
+            //an error occured like they have the wrong version but is fixablke
+            Log.d("GPS ACTIVITY", "isServicesOK: An error occured but fixable");
+            Dialog dialog = GoogleApiAvailability.getInstance().
+                    getErrorDialog(this, avaialble, ERROR_DIALOG_REQUEST);
+        }else{
+            Toast.makeText(this, "Can't make map requests", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+
     }
 
     public void openMyProfile() {

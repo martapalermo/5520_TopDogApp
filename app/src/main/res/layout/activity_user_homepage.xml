@@ -82,17 +82,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.81" />
 
-    <Button
-        android:id="@+id/gpsTestingButton"
-        android:layout_width="160dp"
-        android:layout_height="74dp"
-        android:text="gpsTestIngButton"
-        android:backgroundTint="#800000"
-        app:layout_constraintTop_toBottomOf="@id/guideline10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
     <ImageButton
         android:id="@+id/letsWalk_btn"
         android:layout_width="188dp"
