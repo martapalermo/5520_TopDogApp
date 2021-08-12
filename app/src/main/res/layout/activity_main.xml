@@ -32,8 +32,7 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toBottomOf="@+id/topDogLogo"
-        app:layout_constraintVertical_bias="0.333"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.333" />
 
     <EditText
         android:id="@+id/username_input"
@@ -49,7 +48,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline17"
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TextFields" />
+        />
 
     <EditText
         android:id="@+id/password_input"
@@ -63,7 +62,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
-        tools:ignore="TextFields" />
+        />
 
     <ImageView
         android:id="@+id/topDogLogo"

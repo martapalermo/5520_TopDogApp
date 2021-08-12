@@ -11,6 +11,7 @@
         android:layout_width="386dp"
         android:layout_height="41dp"
         android:text="@string/welcome_msg"
+        android:textStyle="bold"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
@@ -20,55 +21,45 @@
 
     <ImageButton
         android:id="@+id/myProfile_btn"
-        android:layout_width="181dp"
-        android:layout_height="182dp"
+        android:layout_width="188dp"
+        android:layout_height="184dp"
         android:contentDescription="@string/profile_picture_button_that_leads_to_profile"
         android:scaleType="fitCenter"
+        android:backgroundTint="#800000"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@id/myStats_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline6"
-        app:srcCompat="@drawable/untitled_1"
+        app:srcCompat="@drawable/petprofilebtn"
         tools:layout_editor_absoluteX="11dp"
         tools:layout_editor_absoluteY="175dp" />
 
     <ImageButton
         android:id="@+id/myStats_btn"
         android:layout_width="188dp"
-        android:layout_height="180dp"
+        android:layout_height="184dp"
         android:contentDescription="@string/button_to_stats_page"
         android:scaleType="fitCenter"
+        android:backgroundTint="#800000"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/myProfile_btn"
         app:layout_constraintTop_toBottomOf="@+id/guideline6"
-        app:srcCompat="@drawable/stats"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="175dp" />
-
-
-    <!--    <Button-->
-<!--        android:id="@+id/letsWalkRED_btn"-->
-<!--        android:layout_width="186dp"-->
-<!--        android:layout_height="178dp"-->
-<!--        android:backgroundTint="#db402c"-->
-<!--        android:text="@string/lets_walk"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="18sp"-->
-<!--        tools:layout_editor_absoluteX="197dp"-->
-<!--        tools:layout_editor_absoluteY="218dp" />-->
+        app:layout_constraintVertical_bias="0.488"
+        app:srcCompat="@drawable/statsbtn" />
 
     <ImageButton
         android:id="@+id/leaderboard_btn"
-        android:layout_width="181dp"
-        android:layout_height="182dp"
+        android:layout_width="188dp"
+        android:layout_height="184dp"
         android:contentDescription="@string/profile_picture_button_that_leads_to_profile"
         android:scaleType="fitCenter"
+        android:backgroundTint="#800000"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toStartOf="@id/letsWalk_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline7"
-        app:srcCompat="@drawable/leaderboard" />
+        app:srcCompat="@drawable/leaderboardbtn" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -96,6 +87,7 @@
         android:layout_width="160dp"
         android:layout_height="74dp"
         android:text="gpsTestIngButton"
+        android:backgroundTint="#800000"
         app:layout_constraintTop_toBottomOf="@id/guideline10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,16 +95,16 @@
 
     <ImageButton
         android:id="@+id/letsWalk_btn"
-        android:layout_width="187dp"
+        android:layout_width="188dp"
         android:layout_height="184dp"
         android:scaleType="fitCenter"
+        android:backgroundTint="#800000"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toEndOf="@id/leaderboard_btn"
         app:layout_constraintTop_toBottomOf="@id/guideline7"
-        app:layout_constraintVertical_bias="0.547"
-        app:srcCompat="@drawable/screen_shot_2021_08_08_at_7_34_51_pm" />
+        app:srcCompat="@drawable/letswalkbtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

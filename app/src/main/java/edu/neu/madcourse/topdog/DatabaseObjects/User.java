@@ -8,6 +8,11 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * NOTE: we should find a way for the setProfilePicUri to grab the contentURI
+ * from the myProfile page and everytime set it to whatever image is selected.
+ */
+
 @IgnoreExtraProperties
 public class User implements Serializable {
 
@@ -81,11 +86,14 @@ public class User implements Serializable {
 
     public void setWalkList(ArrayList<Walk> walkList) { this.walkList = walkList; }
 
-    public void setProfilePicUri(String profilePic) { this.profilePicUri = profilePic; }
-
+    //TODO: create link to selectedImage from MyProfile
+    public void setProfilePicUri(String profilePic) {
+        this.profilePicUri = profilePic;
+    }
 
     public static User deserialize(JSONObject jsonUser) {
         User returnUser = new User();
+
         try{
             String username = jsonUser.get("username").toString();
             String token = jsonUser.get("token").toString();

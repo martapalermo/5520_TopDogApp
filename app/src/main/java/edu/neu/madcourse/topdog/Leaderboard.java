@@ -51,7 +51,7 @@ public class Leaderboard extends AppCompatActivity {
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull @org.jetbrains.annotations.NotNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     leaderboardEntries.add(new LeaderboardEntry(childSnapshot.getKey(), Objects.requireNonNull(childSnapshot.child("dogName").getValue()).toString(), childSnapshot.child("walkList").getChildrenCount()));
                 }
