@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#C6000000"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <Button
@@ -66,8 +66,8 @@
 
     <ImageView
         android:id="@+id/topDogLogo"
-        android:layout_width="346dp"
-        android:layout_height="210dp"
+        android:layout_width="426dp"
+        android:layout_height="233dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/logo_of_app_depicting_a_dog_with_sunglasses_on"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
@@ -105,8 +105,9 @@
 
     <ImageButton
         android:id="@+id/signIn_btn"
-        android:layout_width="159dp"
-        android:layout_height="172dp"
+        android:layout_width="192dp"
+        android:layout_height="194dp"
+        android:backgroundTint="@color/white"
         android:contentDescription="@string/sign_in_button_in_shape_of_a_paw"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/signUp_btn_on_main_activity"
@@ -115,7 +116,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline12"
         app:layout_constraintVertical_bias="0.096"
-        android:backgroundTint="@android:color/white"
         app:srcCompat="@drawable/goldenpawtext" />
 
     <androidx.constraintlayout.widget.Guideline
