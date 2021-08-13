@@ -42,9 +42,10 @@ public class Walk implements Serializable {
         this.finalDistance = 0;
     }
 
-    public Walk(long walkDistance, double walkDuration) {
+    public Walk(long walkDistance, double walkDuration, String logDate) {
         this.walkDuration = walkDuration;
         this.finalDistance = walkDistance;
+        this.logDate = logDate;
     }
 
 

@@ -40,6 +40,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerHolder> {
         holder.walkDuration.setText(String.valueOf(minutes) + "m " + String.valueOf(seconds) + "s");
 //        holder.walkDuration.setText(String.valueOf(currentItem.getWalkDuration()) + " minutes");
         holder.walkDistance.setText(String.valueOf(currentItem.getFinalDistance()) + " meters");
+        holder.walkDate.setText(String.valueOf(currentItem.getLogDate()));
         holder.walkCount.setText("Walk " + (position+1));
 
         System.out.println("WALKDATE: " + currentItem.getLogDate());

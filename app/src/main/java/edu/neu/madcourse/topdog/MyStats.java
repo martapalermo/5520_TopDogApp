@@ -73,7 +73,7 @@ public class MyStats extends AppCompatActivity {
 
     private void populateItemList() {
         for (Walk walk : walkHistory) {
-            Walk w = new Walk(walk.finalDistance, walk.walkDuration);
+            Walk w = new Walk(walk.finalDistance, walk.walkDuration, walk.logDate);
             walkHistoryList.add(w);
             recyclerAdapter.notifyDataSetChanged();
         }
@@ -103,7 +103,8 @@ public class MyStats extends AppCompatActivity {
                 for (int i = 0; i < size; i++) {
                     Long walkDistance = Long.parseLong(savedInstanceState.getString(KEY_OF_INSTANCE + i + "0"));
                     Double walkDuration = Double.parseDouble(savedInstanceState.getString(KEY_OF_INSTANCE + i + "1"));
-                    Walk walkCard = new Walk(walkDistance, walkDuration);
+                    String walkDate = savedInstanceState.getString(KEY_OF_INSTANCE + i + "2");
+                    Walk walkCard = new Walk(walkDistance, walkDuration, walkDate);
                     walkHistoryList.add(walkCard);
                 }
             }
