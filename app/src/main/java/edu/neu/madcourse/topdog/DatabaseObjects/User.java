@@ -22,7 +22,7 @@ public class User implements Serializable {
     public String dogName;
     public String dogAge;
     public ArrayList<Walk> walkList;
-    public String profilePicUri;
+   // public String profilePicUri;
     public int numPats;
 
     public User () {
@@ -36,7 +36,7 @@ public class User implements Serializable {
         this.dogName = dogName; // user's name
         this.dogAge = dogAge;
         this.walkList = new ArrayList<>();
-        profilePicUri = "";
+       // profilePicUri = "";
         numPats = 0;
     }
 
@@ -66,7 +66,7 @@ public class User implements Serializable {
 
     public ArrayList<Walk> getWalkList() { return this.walkList;}
 
-    public String getProfilePicUri() { return this.profilePicUri; }
+   // public String getProfilePicUri() { return this.profilePicUri; }
 
     public int getNumPats() {
         return this.numPats;
@@ -96,9 +96,9 @@ public class User implements Serializable {
         this.numPats = numPats;
     }
 
-    public void setProfilePicUri(String profilePic) {
-        this.profilePicUri = profilePic;
-    }
+    //public void setProfilePicUri(String profilePic) {
+     //   this.profilePicUri = profilePic;
+   // }
 
     public static User deserialize(JSONObject jsonUser) {
         User returnUser = new User();
@@ -109,7 +109,7 @@ public class User implements Serializable {
             String email = jsonUser.get("email").toString();
             String dogName = jsonUser.get("dogName").toString();
             String dogAge = jsonUser.get("dogAge").toString();
-            String profilePicUri = jsonUser.get("profilePicUri").toString();
+          //  String profilePicUri = jsonUser.get("profilePicUri").toString();
             int pats = Integer.parseInt(jsonUser.get("numPats").toString());
 
             ArrayList<Walk> walkList = new ArrayList<>();
@@ -126,7 +126,7 @@ public class User implements Serializable {
             returnUser.setDogName(dogName);
             returnUser.setDogAge(dogAge);
             returnUser.setWalkList(walkList);
-            returnUser.setProfilePicUri(profilePicUri);
+          //  returnUser.setProfilePicUri(profilePicUri);
             returnUser.setNumPats(pats);
 
         } catch (JSONException e) {

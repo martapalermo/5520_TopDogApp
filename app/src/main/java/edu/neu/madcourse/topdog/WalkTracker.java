@@ -346,7 +346,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         Intent intent = new Intent(this, HomePage.class);
         intent.putExtra(MainActivity.USERKEY,username);
         startActivity(intent);
-        finish();
     }
 
     public void openStatsPage(){
