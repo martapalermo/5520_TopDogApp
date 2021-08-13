@@ -9,72 +9,43 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Map;
 
+import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBUserUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
 import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
 
 public class MyStats extends AppCompatActivity {
 
-    String username;
-    private ArrayList<Walk> walkHistory;
-    private ArrayList<Walk> walkHistoryList = new ArrayList<>();
-    RecyclerAdapter recyclerAdapter;
-    private DatabaseReference mDatabase;
-
     private static final String KEY_OF_INSTANCE = "KEY_OF_INSTANCE";
     private static final String NUMBER_OF_ITEMS = "NUMBER_OF_ITEMS";
+
+    private String username;
+    private ArrayList<Walk> displayedWalkList = new ArrayList<>();
+    MyStatsRecyclerAdapter recyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk_history);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         username = getIntent().getStringExtra(MainActivity.USERKEY);
-        Query query = mDatabase.child("USERS").child(username).child("walkList");
+        User user = new FetchDBUserUtil().getUser(username);
+        ArrayList<Walk> walkHistory = user.getWalkList();
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    GenericTypeIndicator<ArrayList<Walk>> t =
-                            new GenericTypeIndicator<ArrayList<Walk>>() {};
-                    walkHistory = dataSnapshot.getValue(t);
-                    populateItemList();
-                } else {
-                    Toast.makeText(MyStats.this, "No walks yet!", Toast.LENGTH_SHORT).show();
-                }
-            }
-            /**
-             * This method will be triggered in the event that this listener either failed at the server, or
-             * is removed as a result of the security and Firebase Database rules. For more information on
-             * securing your data, see: <a
-             * href="https://firebase.google.com/docs/database/security/quickstart" target="_blank"> Security
-             * Quickstart</a>
-             *
-             * @param error A description of the error that occurred
-             */
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
         init(savedInstanceState);
+
+        if (walkHistory.size()==0){
+            Toast.makeText(MyStats.this, "No walks yet!", Toast.LENGTH_SHORT).show();
+        } else {
+            populateDisplayedWalkList(walkHistory);
+        }
     }
 
-    private void populateItemList() {
+    private void populateDisplayedWalkList(ArrayList<Walk> walkHistory) {
         for (Walk walk : walkHistory) {
             Walk w = new Walk(walk.finalDistance, walk.walkDuration, walk.logDate);
-            walkHistoryList.add(w);
+            displayedWalkList.add(w);
             recyclerAdapter.notifyDataSetChanged();
         }
     }
@@ -85,39 +56,38 @@ public class MyStats extends AppCompatActivity {
     }
 
 
-
     private void createRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_walks);
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(rLayoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerAdapter = new RecyclerAdapter(walkHistoryList);
+        recyclerAdapter = new MyStatsRecyclerAdapter(displayedWalkList);
         recyclerView.setAdapter(recyclerAdapter);
     }
 
     private void initialItemData(Bundle savedInstanceState) {
-
         if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_ITEMS)) {
-            if (walkHistoryList == null || walkHistoryList.size() == 0) {
+            if (displayedWalkList == null || displayedWalkList.size() == 0) {
                 int size = savedInstanceState.getInt(NUMBER_OF_ITEMS);
                 for (int i = 0; i < size; i++) {
-                    Long walkDistance = Long.parseLong(savedInstanceState.getString(KEY_OF_INSTANCE + i + "0"));
-                    Double walkDuration = Double.parseDouble(savedInstanceState.getString(KEY_OF_INSTANCE + i + "1"));
+                    long walkDistance = Long.parseLong(savedInstanceState.getString(KEY_OF_INSTANCE + i + "0"));
+                    double walkDuration = Double.parseDouble(savedInstanceState.getString(KEY_OF_INSTANCE + i + "1"));
                     String walkDate = savedInstanceState.getString(KEY_OF_INSTANCE + i + "2");
                     Walk walkCard = new Walk(walkDistance, walkDuration, walkDate);
-                    walkHistoryList.add(walkCard);
+                    displayedWalkList.add(walkCard);
                 }
             }
         }
     }
 
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        int size = walkHistoryList == null ? 0 : walkHistoryList.size();
+        int size = displayedWalkList == null ? 0 : displayedWalkList.size();
         outState.putInt(NUMBER_OF_ITEMS, size);
 
         for (int i = 0; i < size; i++) {
-            // outState.putString(KEY_OF_INSTANCE + i + "0", itemList.get(i).getLinkName());
-            // outState.putString(KEY_OF_INSTANCE + i + "1", itemList.get(i).getLinkURL());
+            outState.putString(KEY_OF_INSTANCE + i + "0", String.valueOf(displayedWalkList.get(i).getFinalDistance()));
+            outState.putString(KEY_OF_INSTANCE + i + "1", String.valueOf(displayedWalkList.get(i).getWalkDuration()));
+            outState.putString(KEY_OF_INSTANCE + i + "2", displayedWalkList.get(i).getLogDate());
         }
         super.onSaveInstanceState(outState);
     }

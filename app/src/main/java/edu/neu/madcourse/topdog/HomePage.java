@@ -1,15 +1,10 @@
 package edu.neu.madcourse.topdog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONObject;
 
-import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
+import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBUserUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
 import edu.neu.madcourse.topdog.GPSPage.GPSActivity;
 
@@ -31,7 +26,6 @@ public class HomePage extends AppCompatActivity {
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private String username;
-    private DatabaseReference mDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +33,17 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_user_homepage);
 
         username = getIntent().getStringExtra(MainActivity.USERKEY);
-        mDB = FirebaseDatabase.getInstance().getReference().child("USERS");
 
+        //Display the welcome <user> message
         TextView welcomeMsg = findViewById(R.id.welcome_msg);
         String displayString = "Welcome, " + username + "!";
         welcomeMsg.setText(displayString);
 
-        TextView patsDisplay = findViewById(R.id.pats_msg);
-        JSONObject jsonUser = new FetchDBInfoUtil().getResults(mDB.child(username));
-        User user = User.deserialize(jsonUser);
+        //Display the current user's number of pats
+        TextView patsMsg = findViewById(R.id.pats_msg);
+        User user = new FetchDBUserUtil().getUser(username);
         String patsString = user.getDogName() + " has " + user.getNumPats() + " pats!";
-        patsDisplay.setText(patsString);
+        patsMsg.setText(patsString);
 
         ImageButton myProfile = findViewById(R.id.myProfile_btn);
         myProfile.setOnClickListener(v -> openMyProfile());
@@ -62,15 +56,7 @@ public class HomePage extends AppCompatActivity {
 
         ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
         letsWalk.setOnClickListener(v -> openWalkTracker());
-
-//        Button gpsTestingButton = findViewById(R.id.gpsTestingButton);
-//        gpsTestingButton.setOnClickListener(v-> openGPS());
     }
-
-//    public void openDialog() {
-//        CustomDialog dialog = new CustomDialog();
-//        dialog.show(getSupportFragmentManager(), "custom dialog");
-//    }
 
     //on rotation changes we have to redo the oncreate activity.
     @Override
@@ -120,11 +106,6 @@ public class HomePage extends AppCompatActivity {
             ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
             letsWalk.setOnClickListener(v -> openWalkTracker());
         }
-    }
-
-    public void openGPS(){
-        Intent intent = new Intent(this, GPSActivity.class);
-        startActivity(intent);
     }
 
     public void openWalkTracker() {

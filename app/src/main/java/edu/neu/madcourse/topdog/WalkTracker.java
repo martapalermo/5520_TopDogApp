@@ -35,7 +35,7 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
+import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBUserUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.LongLat;
 import edu.neu.madcourse.topdog.DatabaseObjects.PutDBInfoUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
@@ -52,10 +52,9 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
 
-    //vars
+    //vars for location functionality
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
     private Location currentLocation = null;
 
     private DatabaseReference mDatabase;
@@ -66,27 +65,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
     LocationManager locationManager;
     Handler handler = new Handler();
 
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        Log.d("MAPACTIVTY", "onMapReady: map is ready");
-        mMap = googleMap;
-
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            mMap.setMyLocationEnabled(true);
-
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-        }
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,28 +82,37 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         stopBtn.setOnClickListener(this::onClickStopButton);
     }
 
-    private void getDeviceLocation(){
-        Log.d("MAPACTIVTY", "getDeviceLocation: getting the devices current location");
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        Log.d("MAPACTIVTY", "onMapReady: map is ready");
+        mMap = googleMap;
+        if (mLocationPermissionsGranted) {
+            getDeviceLocation();
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        }
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+    }
+
+    private void getDeviceLocation(){
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         try{
             if(mLocationPermissionsGranted){
-
                 Task location = mFusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(Task task) {
-                        if(task.isSuccessful()){
-                            Log.d("MAPACTIVTY", "onComplete: found location!");
-                            Location currentLocation = (Location) task.getResult();
-
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM);
-
-                        }else{
-                            Log.d("MAPACTIVTY", "onComplete: current location is null");
-                            Toast.makeText(WalkTracker.this, "unable to get current location", Toast.LENGTH_SHORT).show();
-                        }
+                location.addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Log.d("MAPACTIVTY", "onComplete: found location!");
+                        Location currentLocation = (Location) task.getResult();
+                        moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                DEFAULT_ZOOM);
+                    }else{
+                        Log.d("MAPACTIVTY", "onComplete: current location is null");
+                        Toast.makeText(WalkTracker.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -143,7 +130,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
     private void initMap(){
         Log.d("MAPACTIVTY", "initMap: initializing map");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
         mapFragment.getMapAsync(WalkTracker.this);
     }
 
@@ -221,8 +207,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         //Create a Walk object and capture the start time of the walk
         thisWalk = new Walk(new Date().getTime());
 
-        //get initial time 165023i1203420
-        //get end time 165023i12101921
         //start the geo location reading
         handler.postDelayed(() -> {
             Handler mHandler = new Handler();
@@ -245,8 +229,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
             try {
                 getLocation();
                 if (locationLatitude == 0 && locationLongitude == 0) {
-                    //TODO: Turn this into the loading GIF of the walking dogs
-
+                    //wait
                 } else {
                     LongLat currentLocation = new LongLat(locationLongitude, locationLatitude);
                     //Add current location to the collection of coordinates visited within this walk
@@ -302,8 +285,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
             stopRepeatingTask();
             mStatusChecker = null;
 
-
-
             long endOfWalkTime = new Date().getTime();
             //the finalWalkTime in miliseconds
             //at this point, getWalkDuration() actually returns the start time of the walk,
@@ -316,22 +297,18 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
             String finalWalkDurationStr = numberFormat.format(finalWalkDurationMin);
             double finalWalkDurationMinFormat = Double.parseDouble(finalWalkDurationStr);
 
-            //todo fix why the date keeps changing and won't show on walktracker
             String date = new Date().toString();
             thisWalk.setLogDate(date.substring(0,10));
-
-
             thisWalk.setWalkDuration(finalWalkDurationMinFormat);//in minutes!
 
             //EFFECT: calculateFinalDistance updates the "long finalDistance" field of thisWalk
             thisWalk.calculateFinalDistance();
-            DatabaseReference user = mDatabase.child(username);
 
-            //Use utility classes to jump off the main thread when fetching and putting info in the db
-            JSONObject jsonUser = new FetchDBInfoUtil().getResults(user);
-            User userToUpdate = User.deserialize(jsonUser);
+
+            User userToUpdate = new FetchDBUserUtil().getUser(username);
             userToUpdate.addWalk(thisWalk); //updating user here
-            new PutDBInfoUtil().setValue(user, userToUpdate);//update database off main thread
+
+            new PutDBInfoUtil().setValue(mDatabase.child(username), userToUpdate);//update database
 
             //move to stats
             openStatsPage();

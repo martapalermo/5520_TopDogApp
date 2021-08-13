@@ -13,40 +13,34 @@ import android.net.Uri;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
+import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBUserUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
 
 /**
@@ -60,11 +54,9 @@ import edu.neu.madcourse.topdog.DatabaseObjects.User;
 public class MyProfile extends AppCompatActivity {
 
     private String username;
-    ImageView selectedImage;
-    Button mGalleryBtn, mSaveBtn;
+    private ImageView selectedImage;
     public static final int GALLERY_REQUEST_CODE = 105;
     StorageReference storageReference, imageReference;
-
 
 
     @Override
@@ -73,15 +65,12 @@ public class MyProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         username = getIntent().getStringExtra(MainActivity.USERKEY);
-
-        storageReference = FirebaseStorage.getInstance().getReference();
-
+        storageReference = FirebaseStorage.getInstance().getReference().child("pictures/");
         imageReference = FirebaseStorage.getInstance().getReference().child("pictures/" + username + ".jpg");
 
         try {
             final File localFile = File.createTempFile("JPEG_", "jpg");
             imageReference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                Toast.makeText(MyProfile.this, "File was retrieved", Toast.LENGTH_SHORT).show();
                 Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                 selectedImage.setImageBitmap(bitmap);
             }).addOnFailureListener(e -> {
@@ -92,39 +81,30 @@ public class MyProfile extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        DatabaseReference nameReference = FirebaseDatabase.getInstance().getReference().child("USERS").child(username);
 
-        JSONObject desiredInformation = new FetchDBInfoUtil().getResults(nameReference);
-
-
-
+        //Populate the user profile data from the database
         TextView enterPetName = findViewById(R.id.enterPetName);
-        TextView petAge = findViewById(R.id.enterPetAge_et);
+        TextView enterPetAge = findViewById(R.id.enterPetAge_et);
 
-        String dogAge = null;
-        String displayString = null;
-        try {
-            displayString = desiredInformation.getString("dogName");
-            dogAge = desiredInformation.getString("dogAge");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        enterPetName.setText(displayString);
-        petAge.setText(dogAge);
+        User user = new FetchDBUserUtil().getUser(username);
+
+        enterPetName.setText(user.getDogName());
+        enterPetAge.setText(user.getDogAge());
 
 
         // views
         selectedImage = findViewById(R.id.image_view);
-
-
-        mGalleryBtn = findViewById(R.id.galleryBtn);
-        mSaveBtn = findViewById(R.id.saveEdits_btn);
+        Button mGalleryBtn = findViewById(R.id.galleryBtn);
+        Button mSaveBtn = findViewById(R.id.saveEdits_btn);
 
         // onclick listeners for buttons
         mGalleryBtn.setOnClickListener(v -> {
             try {
-                if (ActivityCompat.checkSelfPermission(MyProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MyProfile.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, GALLERY_REQUEST_CODE);
+                if (ActivityCompat.checkSelfPermission(MyProfile.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MyProfile.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, GALLERY_REQUEST_CODE);
                 } else {
                     oGallery();
                 }
@@ -133,22 +113,18 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        storageReference = FirebaseStorage.getInstance().getReference().child("pictures/");
-
         mSaveBtn.setOnClickListener(v -> {
             storageReference = FirebaseStorage.getInstance().getReference().child("pictures/" + username + ".jgp");
 
             try {
                 final File localFile = File.createTempFile("JPEG_", "jpg");
-                storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(MyProfile.this, "File was retrieved", Toast.LENGTH_SHORT).show();
-                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                        selectedImage.setImageBitmap(bitmap);
-                    }
-                }).addOnFailureListener(e -> Toast.makeText(MyProfile.this, "File was NOT retrieved", Toast.LENGTH_SHORT).show());
-
+                storageReference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                    Toast.makeText(MyProfile.this,
+                            "Save successful", Toast.LENGTH_SHORT).show();
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    selectedImage.setImageBitmap(bitmap);
+                }).addOnFailureListener(e -> Toast.makeText(MyProfile.this,
+                        "Save unsuccessful; try again", Toast.LENGTH_SHORT).show());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -162,16 +138,12 @@ public class MyProfile extends AppCompatActivity {
         return Bitmap.createBitmap(source, 0,0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
-
-    //
     public void oGallery() {
         Intent gallery = new Intent();
         gallery.setType("image/*");
         gallery.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(gallery, "Pick an Image"), GALLERY_REQUEST_CODE);
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -199,7 +171,6 @@ public class MyProfile extends AppCompatActivity {
         final StorageReference image = storageReference.child("pictures/" + name);
         image.putFile(contentURI).addOnSuccessListener(taskSnapshot -> {
             image.getDownloadUrl().addOnSuccessListener(uri -> Log.d("tag", "onSuccess: Upload Image URl is " + uri.toString()));
-
             Toast.makeText(MyProfile.this, "Image Is Uploaded.", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(e -> Toast.makeText(MyProfile.this, "Upload failed.", Toast.LENGTH_SHORT).show());
     }
@@ -210,13 +181,11 @@ public class MyProfile extends AppCompatActivity {
         return mime.getExtensionFromMimeType(c.getType(contentUri));
     }
 
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, HomePage.class);
         intent.putExtra(MainActivity.USERKEY, username);
         startActivity(intent);
     }
-
 
 }

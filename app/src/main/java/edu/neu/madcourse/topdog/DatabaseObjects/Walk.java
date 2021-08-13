@@ -29,7 +29,6 @@ public class Walk implements Serializable {
     public ArrayList<LongLat> coordinates;
     public double walkDuration;
     public long finalDistance;
-
     public String logDate;
 
     public Walk () {
