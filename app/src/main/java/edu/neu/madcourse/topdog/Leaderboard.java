@@ -99,7 +99,7 @@ public class Leaderboard extends AppCompatActivity {
 
                 displayPats++;
                 new PutDBInfoUtil().setValue(mDatabase.child(leaderboardEntries.get(position).getUsername()).child("numPats"), displayPats);
-                Toast.makeText(Leaderboard.this, currentLeaders.get(position) + " now has: " + displayPats + " pat(s)!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Leaderboard.this, "You sent " + currentLeaders.get(position) + " a pat!", Toast.LENGTH_SHORT).show();
             }
         });
     }
