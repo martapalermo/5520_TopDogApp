@@ -37,7 +37,7 @@ public class MyStats extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_stats);
+        setContentView(R.layout.activity_walk_history);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         username = getIntent().getStringExtra(MainActivity.USERKEY);
@@ -87,14 +87,11 @@ public class MyStats extends AppCompatActivity {
 
 
     private void createRecyclerView() {
-
         RecyclerView recyclerView = findViewById(R.id.recycler_view_walks);
-        System.out.println(recyclerView);
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(rLayoutManager);
-
         recyclerView.setHasFixedSize(true);
-        recyclerAdapter = new RecyclerAdapter(walkHistory);
+        recyclerAdapter = new RecyclerAdapter(walkHistoryList);
         recyclerView.setAdapter(recyclerAdapter);
     }
 

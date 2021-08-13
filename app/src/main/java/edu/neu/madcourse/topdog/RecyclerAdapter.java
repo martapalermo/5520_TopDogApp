@@ -29,8 +29,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerHolder> {
     @Override
     public void onBindViewHolder(RecyclerHolder holder, int position) {
         Walk currentItem = walkHistoryList.get(position);
-        holder.walkDuration.setText((int) currentItem.getWalkDuration());
-        holder.walkDistance.setText((int) currentItem.getFinalDistance());
+        holder.walkDuration.setText(String.valueOf(currentItem.getWalkDuration()));
+        holder.walkDistance.setText(String.valueOf(currentItem.getFinalDistance()));
     }
 
     @Override
