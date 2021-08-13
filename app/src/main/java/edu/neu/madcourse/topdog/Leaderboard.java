@@ -1,7 +1,5 @@
 package edu.neu.madcourse.topdog;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,10 +31,7 @@ import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.LeaderboardEntry;
 import edu.neu.madcourse.topdog.DatabaseObjects.PutDBInfoUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
-
-/**
- * needs to be dynamic - and need to figure out how to add user profile images in list view
- */
+import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
 
 public class Leaderboard extends AppCompatActivity {
 
@@ -44,7 +40,6 @@ public class Leaderboard extends AppCompatActivity {
     ArrayList<String> currentLeaders = new ArrayList<>();
     ListView listView;
     ArrayList<String> tempList = new ArrayList<>();
-    int numPats = 0;
     String username;
 
     @Override
@@ -86,13 +81,17 @@ public class Leaderboard extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("Here" + position);
-                JSONObject user = new FetchDBInfoUtil().getResults(mDatabase.child(leaderboardEntries.get(position).getUsername()));
+
+                JSONObject userToGetPat = new FetchDBInfoUtil().getResults(mDatabase.child(leaderboardEntries.get(position).getUsername()));
+
+                if(userToGetPat.toString().equals(username)) {
+                    Toast.makeText(Leaderboard.this, "Can't pat yourself!", Toast.LENGTH_SHORT).show();
+                }
 
                 int displayPats = 0;
 
                 try {
-                    displayPats = Integer.parseInt(user.getString("numPats"));
+                    displayPats = Integer.parseInt(userToGetPat.getString("numPats"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

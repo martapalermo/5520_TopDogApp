@@ -1,12 +1,26 @@
 package edu.neu.madcourse.topdog.DatabaseObjects;
 
-import com.google.firebase.database.DatabaseReference;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
+
+import edu.neu.madcourse.topdog.MyStats;
 
 /**
 This is a utility class for fetching info from the database OFF THE MAIN THREAD
@@ -22,8 +36,39 @@ public class FetchDBInfoUtil {
 
     String url;
     JSONObject results = new JSONObject();
+    User resultsTest = new User();
+
 
     public JSONObject getResults(DatabaseReference databaseRef) {
+        Query query = databaseRef;
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+
+                    GenericTypeIndicator<User> t =
+                            new GenericTypeIndicator<User>() {
+                            };
+                    System.out.println("\n\n+++++++++t.toString: " + t.toString());
+                    System.out.println("\n\n+++++++++snapshot.toString(): " + snapshot.toString());
+                    System.out.println("\n\n+++++++++snapshot.getValue(): " + snapshot.getValue());
+
+                    resultsTest = snapshot.getValue(t);
+
+                    System.out.println("\n\n+++++++++resultsTest: " + resultsTest.getDogName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
         url = databaseRef.toString() + ".json";
         RunnableFetch fetchRequest = new RunnableFetch();
 

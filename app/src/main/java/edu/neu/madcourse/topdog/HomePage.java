@@ -29,9 +29,6 @@ import edu.neu.madcourse.topdog.GPSPage.GPSActivity;
 public class HomePage extends AppCompatActivity {
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
-
-    String API_KEY = "AIzaSyA_4czHi0sxfMnlOO3_icmMe8RpeudtjW8";
-    private Button mapButton;
     private String username;
     private DatabaseReference mDB;
 
@@ -47,11 +44,11 @@ public class HomePage extends AppCompatActivity {
         String displayString = "Welcome, " + username + "!";
         welcomeMsg.setText(displayString);
 
-        TextView pats = findViewById(R.id.pats_msg);
+        TextView patsDisplay = findViewById(R.id.pats_msg);
         JSONObject jsonUser = new FetchDBInfoUtil().getResults(mDB.child(username));
         User user = User.deserialize(jsonUser);
         String patsString = user.getDogName() + " has " + user.getNumPats() + " pats!";
-        pats.setText(patsString);
+        patsDisplay.setText(patsString);
 
         ImageButton myProfile = findViewById(R.id.myProfile_btn);
         myProfile.setOnClickListener(v -> openMyProfile());
