@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp">
+
+
+    <!--    will be new dog name -->
+
+    <!--        android:text="@string/username"-->
+
+
+    <ImageView
+        android:id="@+id/topDogLogo"
+        android:layout_width="156dp"
+        android:layout_height="77dp"
+        android:contentDescription="@string/logo_of_app_depicting_a_dog_with_sunglasses_on"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:srcCompat="@drawable/logo_dog" />
+
+    <!--    new user's name-->
+
+    <TextView
+        android:id="@+id/email_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:text="@string/email"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topDogLogo"
+        app:layout_constraintVertical_bias="0.109" />
+
+    <EditText
+        android:id="@+id/email_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:autofillHints="@string/enter_email_here"
+        android:hint="@string/enter_email_here"
+        app:layout_constraintBottom_toBottomOf="@+id/email_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/email_tv"
+        app:layout_constraintTop_toTopOf="@+id/email_tv" />
+
+    <TextView
+        android:id="@+id/username_tv"
+        android:layout_width="105dp"
+        android:layout_height="31dp"
+        android:text="Username"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/email_tv"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="@+id/email_tv"
+        app:layout_constraintTop_toBottomOf="@+id/email_tv"
+        app:layout_constraintVertical_bias="0.26" />
+
+    <TextView
+        android:id="@+id/password_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/username_tv"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/username_tv"
+        app:layout_constraintTop_toBottomOf="@+id/username_tv"
+        app:layout_constraintVertical_bias="0.363" />
+
+    <EditText
+        android:id="@+id/username_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/enter_username_here"
+        android:hint="@string/enter_username_here"
+        app:layout_constraintBottom_toBottomOf="@+id/username_tv"
+        app:layout_constraintEnd_toEndOf="@+id/email_input"
+        app:layout_constraintStart_toStartOf="@+id/email_input"
+        app:layout_constraintTop_toTopOf="@+id/username_tv" />
+
+    <EditText
+        android:id="@+id/password_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/enter_password_here"
+        android:hint="@string/enter_password_here"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/password_tv"
+        app:layout_constraintEnd_toEndOf="@+id/username_input"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="@+id/username_input"
+        app:layout_constraintTop_toTopOf="@+id/password_tv"
+        app:layout_constraintVertical_bias="0.388" />
+
+    <EditText
+        android:id="@+id/dog_name_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:autofillHints="@string/enter_dog_name_here"
+        android:hint="@string/enter_dog_name_here"
+        app:layout_constraintBottom_toBottomOf="@+id/dog_name_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.006"
+        app:layout_constraintStart_toEndOf="@+id/dog_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/dog_name_tv" />
+
+    <TextView
+        android:id="@+id/dog_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dog Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/email_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintStart_toEndOf="@+id/email_input"
+        app:layout_constraintTop_toTopOf="@+id/email_tv"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/dog_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dog Age"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/username_tv"
+        app:layout_constraintEnd_toEndOf="@+id/dog_name_tv"
+        app:layout_constraintStart_toStartOf="@+id/dog_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/username_tv" />
+
+    <EditText
+        android:id="@+id/dog_age_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/enter_dog_age_here"
+        android:hint="@string/enter_dog_age_here"
+        app:layout_constraintBottom_toBottomOf="@+id/dog_age"
+        app:layout_constraintEnd_toEndOf="@+id/dog_name_input"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/dog_name_input"
+        app:layout_constraintTop_toTopOf="@+id/dog_age" />
+
+    <Button
+        android:id="@+id/signUp_btn_on_signUp_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffb347"
+        android:text="@string/sign_up"
+        app:layout_constraintBottom_toBottomOf="@+id/password_input"
+        app:layout_constraintEnd_toEndOf="@+id/dog_age"
+        app:layout_constraintHorizontal_bias="0.245"
+        app:layout_constraintStart_toStartOf="@+id/dog_age"
+        app:layout_constraintTop_toTopOf="@+id/password_input"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left"
+        tools:layout_editor_absoluteX="197dp"
+        tools:layout_editor_absoluteY="200dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="479dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="754dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="535dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

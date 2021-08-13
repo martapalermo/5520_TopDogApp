@@ -3,6 +3,7 @@ package edu.neu.madcourse.topdog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +54,67 @@ public class SignUp extends AppCompatActivity {
                 checkUserExists_andSignUp();
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        int newOrientation = newConfig.orientation;
+
+        if (newOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_sign_up);
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
+            username = getIntent().getStringExtra(MainActivity.USERKEY);
+            token = getIntent().getStringExtra(MainActivity.TOKENKEY);
+
+
+            //Update the usernameInput with whatever the user entered in the main log in page,
+            // for ease of use (so they dont have to re-type their preferred username if they typed it
+            // into the main activity page already)
+            EditText usernameInput = findViewById(R.id.username_input);
+            usernameInput.setText(username);
+
+            //Finally, handle when the signup button is pressed
+            Button signUpButton = findViewById(R.id.signUp_btn_on_signUp_page);
+            signUpButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //checkUserExists_andSignUp() starts a method-chain that leads to:
+                    // - saveUserToDatabase();
+                    // - openHomepage();
+                    // ^methods are chained from previous method to follow appropriate logic flow
+                    checkUserExists_andSignUp();
+                }
+            });
+            // Do certain things when the user has switched to landscape.
+        }
+        if(newOrientation == Configuration.ORIENTATION_PORTRAIT){
+            setContentView(R.layout.activity_sign_up);
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
+            username = getIntent().getStringExtra(MainActivity.USERKEY);
+            token = getIntent().getStringExtra(MainActivity.TOKENKEY);
+
+
+            //Update the usernameInput with whatever the user entered in the main log in page,
+            // for ease of use (so they dont have to re-type their preferred username if they typed it
+            // into the main activity page already)
+            EditText usernameInput = findViewById(R.id.username_input);
+            usernameInput.setText(username);
+
+            //Finally, handle when the signup button is pressed
+            Button signUpButton = findViewById(R.id.signUp_btn_on_signUp_page);
+            signUpButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //checkUserExists_andSignUp() starts a method-chain that leads to:
+                    // - saveUserToDatabase();
+                    // - openHomepage();
+                    // ^methods are chained from previous method to follow appropriate logic flow
+                    checkUserExists_andSignUp();
+                }
+            });
+        }
     }
 
     public void checkUserExists_andSignUp(){
