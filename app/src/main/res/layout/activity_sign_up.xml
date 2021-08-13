@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp">
+    tools:context=".SignUp"
+    android:background="#faeee1">
 
 
     <ImageView
@@ -31,7 +32,8 @@
         app:layout_constraintBottom_toTopOf="@id/guideline3"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline8"
-        app:layout_constraintTop_toTopOf="@id/guideline2" />
+        app:layout_constraintTop_toTopOf="@id/guideline2"
+        android:textColor="#583400"/>
 
     <EditText
         android:id="@+id/email_input"
@@ -57,7 +59,8 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline4"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline8"
-        app:layout_constraintTop_toTopOf="@id/guideline3" />
+        app:layout_constraintTop_toTopOf="@id/guideline3"
+        android:textColor="#583400"/>
 <!--        android:text="@string/username"-->
 
 
@@ -71,7 +74,8 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline5"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline8"
-        app:layout_constraintTop_toTopOf="@id/guideline4" />
+        app:layout_constraintTop_toTopOf="@id/guideline4"
+        android:textColor="#583400"/>
 
     <EditText
         android:id="@+id/username_input"
@@ -123,7 +127,8 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline6"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline8"
-        app:layout_constraintTop_toTopOf="@id/guideline5" />
+        app:layout_constraintTop_toTopOf="@id/guideline5"
+        android:textColor="#583400"/>
 
     <TextView
         android:id="@+id/dog_age"
@@ -135,7 +140,8 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline10"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline8"
-        app:layout_constraintTop_toTopOf="@id/guideline6" />
+        app:layout_constraintTop_toTopOf="@id/guideline6"
+        android:textColor="#583400"/>
 
     <EditText
         android:id="@+id/dog_age_input"

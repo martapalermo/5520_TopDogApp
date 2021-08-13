@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -70,6 +71,56 @@ public class HomePage extends AppCompatActivity {
 //        CustomDialog dialog = new CustomDialog();
 //        dialog.show(getSupportFragmentManager(), "custom dialog");
 //    }
+
+    //on rotation changes we have to redo the oncreate activity.
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        int newOrientation = newConfig.orientation;
+
+        if (newOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_user_homepage);
+            username = getIntent().getStringExtra(MainActivity.USERKEY);
+
+            TextView welcomeMsg = findViewById(R.id.welcome_msg);
+            String displayString = "Welcome, " + username + "!";
+            welcomeMsg.setText(displayString);
+
+            ImageButton myProfile = findViewById(R.id.myProfile_btn);
+            myProfile.setOnClickListener(v -> openMyProfile());
+
+            ImageButton myStats = findViewById(R.id.myStats_btn);
+            myStats.setOnClickListener(v -> openMyStats());
+
+            ImageButton myLeaderboard = findViewById(R.id.leaderboard_btn);
+            myLeaderboard.setOnClickListener(v ->openMyLeaderboard());
+
+            ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
+            letsWalk.setOnClickListener(v -> openWalkTracker());
+            // Do certain things when the user has switched to landscape.
+        }
+        if(newOrientation == Configuration.ORIENTATION_PORTRAIT){
+            setContentView(R.layout.activity_user_homepage);
+            username = getIntent().getStringExtra(MainActivity.USERKEY);
+
+            TextView welcomeMsg = findViewById(R.id.welcome_msg);
+            String displayString = "Welcome, " + username + "!";
+            welcomeMsg.setText(displayString);
+
+            ImageButton myProfile = findViewById(R.id.myProfile_btn);
+            myProfile.setOnClickListener(v -> openMyProfile());
+
+            ImageButton myStats = findViewById(R.id.myStats_btn);
+            myStats.setOnClickListener(v -> openMyStats());
+
+            ImageButton myLeaderboard = findViewById(R.id.leaderboard_btn);
+            myLeaderboard.setOnClickListener(v ->openMyLeaderboard());
+
+            ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
+            letsWalk.setOnClickListener(v -> openWalkTracker());
+        }
+    }
 
     public void openGPS(){
         Intent intent = new Intent(this, GPSActivity.class);
