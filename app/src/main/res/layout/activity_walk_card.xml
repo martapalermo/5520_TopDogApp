@@ -17,17 +17,15 @@
             android:id="@+id/walk_count_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="walk id"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline26"
             app:layout_constraintEnd_toStartOf="@+id/guideline22"
-            app:layout_constraintHorizontal_bias="0.42"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="@+id/guideline19"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/walk_duration"
@@ -37,18 +35,18 @@
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline33"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline25"
-            app:layout_constraintHorizontal_bias="0.237"
+            app:layout_constraintHorizontal_bias="0.236"
             app:layout_constraintStart_toStartOf="@+id/guideline24"
-            app:layout_constraintTop_toTopOf="@+id/guideline29"
-            app:layout_constraintVertical_bias="0.484" />
+            app:layout_constraintTop_toBottomOf="@+id/walk_distance"
+            app:layout_constraintVertical_bias="0.419" />
 
         <TextView
             android:id="@+id/walk_duration_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="duration"
+            android:text="Duration"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -61,7 +59,7 @@
             android:id="@+id/walk_distance_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="distance"
+            android:text="Distance"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -155,10 +153,9 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline26"
             app:layout_constraintEnd_toStartOf="@+id/guideline25"
-            app:layout_constraintHorizontal_bias="0.241"
+            app:layout_constraintHorizontal_bias="0.226"
             app:layout_constraintStart_toStartOf="@+id/guideline24"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.515" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
