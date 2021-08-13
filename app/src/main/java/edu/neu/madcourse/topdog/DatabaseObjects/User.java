@@ -92,12 +92,10 @@ public class User implements Serializable {
 
     public void setWalkList(ArrayList<Walk> walkList) { this.walkList = walkList; }
 
-    //TODO:
     public void setNumPats(int numPats) {
         this.numPats = numPats;
     }
 
-    //TODO: create link to selectedImage from MyProfile
     public void setProfilePicUri(String profilePic) {
         this.profilePicUri = profilePic;
     }
@@ -111,6 +109,7 @@ public class User implements Serializable {
             String email = jsonUser.get("email").toString();
             String dogName = jsonUser.get("dogName").toString();
             String dogAge = jsonUser.get("dogAge").toString();
+            String profilePicUri = jsonUser.get("profilePicUri").toString();
             int pats = Integer.parseInt(jsonUser.get("numPats").toString());
 
             ArrayList<Walk> walkList = new ArrayList<>();
@@ -127,6 +126,7 @@ public class User implements Serializable {
             returnUser.setDogName(dogName);
             returnUser.setDogAge(dogAge);
             returnUser.setWalkList(walkList);
+            returnUser.setProfilePicUri(profilePicUri);
             returnUser.setNumPats(pats);
 
         } catch (JSONException e) {
