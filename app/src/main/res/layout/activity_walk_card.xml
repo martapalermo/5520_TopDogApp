@@ -10,15 +10,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="217dp"
-        android:layout_margin="5dp">
+        android:layout_height="171dp"
+        android:layout_margin="5dp"
+        android:background="#f7e3cc">
 
         <TextView
             android:id="@+id/walk_count_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="walk id"
-            android:textColor="@android:color/black"
+            android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline26"
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="duration"
-            android:textColor="@android:color/black"
+            android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Duration"
-            android:textColor="@android:color/black"
+            android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline33"
@@ -60,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Distance"
-            android:textColor="@android:color/black"
+            android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline28"
@@ -73,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="distance"
-            android:textColor="@android:color/black"
+            android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline28"
@@ -125,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_end="120dp" />
+            app:layout_constraintGuide_end="86dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline29"
@@ -148,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="logDate"
-            android:textColor="@android:color/black"
+            android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline26"
@@ -156,6 +157,17 @@
             app:layout_constraintHorizontal_bias="0.226"
             app:layout_constraintStart_toStartOf="@+id/guideline24"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="202dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.341"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline33"
+            app:srcCompat="@drawable/walkpaws" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

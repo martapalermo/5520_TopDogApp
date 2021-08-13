@@ -246,8 +246,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
                 getLocation();
                 if (locationLatitude == 0 && locationLongitude == 0) {
                     //TODO: Turn this into the loading GIF of the walking dogs
-                    Toast.makeText(getApplicationContext(), "Trying to retrieve coordinates.",
-                            Toast.LENGTH_LONG).show();
+
                 } else {
                     LongLat currentLocation = new LongLat(locationLongitude, locationLatitude);
                     //Add current location to the collection of coordinates visited within this walk
@@ -346,7 +345,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         Intent intent = new Intent(this, HomePage.class);
         intent.putExtra(MainActivity.USERKEY,username);
         startActivity(intent);
-        finish();
     }
 
     public void openStatsPage(){

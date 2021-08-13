@@ -18,7 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONObject;
+
+import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBInfoUtil;
+import edu.neu.madcourse.topdog.DatabaseObjects.User;
 import edu.neu.madcourse.topdog.GPSPage.GPSActivity;
 
 public class HomePage extends AppCompatActivity {
@@ -27,8 +33,8 @@ public class HomePage extends AppCompatActivity {
 
     String API_KEY = "AIzaSyA_4czHi0sxfMnlOO3_icmMe8RpeudtjW8";
     private Button mapButton;
-
     private String username;
+    private DatabaseReference mDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +42,17 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_user_homepage);
 
         username = getIntent().getStringExtra(MainActivity.USERKEY);
+        mDB = FirebaseDatabase.getInstance().getReference().child("USERS");
 
         TextView welcomeMsg = findViewById(R.id.welcome_msg);
         String displayString = "Welcome, " + username + "!";
         welcomeMsg.setText(displayString);
+
+        TextView pats = findViewById(R.id.pats_msg);
+        JSONObject jsonUser = new FetchDBInfoUtil().getResults(mDB.child(username));
+        User user = User.deserialize(jsonUser);
+        String patsString = user.getDogName() + " has " + user.getNumPats() + " pats!";
+        pats.setText(patsString);
 
         ImageButton myProfile = findViewById(R.id.myProfile_btn);
         myProfile.setOnClickListener(v -> openMyProfile());
@@ -164,6 +177,10 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(this, Leaderboard.class);
         intent.putExtra(MainActivity.USERKEY, username);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
 }

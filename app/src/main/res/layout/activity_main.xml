@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".MainActivity">
+    android:background="#faeee1"
+    tools:context=".MainActivity"
+    >
 
     <Button
         android:id="@+id/signUp_btn_on_main_activity"
@@ -32,7 +33,8 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toBottomOf="@+id/topDogLogo"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintVertical_bias="0.333"
+        android:textColor="#583400" />
 
     <EditText
         android:id="@+id/username_input"
@@ -86,7 +88,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="@+id/guideline16" />
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
+        android:textColor="#583400"/>
 
     <TextView
         android:id="@+id/password_tv"
@@ -101,13 +104,14 @@
         app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toBottomOf="@+id/username_tv"
-        app:layout_constraintVertical_bias="0.46" />
+        app:layout_constraintVertical_bias="0.46"
+        android:textColor="#583400"/>
 
     <ImageButton
         android:id="@+id/signIn_btn"
         android:layout_width="192dp"
         android:layout_height="194dp"
-        android:backgroundTint="@color/white"
+        android:background="#faeee1"
         android:contentDescription="@string/sign_in_button_in_shape_of_a_paw"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/signUp_btn_on_main_activity"

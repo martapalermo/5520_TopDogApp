@@ -45,6 +45,7 @@ public class Leaderboard extends AppCompatActivity {
     ListView listView;
     ArrayList<String> tempList = new ArrayList<>();
     int numPats = 0;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class Leaderboard extends AppCompatActivity {
                 new ArrayAdapter(this, android.R.layout.simple_list_item_1, currentLeaders);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
-        String username = getIntent().getStringExtra("CURRENT_USER");
+        username = getIntent().getStringExtra(MainActivity.USERKEY);
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,9 +99,16 @@ public class Leaderboard extends AppCompatActivity {
 
                 displayPats++;
                 new PutDBInfoUtil().setValue(mDatabase.child(leaderboardEntries.get(position).getUsername()).child("numPats"), displayPats);
-                Toast.makeText(Leaderboard.this, currentLeaders.get(position) + " now has: " + displayPats + " pat(s)!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Leaderboard.this, "You sent " + currentLeaders.get(position) + " a pat!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomePage.class);
+        intent.putExtra(MainActivity.USERKEY, username);
+        startActivity(intent);
     }
 
 }

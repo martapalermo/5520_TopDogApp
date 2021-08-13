@@ -63,11 +63,8 @@ public class MyProfile extends AppCompatActivity {
     ImageView selectedImage;
     Button mGalleryBtn, mSaveBtn;
     public static final int GALLERY_REQUEST_CODE = 105;
-    private static String LOG_TAG = "UIElementsPracticeLog";
     StorageReference storageReference, imageReference;
 
-    // folder path for firebase storage
-    String storagePath = "Pictures/";
 
 
     @Override
@@ -83,18 +80,12 @@ public class MyProfile extends AppCompatActivity {
 
         try {
             final File localFile = File.createTempFile("JPEG_", "jpg");
-            imageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(edu.neu.madcourse.topdog.MyProfile.this, "File was retrieved", Toast.LENGTH_SHORT).show();
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    selectedImage.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull @NotNull Exception e) {
-                    Toast.makeText(edu.neu.madcourse.topdog.MyProfile.this, "File was NOT retrieved", Toast.LENGTH_SHORT).show();
-                }
+            imageReference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                Toast.makeText(MyProfile.this, "File was retrieved", Toast.LENGTH_SHORT).show();
+                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                selectedImage.setImageBitmap(bitmap);
+            }).addOnFailureListener(e -> {
+
             });
 
         } catch (IOException e) {
@@ -135,7 +126,6 @@ public class MyProfile extends AppCompatActivity {
                 if (ActivityCompat.checkSelfPermission(MyProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(MyProfile.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, GALLERY_REQUEST_CODE);
                 } else {
-                    //openGallery();
                     oGallery();
                 }
             } catch (Exception e) {
@@ -157,12 +147,7 @@ public class MyProfile extends AppCompatActivity {
                         Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                         selectedImage.setImageBitmap(bitmap);
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull @NotNull Exception e) {
-                        Toast.makeText(MyProfile.this, "File was NOT retrieved", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }).addOnFailureListener(e -> Toast.makeText(MyProfile.this, "File was NOT retrieved", Toast.LENGTH_SHORT).show());
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -233,69 +218,5 @@ public class MyProfile extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void handleImageClick(View view) {
-        Intent gallery = new Intent();
-        gallery.setType("image/*");
-        gallery.setAction(Intent.ACTION_GET_CONTENT);
-        if (gallery.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(Intent.createChooser(gallery, "Pick an Image"), GALLERY_REQUEST_CODE);
-        }
-    }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == GALLERY_REQUEST_CODE) {
-//            switch (resultCode) {
-//                case RESULT_OK:
-//                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-//                    selectedImage.setImageBitmap(bitmap);
-//                    // upload to server
-//                    handleUpload(bitmap);
-//            }
-//        }
-//    }
-
-    private void handleUpload(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        // store inside pictures
-
-        StorageReference storeRef = FirebaseStorage.getInstance().getReference()
-                .child("Pictures").child("" + ".jpeg"); // userID.jpg
-
-        storeRef.putBytes(byteArrayOutputStream.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                getDownloadUrl(storeRef);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                Log.e(LOG_TAG, "onFailure: ", e.getCause());
-            }
-        });
-    }
-
-    private void getDownloadUrl(StorageReference reference) {
-        reference.getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Log.d(LOG_TAG, "onSuccess: " + uri);
-                        setUserProfileUrl(uri);
-                    }
-                });
-    }
-
-    private void setUserProfileUrl(Uri uri) {
-        User user = new User();
-        // users have a preset imageView as profile pic
-        // retrieve current user profile pic
-        String profilePic = user.getProfilePicUri();
-
-        // set the new profile pic to new uri
-        user.setProfilePicUri(uri.toString());
-
-    }
 }
