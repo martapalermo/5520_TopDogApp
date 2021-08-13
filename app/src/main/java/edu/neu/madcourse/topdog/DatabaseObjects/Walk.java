@@ -30,6 +30,8 @@ public class Walk implements Serializable {
     public double walkDuration;
     public long finalDistance;
 
+    public String logDate;
+
     public Walk () {
         // Default constructor required for calls to DataSnapshot.getValue(Walk.class)
     }
@@ -44,6 +46,7 @@ public class Walk implements Serializable {
         this.walkDuration = walkDuration;
         this.finalDistance = walkDistance;
     }
+
 
     //function to get distance between two locations (LatLng)
     public static float distanceBetween(LongLat first, LongLat second) {
@@ -72,6 +75,10 @@ public class Walk implements Serializable {
     public void addNextCoordinate(LongLat coordinate) {
         this.coordinates.add(coordinate);
     }
+
+    public String getLogDate() { return this.logDate; }
+
+    public void setLogDate(String logDate) { this.logDate = logDate; }
 
     public List<LongLat> getCoordinates(){
         return this.coordinates;
@@ -102,7 +109,9 @@ public class Walk implements Serializable {
             }
             String finalDistance = jsonWalk.get("finalDistance").toString();
             String walkDuration = jsonWalk.get("walkDuration").toString();
+            String logDate = jsonWalk.get("logDate").toString();
 
+            returnWalk.setLogDate(logDate);
             returnWalk.setCoordinates(coordinates);
             returnWalk.setWalkDuration(Double.parseDouble(walkDuration));
             returnWalk.setFinalDistance(Integer.parseInt(finalDistance));

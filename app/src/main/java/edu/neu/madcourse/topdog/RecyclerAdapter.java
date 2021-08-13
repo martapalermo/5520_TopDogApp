@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import edu.neu.madcourse.topdog.DatabaseObjects.Walk;
@@ -29,9 +30,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerHolder> {
     @Override
     public void onBindViewHolder(RecyclerHolder holder, int position) {
         Walk currentItem = walkHistoryList.get(position);
-        holder.walkDuration.setText(String.valueOf(currentItem.getWalkDuration()) + " minutes");
+
+        int minutes = (int) Math.floor(currentItem.getWalkDuration());
+        int seconds = (int) Math.floor((currentItem.getWalkDuration() - minutes) * 60);
+
+//        DecimalFormat numberFormat = new DecimalFormat("#.00");
+//        String finalWalkDurationStr = numberFormat.format(finalWalkDurationMin);
+
+        holder.walkDuration.setText(String.valueOf(minutes) + "m " + String.valueOf(seconds) + "s");
+//        holder.walkDuration.setText(String.valueOf(currentItem.getWalkDuration()) + " minutes");
         holder.walkDistance.setText(String.valueOf(currentItem.getFinalDistance()) + " meters");
         holder.walkCount.setText("Walk " + (position+1));
+
+        System.out.println("WALKDATE: " + currentItem.getLogDate());
+        holder.walkDate.setText(currentItem.getLogDate());
     }
 
     @Override

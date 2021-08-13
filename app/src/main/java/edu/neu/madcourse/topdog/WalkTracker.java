@@ -264,7 +264,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, 1000, 13, (LocationListener) this);
+                    LocationManager.GPS_PROVIDER, 1000, 14, (LocationListener) this);
         } catch(SecurityException e) {
             e.printStackTrace();
         }
@@ -303,6 +303,8 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
             stopRepeatingTask();
             mStatusChecker = null;
 
+
+
             long endOfWalkTime = new Date().getTime();
             //the finalWalkTime in miliseconds
             //at this point, getWalkDuration() actually returns the start time of the walk,
@@ -314,6 +316,11 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
             DecimalFormat numberFormat = new DecimalFormat("#.00");
             String finalWalkDurationStr = numberFormat.format(finalWalkDurationMin);
             double finalWalkDurationMinFormat = Double.parseDouble(finalWalkDurationStr);
+
+            //todo fix why the date keeps changing and won't show on walktracker
+            String date = new Date().toString();
+            thisWalk.setLogDate(date.substring(0,10));
+
 
             thisWalk.setWalkDuration(finalWalkDurationMinFormat);//in minutes!
 
