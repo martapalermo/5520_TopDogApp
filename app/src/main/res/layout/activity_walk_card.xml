@@ -45,10 +45,10 @@
             app:layout_constraintVertical_bias="0.484" />
 
         <TextView
-            android:id="@+id/walk_distance_title"
+            android:id="@+id/walk_duration_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="distance"
+            android:text="duration"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -58,10 +58,10 @@
             app:layout_constraintTop_toTopOf="@+id/guideline29" />
 
         <TextView
-            android:id="@+id/walk_duration_title"
+            android:id="@+id/walk_distance_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="duration"
+            android:text="distance"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold"
