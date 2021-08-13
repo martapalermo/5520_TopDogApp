@@ -40,6 +40,11 @@ public class Walk implements Serializable {
         this.finalDistance = 0;
     }
 
+    public Walk(long walkDistance, double walkDuration) {
+        this.walkDuration = walkDuration;
+        this.finalDistance = walkDistance;
+    }
+
     //function to get distance between two locations (LatLng)
     public static float distanceBetween(LongLat first, LongLat second) {
         float[] distance = new float[1];
