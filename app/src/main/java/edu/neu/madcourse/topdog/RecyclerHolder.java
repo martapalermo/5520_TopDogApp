@@ -10,6 +10,7 @@ public class RecyclerHolder extends RecyclerView.ViewHolder {
 
     public TextView walkDistance;
     public TextView walkDuration;
+    public TextView walkCount;
     public ViewGroup parent;
 
     public RecyclerHolder(View itemView, ViewGroup parent) {
@@ -17,6 +18,7 @@ public class RecyclerHolder extends RecyclerView.ViewHolder {
         this.parent = parent;
         this.walkDistance = itemView.findViewById(R.id.walk_distance);
         this.walkDuration = itemView.findViewById(R.id.walk_duration);
+        this.walkCount = itemView.findViewById(R.id.walk_count_id);
     }
 }
 

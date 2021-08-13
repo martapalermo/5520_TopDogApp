@@ -31,6 +31,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerHolder> {
         Walk currentItem = walkHistoryList.get(position);
         holder.walkDuration.setText(String.valueOf(currentItem.getWalkDuration()));
         holder.walkDistance.setText(String.valueOf(currentItem.getFinalDistance()));
+        holder.walkCount.setText("Walk " + (position+1));
     }
 
     @Override
