@@ -111,10 +111,10 @@ public class Walk implements Serializable {
             String walkDuration = jsonWalk.get("walkDuration").toString();
             String logDate = jsonWalk.get("logDate").toString();
 
-            returnWalk.setLogDate(logDate);
             returnWalk.setCoordinates(coordinates);
             returnWalk.setWalkDuration(Double.parseDouble(walkDuration));
             returnWalk.setFinalDistance(Integer.parseInt(finalDistance));
+            returnWalk.setLogDate(logDate);
         } catch (JSONException e){
             System.out.println("JSON ERROR: WALK -> " + e.toString());
         }
