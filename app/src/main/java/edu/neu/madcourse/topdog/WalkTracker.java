@@ -87,10 +87,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         startBtn.setOnClickListener(v -> onClickStartButton(v, stopBtn));
         stopBtn.setOnClickListener(this::onClickStopButton);
 
-        Button notificationBtn = findViewById(R.id.notifcationButton);
-        notificationBtn.setOnClickListener(v->onNotificationButton());
 
-        createNotificationChannel();
     }
 
     //Methods for handling the go Home functionality in the menu bar
@@ -348,24 +345,7 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
     }
 
 
-    public void onNotificationButton(){
-        Intent intent = new Intent(this, NotificationActivity.class);
-        startActivity(intent);
-    }
 
-    private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "TopDogReminderChannel";
-            String description = "Channel for TopDog Reminders";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("reminder", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-
-        }
-    }
 
 
 }

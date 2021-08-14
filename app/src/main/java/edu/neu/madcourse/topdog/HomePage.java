@@ -1,13 +1,17 @@
 package edu.neu.madcourse.topdog;
 
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +61,10 @@ public class HomePage extends AppCompatActivity {
         ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
         letsWalk.setOnClickListener(v -> openWalkTracker());
 
+        Button notificationBtn = findViewById(R.id.notifcationButton);
+        notificationBtn.setOnClickListener(v->onNotificationButton());
+
+        createNotificationChannel();
     }
 
     //Methods for handling the log out functionality in the menu bar
@@ -132,6 +140,25 @@ public class HomePage extends AppCompatActivity {
         //This is intentionally left empty so that when the user is at the homepage and clicks
         //the back button, they do not go anywhere, giving the impression that the homepage is
         //the top of the navigation tree.
+    }
+
+    public void onNotificationButton(){
+        Intent intent = new Intent(this, NotificationActivity.class);
+        startActivity(intent);
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "TopDogReminderChannel";
+            String description = "Channel for TopDog Reminders";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("reminder", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
     }
 
     //    //on rotation changes we have to redo the oncreate activity.
