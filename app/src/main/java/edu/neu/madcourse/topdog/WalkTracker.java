@@ -13,6 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -35,6 +38,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBUserUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.LongLat;
@@ -56,7 +63,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
     //vars for location functionality
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    private Location currentLocation = null;
 
     private DatabaseReference mDatabase;
     private String username;
@@ -72,7 +78,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         setContentView(R.layout.activity_walk_tracker);
         getLocationPermission();
 
-        //Gather all global info needed for this class:
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
         username = getIntent().getStringExtra(MainActivity.USERKEY);
 
@@ -88,9 +93,25 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         createNotificationChannel();
     }
 
+    //Methods for handling the go Home functionality in the menu bar
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.homepage) {
+            Intent intent = new Intent(this, HomePage.class);
+            intent.putExtra(MainActivity.USERKEY, username);
+            startActivity(intent);
+        }
+        return true;
+    }
+    ////////////////////////////////////////////////////////////
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d("MAPACTIVTY", "onMapReady: map is ready");
         mMap = googleMap;
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
@@ -102,45 +123,40 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
-
     }
 
-    private void getDeviceLocation(){
+    private void getDeviceLocation() {
         FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        try{
-            if(mLocationPermissionsGranted){
-                Task location = mFusedLocationProviderClient.getLastLocation();
+
+        if (mLocationPermissionsGranted) {
+            try {
+                Task<Location> location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        Log.d("MAPACTIVTY", "onComplete: found location!");
-                        Location currentLocation = (Location) task.getResult();
+                    if (task.isSuccessful()) {
+                        Location currentLocation = task.getResult();
                         moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                 DEFAULT_ZOOM);
-                    }else{
-                        Log.d("MAPACTIVTY", "onComplete: current location is null");
-                        Toast.makeText(WalkTracker.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(WalkTracker.this, "Uh oh, we were unable to retrieve your location. " +
+                                "Please try to start the walk again.", Toast.LENGTH_SHORT).show();
                     }
                 });
+            } catch (SecurityException e) {
+                Toast.makeText(this, "Please update your permission settings to allow us access to your walk location.", Toast.LENGTH_SHORT).show();
             }
-        }catch (SecurityException e){
-            Log.e("MAPACTIVTY", "getDeviceLocation: SecurityException: " + e.getMessage() );
-            Toast.makeText(this, "failed to run getDeviceLocation", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void moveCamera(LatLng latLng, float zoom){
-        Log.d("MAPACTIVTY", "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
     private void initMap(){
-        Log.d("MAPACTIVTY", "initMap: initializing map");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(WalkTracker.this);
     }
 
     private void getLocationPermission(){
-        Log.d("MAPACTIVTY", "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
@@ -165,7 +181,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d("MAPACTIVTY", "onRequestPermissionsResult: called.");
         mLocationPermissionsGranted = false;
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
@@ -173,13 +188,10 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
                     for (int i = 0; i < grantResults.length; i++) {
                         if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                             mLocationPermissionsGranted = false;
-                            Log.d("MAPACTIVTY", "onRequestPermissionsResult: permission failed");
                             return;
                         }
                     }
-                    Log.d("MAPACTIVTY", "onRequestPermissionsResult: permission granted");
                     mLocationPermissionsGranted = true;
-                    //initialize our map
                     initMap();
                 }
             }

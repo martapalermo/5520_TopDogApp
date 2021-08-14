@@ -2,6 +2,9 @@ package edu.neu.madcourse.topdog;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +44,23 @@ public class MyStats extends AppCompatActivity {
             populateDisplayedWalkList(walkHistory);
         }
     }
+
+    //Methods for handling the go Home functionality in the menu bar
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.homepage) {
+            Intent intent = new Intent(this, HomePage.class);
+            intent.putExtra(MainActivity.USERKEY, username);
+            startActivity(intent);
+        }
+        return true;
+    }
+    ////////////////////////////////////////////////////////////
 
     private void populateDisplayedWalkList(ArrayList<Walk> walkHistory) {
         for (Walk walk : walkHistory) {
