@@ -7,7 +7,8 @@
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="#f7e3cc">
 
     <TextView
         android:id="@+id/textView5"
@@ -43,7 +44,8 @@
         app:layout_constraintHorizontal_bias="0.881"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timePicker"
-        app:layout_constraintVertical_bias="0.232" />
+        app:layout_constraintVertical_bias="0.232"
+        android:backgroundTint="#b03d37"/>
 
     <Button
         android:id="@+id/setBtn"
@@ -55,7 +57,8 @@
         app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cancelBtn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:backgroundTint="#28854b"/>
 
     <TextView
         android:id="@+id/textView4"

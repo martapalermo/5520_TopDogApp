@@ -42,8 +42,8 @@
 
     <ImageButton
         android:id="@+id/myProfile_btn"
-        android:layout_width="169dp"
-        android:layout_height="162dp"
+        android:layout_width="182dp"
+        android:layout_height="183dp"
         android:backgroundTint="#800000"
         android:contentDescription="@string/profile_picture_button_that_leads_to_profile"
         android:scaleType="fitCenter"
@@ -55,8 +55,8 @@
 
     <ImageButton
         android:id="@+id/myStats_btn"
-        android:layout_width="169dp"
-        android:layout_height="162dp"
+        android:layout_width="182dp"
+        android:layout_height="183dp"
         android:backgroundTint="#800000"
         android:contentDescription="@string/button_to_stats_page"
         android:scaleType="fitCenter"
@@ -69,8 +69,8 @@
 
     <ImageButton
         android:id="@+id/leaderboard_btn"
-        android:layout_width="169dp"
-        android:layout_height="162dp"
+        android:layout_width="182dp"
+        android:layout_height="183dp"
         android:backgroundTint="#800000"
         android:contentDescription="@string/profile_picture_button_that_leads_to_profile"
         android:scaleType="fitCenter"
@@ -103,8 +103,8 @@
 
     <ImageButton
         android:id="@+id/letsWalk_btn"
-        android:layout_width="169dp"
-        android:layout_height="162dp"
+        android:layout_width="182dp"
+        android:layout_height="183dp"
         android:backgroundTint="#800000"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
