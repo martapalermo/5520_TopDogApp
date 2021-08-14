@@ -12,29 +12,29 @@
         android:id="@+id/signUp_btn_on_main_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#ffb347"
+        android:backgroundTint="#e38314"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline11"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"/>
 
     <TextView
         android:id="@+id/tv_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/topdog"
+        android:textColor="#583400"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toBottomOf="@+id/topDogLogo"
-        app:layout_constraintVertical_bias="0.333"
-        android:textColor="#583400" />
+        app:layout_constraintVertical_bias="0.458" />
 
     <EditText
         android:id="@+id/username_input"
@@ -57,18 +57,21 @@
         android:autofillHints="@string/enter_password_here"
         android:hint="@string/enter_password_here"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="@+id/password_tv"
+        app:layout_constraintBottom_toTopOf="@id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintHorizontal_bias="0.355"
-        app:layout_constraintStart_toStartOf="@+id/guideline35" />
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintStart_toStartOf="@+id/guideline35"
+        app:layout_constraintTop_toBottomOf="@id/username_input"
+        app:layout_constraintVertical_bias="0.128" />
 
     <ImageView
         android:id="@+id/topDogLogo"
-        android:layout_width="426dp"
+        android:layout_width="408dp"
         android:layout_height="233dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/logo_of_app_depicting_a_dog_with_sunglasses_on"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
+        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
         app:srcCompat="@drawable/logo_dog" />
@@ -93,15 +96,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/password"
+        android:textColor="#583400"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toBottomOf="@+id/username_tv"
-        app:layout_constraintVertical_bias="0.46"
-        android:textColor="#583400"/>
+        app:layout_constraintVertical_bias="0.317" />
 
     <ImageButton
         android:id="@+id/signIn_btn"
@@ -112,10 +115,9 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/signUp_btn_on_main_activity"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline12"
-        app:layout_constraintVertical_bias="0.096"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/goldenpawtext" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -138,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.06"
+        app:layout_constraintGuide_percent="0.04"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
