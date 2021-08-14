@@ -31,18 +31,18 @@
 
         <TextView
             android:id="@+id/walk_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="83dp"
+            android:layout_height="22dp"
             android:text="duration"
             android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline25"
-            app:layout_constraintHorizontal_bias="0.236"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintHorizontal_bias="0.307"
             app:layout_constraintStart_toStartOf="@+id/guideline24"
             app:layout_constraintTop_toBottomOf="@+id/walk_distance"
-            app:layout_constraintVertical_bias="0.419" />
+            app:layout_constraintVertical_bias="0.324" />
 
         <TextView
             android:id="@+id/walk_duration_title"
@@ -72,18 +72,18 @@
 
         <TextView
             android:id="@+id/walk_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="83dp"
+            android:layout_height="22dp"
             android:text="distance"
             android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline28"
-            app:layout_constraintEnd_toStartOf="@+id/guideline25"
-            app:layout_constraintHorizontal_bias="0.24"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintHorizontal_bias="0.307"
             app:layout_constraintStart_toStartOf="@+id/guideline24"
             app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintVertical_bias="0.515" />
+            app:layout_constraintVertical_bias="0.545" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline19"
@@ -107,13 +107,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.33" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.54" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline26"
@@ -147,17 +140,18 @@
 
         <TextView
             android:id="@+id/walk_logDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="83dp"
+            android:layout_height="22dp"
             android:text="logDate"
             android:textColor="#583400"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline26"
-            app:layout_constraintEnd_toStartOf="@+id/guideline25"
-            app:layout_constraintHorizontal_bias="0.226"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintHorizontal_bias="0.35"
             app:layout_constraintStart_toStartOf="@+id/guideline24"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.578" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -186,13 +180,14 @@
 
         <ImageView
             android:id="@+id/dogwalking"
-            android:layout_width="162dp"
-            android:layout_height="137dp"
+            android:layout_width="143dp"
+            android:layout_height="134dp"
             app:layout_constraintBottom_toTopOf="@id/imageView1"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.785"
             app:layout_constraintStart_toStartOf="@+id/guideline37"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/dogwalking" />
 
         <androidx.constraintlayout.widget.Guideline
