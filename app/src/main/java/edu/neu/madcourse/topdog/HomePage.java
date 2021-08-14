@@ -3,6 +3,7 @@ package edu.neu.madcourse.topdog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -56,7 +57,11 @@ public class HomePage extends AppCompatActivity {
 
         ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
         letsWalk.setOnClickListener(v -> openWalkTracker());
+
+
     }
+
+
 
 
 

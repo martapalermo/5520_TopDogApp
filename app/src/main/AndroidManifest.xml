@@ -31,6 +31,10 @@
         </activity>
 
         <activity
+            android:name=".NotificationActivity"
+            android:configChanges="screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".HomePage"
             android:configChanges="screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
@@ -73,6 +77,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA_4czHi0sxfMnlOO3_icmMe8RpeudtjW8"/>
         <!--            android:value="${MAPS_API_KEY}" />-->
+
+
+        <receiver android:name=".NotificationReceiver"/>?
 
     </application>
 
