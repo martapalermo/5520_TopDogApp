@@ -7,17 +7,35 @@
 
 
     <TextView
-        android:id="@+id/welcome_msg"
-        android:layout_width="386dp"
-        android:layout_height="41dp"
-        android:text="@string/welcome_msg"
-        android:textStyle="bold"
+        android:id="@+id/pats_msg"
+        android:layout_width="246dp"
+        android:layout_height="32dp"
+        android:text="You have pats"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textColor="#583400"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/welcome_msg"
+        app:layout_constraintVertical_bias="0.7" />
+
+    <TextView
+        android:id="@+id/welcome_msg"
+        android:layout_width="331dp"
+        android:layout_height="47dp"
+        android:text="@string/welcome_msg"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15" />
 
     <ImageButton
         android:id="@+id/myProfile_btn"
@@ -27,38 +45,41 @@
         android:contentDescription="@string/profile_picture_button_that_leads_to_profile"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toStartOf="@id/myStats_btn"
+        app:layout_constraintEnd_toStartOf="@+id/myStats_btn"
+        app:layout_constraintHorizontal_bias="0.576"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline6"
-        app:layout_constraintVertical_bias="0.518"
         app:srcCompat="@drawable/petprofilebtn" />
 
     <ImageButton
         android:id="@+id/myStats_btn"
         android:layout_width="117dp"
-        android:layout_height="109dp"
+        android:layout_height="106dp"
         android:backgroundTint="#800000"
         android:contentDescription="@string/button_to_stats_page"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintBottom_toBottomOf="@+id/myProfile_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/myProfile_btn"
+        app:layout_constraintHorizontal_bias="0.282"
+        app:layout_constraintStart_toEndOf="@+id/myProfile_btn"
+        app:layout_constraintStart_toStartOf="@+id/guideline34"
         app:layout_constraintTop_toTopOf="@+id/myProfile_btn"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/statsbtn" />
 
     <ImageButton
         android:id="@+id/leaderboard_btn"
-        android:layout_width="121dp"
-        android:layout_height="117dp"
+        android:layout_width="117dp"
+        android:layout_height="106dp"
         android:backgroundTint="#800000"
         android:contentDescription="@string/profile_picture_button_that_leads_to_profile"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
-        app:layout_constraintEnd_toStartOf="@id/letsWalk_btn"
+        app:layout_constraintEnd_toStartOf="@+id/letsWalk_btn"
+        app:layout_constraintHorizontal_bias="0.576"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline7"
-        app:layout_constraintVertical_bias="0.607"
+        app:layout_constraintVertical_bias="0.595"
         app:srcCompat="@drawable/leaderboardbtn" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -66,14 +87,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.19" />
+        app:layout_constraintGuide_percent="0.27" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.50121653" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
@@ -84,17 +105,25 @@
 
     <ImageButton
         android:id="@+id/letsWalk_btn"
-        android:layout_width="123dp"
-        android:layout_height="118dp"
+        android:layout_width="117dp"
+        android:layout_height="106dp"
         android:backgroundTint="#800000"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/leaderboard_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toEndOf="@id/leaderboard_btn"
+        app:layout_constraintHorizontal_bias="0.282"
+        app:layout_constraintStart_toEndOf="@+id/leaderboard_btn"
+        app:layout_constraintStart_toStartOf="@+id/guideline34"
         app:layout_constraintTop_toTopOf="@+id/leaderboard_btn"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/letswalkbtn" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

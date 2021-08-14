@@ -33,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
     Search for " intent.putExtra(USERKEY, currentUserName); " for use example */
     final static String USERKEY = "CURRENT_USER";
     final static String TOKENKEY = "CURRENT_TOKEN";
+    final static String USERPASSWORD = "USER_PASSWORD";
 
     private DatabaseReference mDatabase;
     private String username;
+    private String password;
     private String token;
 
     @Override
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     public void openSignUpPage() {
         Intent intent = new Intent(MainActivity.this, SignUp.class);
         intent.putExtra(USERKEY, username);
+        intent.putExtra(USERPASSWORD, password);
         intent.putExtra(TOKENKEY, token);
         startActivity(intent);
     }
