@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private String username;
+
     private String token;
 
     @Override

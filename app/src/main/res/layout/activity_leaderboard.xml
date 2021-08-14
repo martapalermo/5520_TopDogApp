@@ -128,10 +128,11 @@
 
     <ListView
         android:id="@+id/leaderboard_listview"
-        android:layout_width="325dp"
+        android:layout_width="311dp"
         android:layout_height="596dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gold"
         tools:layout_conversion_absoluteHeight="449dp"
         tools:layout_conversion_absoluteWidth="411dp">

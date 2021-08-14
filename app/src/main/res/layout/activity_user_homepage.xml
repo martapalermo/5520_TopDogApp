@@ -9,57 +9,57 @@
 
     <TextView
         android:id="@+id/welcome_msg"
-        android:layout_width="386dp"
-        android:layout_height="41dp"
+        android:layout_width="391dp"
+        android:layout_height="56dp"
         android:text="@string/welcome_msg"
-        android:textStyle="bold"
         android:textAlignment="center"
-        android:textSize="40sp"
         android:textColor="#583400"
+        android:textSize="40sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.295" />
 
     <TextView
         android:id="@+id/pats_msg"
         android:layout_width="386dp"
         android:layout_height="41dp"
+        android:layout_marginTop="20dp"
         android:text="You have pats"
         android:textAlignment="center"
+        android:textColor="#583400"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#583400"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.64"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_msg"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/myProfile_btn"
-        android:layout_width="188dp"
-        android:layout_height="184dp"
+        android:layout_width="169dp"
+        android:layout_height="162dp"
+        android:backgroundTint="#800000"
         android:contentDescription="@string/profile_picture_button_that_leads_to_profile"
         android:scaleType="fitCenter"
-        android:backgroundTint="#800000"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@id/myStats_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline6"
-        app:srcCompat="@drawable/petprofilebtn"
-        tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="175dp" />
+        app:srcCompat="@drawable/petprofilebtn" />
 
     <ImageButton
         android:id="@+id/myStats_btn"
-        android:layout_width="188dp"
-        android:layout_height="184dp"
+        android:layout_width="169dp"
+        android:layout_height="162dp"
+        android:backgroundTint="#800000"
         android:contentDescription="@string/button_to_stats_page"
         android:scaleType="fitCenter"
-        android:backgroundTint="#800000"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/myProfile_btn"
@@ -69,11 +69,11 @@
 
     <ImageButton
         android:id="@+id/leaderboard_btn"
-        android:layout_width="188dp"
-        android:layout_height="184dp"
+        android:layout_width="169dp"
+        android:layout_height="162dp"
+        android:backgroundTint="#800000"
         android:contentDescription="@string/profile_picture_button_that_leads_to_profile"
         android:scaleType="fitCenter"
-        android:backgroundTint="#800000"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toStartOf="@id/letsWalk_btn"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,10 +103,10 @@
 
     <ImageButton
         android:id="@+id/letsWalk_btn"
-        android:layout_width="188dp"
-        android:layout_height="184dp"
-        android:scaleType="fitCenter"
+        android:layout_width="169dp"
+        android:layout_height="162dp"
         android:backgroundTint="#800000"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.555"

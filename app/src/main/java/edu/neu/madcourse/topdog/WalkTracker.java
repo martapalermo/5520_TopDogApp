@@ -1,12 +1,15 @@
 package edu.neu.madcourse.topdog;
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -25,12 +28,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -80,6 +81,11 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
 
         startBtn.setOnClickListener(v -> onClickStartButton(v, stopBtn));
         stopBtn.setOnClickListener(this::onClickStopButton);
+
+        Button notificationBtn = findViewById(R.id.notifcationButton);
+        notificationBtn.setOnClickListener(v->onNotificationButton());
+
+        createNotificationChannel();
     }
 
     @Override
@@ -161,7 +167,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d("MAPACTIVTY", "onRequestPermissionsResult: called.");
         mLocationPermissionsGranted = false;
-
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0) {
@@ -329,5 +334,26 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         intent.putExtra(MainActivity.USERKEY, username);
         startActivity(intent);
     }
+
+
+    public void onNotificationButton(){
+        Intent intent = new Intent(this, NotificationActivity.class);
+        startActivity(intent);
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "TopDogReminderChannel";
+            String description = "Channel for TopDog Reminders";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("reminder", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
+    }
+
 
 }
