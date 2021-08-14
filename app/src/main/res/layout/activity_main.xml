@@ -44,27 +44,23 @@
         android:layout_marginEnd="24dp"
         android:autofillHints="@string/enter_username_here"
         android:hint="@string/enter_username_here"
-        app:layout_constraintBottom_toTopOf="@+id/password_input"
+        app:layout_constraintBottom_toBottomOf="@+id/username_tv"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintHorizontal_bias="0.743"
-        app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline16"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/guideline35"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <EditText
         android:id="@+id/password_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:autofillHints="@string/enter_password_here"
         android:hint="@string/enter_password_here"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintBottom_toBottomOf="@+id/password_tv"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintHorizontal_bias="0.447"
-        app:layout_constraintStart_toStartOf="@+id/guideline17"
-        />
+        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintStart_toStartOf="@+id/guideline35" />
 
     <ImageView
         android:id="@+id/topDogLogo"
@@ -142,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.03892944"
+        app:layout_constraintGuide_percent="0.06"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -173,6 +169,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.38" />
+        app:layout_constraintGuide_percent="0.32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="147dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

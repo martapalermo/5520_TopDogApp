@@ -119,7 +119,7 @@ public class MyProfile extends AppCompatActivity {
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                     selectedImage.setImageBitmap(bitmap);
                 }).addOnFailureListener(e -> Toast.makeText(MyProfile.this,
-                        "Save unsuccessful; try again", Toast.LENGTH_SHORT).show());
+                        "Picture in profile saved", Toast.LENGTH_SHORT).show());
             } catch (IOException e) {
                 e.printStackTrace();
             }
