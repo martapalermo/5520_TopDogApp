@@ -64,8 +64,17 @@ public class Leaderboard extends AppCompatActivity {
 
                 leaderboardEntries.sort((o1, o2) -> Long.compare(o2.getNumberWalks(), o1.getNumberWalks()));
 
-                for (int i = 0; i < leaderboardEntries.size(); i++) {
-                    currentLeaderNames.add(leaderboardEntries.get(i).getDogName());
+
+                if (leaderboardEntries.size() >= 10) {
+                    for (int i = 0; i < 10; i++) {
+                        currentLeaderNames.add(leaderboardEntries.get(i).getDogName() + " has " + leaderboardEntries.get(i).getNumberWalks()
+                                + " walks!");
+                    }
+                } else {
+                    for (int i = 0; i < leaderboardEntries.size(); i++) {
+                        currentLeaderNames.add(leaderboardEntries.get(i).getDogName() + " has " + leaderboardEntries.get(i).getNumberWalks()
+                                + " walks!");
+                    }
                 }
                 listView.setAdapter(arrayAdapter);
             }
