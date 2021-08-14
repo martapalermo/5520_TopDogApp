@@ -39,7 +39,7 @@ public class FetchDBUserUtil {
 
         //Wait until the user has been set (in the future, because its on a separate thread)
         while(!futureUser.isDone()) {
-            System.out.println("WAITING...");
+            System.out.println("WAITING ON FETCH...");
             try {
                 //Try to minimize the sleep time or else UX will suffer:
                 Thread.sleep(150);
@@ -47,7 +47,6 @@ public class FetchDBUserUtil {
                 Thread.currentThread().interrupt();
             }
         }
-        System.out.println("\n\nuser before return +++ " + returnUser.getDogName());
         return this.returnUser;
     }
 

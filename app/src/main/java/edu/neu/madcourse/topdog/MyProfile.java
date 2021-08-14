@@ -13,6 +13,9 @@ import android.net.Uri;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -126,6 +129,23 @@ public class MyProfile extends AppCompatActivity {
         });
 
     }
+
+    //Methods for handling the go Home functionality in the menu bar
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.homepage) {
+            Intent intent = new Intent(this, HomePage.class);
+            intent.putExtra(MainActivity.USERKEY, username);
+            startActivity(intent);
+        }
+        return true;
+    }
+    ////////////////////////////////////////////////////////////
 
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();

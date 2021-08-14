@@ -62,16 +62,15 @@ public class HomePage extends AppCompatActivity {
     //Methods for handling the log out functionality in the menu bar
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu_logout, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.logout:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
+        if (item.getItemId() == R.id.logout) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
         return true;
     }
