@@ -17,4 +17,5 @@
     <string name="dog_name">Dog Name</string>
     <string name="enter_dog_name_here">Enter dog name here</string>
     <string name="enter_dog_age_here">Enter dog age here</string>
+    <string name="logout">Log out</string>
 </resources>

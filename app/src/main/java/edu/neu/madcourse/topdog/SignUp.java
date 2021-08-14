@@ -43,15 +43,12 @@ public class SignUp extends AppCompatActivity {
 
         //Finally, handle when the signup button is pressed
         Button signUpButton = findViewById(R.id.signUp_btn_on_signUp_page);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //checkUserExists_andSignUp() starts a method-chain that leads to:
-                // - saveUserToDatabase();
-                // - openHomepage();
-                // ^methods are chained from previous method to follow appropriate logic flow
-                checkUserExists_andSignUp();
-            }
+        signUpButton.setOnClickListener(v -> {
+            //checkUserExists_andSignUp() starts a method-chain that leads to:
+            // -> saveUserToDatabase();
+            // -> openHomepage();
+            // ^methods are chained from previous method to follow appropriate logic flow
+            checkUserExists_andSignUp();
         });
     }
 
@@ -67,7 +64,7 @@ public class SignUp extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild(username)) {
                     //if the username is not taken:
-                    saveUserToDatabase();
+                    saveNewUserToDatabase();
                 } else {
                     Toast.makeText(SignUp.this, "Oops! Username is already taken.",
                             Toast.LENGTH_LONG).show();
@@ -79,7 +76,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    public void saveUserToDatabase(){
+    public void saveNewUserToDatabase(){
         //Grab all data from input boxes
         EditText emailInput = findViewById(R.id.email_input);
         EditText dogNameInput = findViewById(R.id.dog_name_input);

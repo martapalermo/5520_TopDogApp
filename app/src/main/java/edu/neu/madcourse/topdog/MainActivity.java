@@ -62,25 +62,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        logInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                username = usernameInput.getText().toString();
-                if (username.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Please enter a username",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    checkUserExists_AndLogIn();// launches home page if user does exist
-                }
+        logInButton.setOnClickListener(v -> {
+            username = usernameInput.getText().toString();
+            if (username.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Please enter a username",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                checkUserExists_AndLogIn();// launches home page if user does exist
             }
         });
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                username = usernameInput.getText().toString();
-                openSignUpPage();
-            }
+        signUpButton.setOnClickListener(v -> {
+            username = usernameInput.getText().toString();
+            openSignUpPage();
         });
     }
 
@@ -115,5 +109,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(USERKEY, username);
         intent.putExtra(TOKENKEY, token);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //This is intentionally left empty so that when the user is at the homepage and clicks
+        //the back button, they do not go anywhere, giving the impression that the homepage is
+        //the top of the navigation tree.
     }
 }

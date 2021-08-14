@@ -5,6 +5,9 @@ import android.content.Intent;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +34,7 @@ public class HomePage extends AppCompatActivity {
 
         username = getIntent().getStringExtra(MainActivity.USERKEY);
 
-        //Display the welcome <user> message
+        //Display the welcome <username> message
         TextView welcomeMsg = findViewById(R.id.welcome_msg);
         String displayString = "Welcome, " + username + "!";
         welcomeMsg.setText(displayString);
@@ -54,10 +57,28 @@ public class HomePage extends AppCompatActivity {
         ImageButton letsWalk = findViewById(R.id.letsWalk_btn);
         letsWalk.setOnClickListener(v -> openWalkTracker());
 
-
     }
 
+    //Methods for handling the log out functionality in the menu bar
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.logout:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+        }
+        return true;
+    }
+    ////////////////////////////////////////////////////////////
+
+
+    //Methods for launching the primary app features
     public void openWalkTracker() {
         Intent intent = new Intent(this, WalkTracker.class);
         intent.putExtra(MainActivity.USERKEY, username);
@@ -109,6 +130,9 @@ public class HomePage extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //This is intentionally left empty so that when the user is at the homepage and clicks
+        //the back button, they do not go anywhere, giving the impression that the homepage is
+        //the top of the navigation tree.
     }
 
     //    //on rotation changes we have to redo the oncreate activity.
