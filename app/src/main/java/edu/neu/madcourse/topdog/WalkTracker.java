@@ -1,10 +1,8 @@
 package edu.neu.madcourse.topdog;
 import android.Manifest;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,12 +28,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -171,7 +167,6 @@ public class WalkTracker extends AppCompatActivity implements LocationListener, 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d("MAPACTIVTY", "onRequestPermissionsResult: called.");
         mLocationPermissionsGranted = false;
-
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0) {

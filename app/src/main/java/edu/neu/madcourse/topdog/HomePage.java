@@ -2,8 +2,7 @@ package edu.neu.madcourse.topdog;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -14,14 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONObject;
 
 import edu.neu.madcourse.topdog.DatabaseObjects.FetchDBUserUtil;
 import edu.neu.madcourse.topdog.DatabaseObjects.User;
-import edu.neu.madcourse.topdog.GPSPage.GPSActivity;
+
 
 public class HomePage extends AppCompatActivity {
 
@@ -60,9 +56,6 @@ public class HomePage extends AppCompatActivity {
 
 
     }
-
-
-
 
 
     public void openWalkTracker() {
